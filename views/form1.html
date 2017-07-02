@@ -53,7 +53,7 @@
 						<td align="center" rowspan="5">屋顶业主</td>
 						<td data-toggle="userinfo">★用户姓名</td>
 						<td>
-							姓名<input type="text" name="name" data="userinfo" class="step1">
+							姓名<input type="text" name="name" data="userinfo" class="step1" id="name">
 							<!--<span id="c3"></span>-->
 							电话<input type="text" name="mobile" id="mobile" data="userinfo" class="step1" style="width:200px">
 						</td>
@@ -62,8 +62,8 @@
 					<tr>
 						<td data-toggle="location">★建筑地址</td>
 						<td>
-							区域<select class="input-w-3 form-control step1" name="location" data="location"></select>
-							<input type="text" class="step1" style="width:200px" name="address" data="location">
+							区域<select class="input-w-3 form-control step1" name="location" data="location" id="location"></select>
+							<input type="text" class="step1" style="width:200px" name="address" data="location" id="address">
 							<!--<span id="c1"></span>-->
 						</td>
 						<td><input type="text" style="width:150px"  name="c2" id="c2"></td>
@@ -79,11 +79,13 @@
 					<tr>
 						<td>项目并网方式</td>
 						<td>
+							<label>
 							<input type="radio" name="intent" id="intent1" value="intent1"> 全额上网
 							<input type="radio" name="intent" id="intent2" value="intent2"> 自发自用
 							<input type="radio" name="intent" id="intent3" value="intent3"> 余电上网
 							<input type="radio" name="intent" id="intent4" value="intent4"> 其他：
 							<input type="text"  name="c4" id="c4">
+							</label>
 						</td>
 						<td><input type="text" style="width:150px"  name="c5" id="c5"></td>
 					</tr>
@@ -100,9 +102,9 @@
 						<td align="center" rowspan="3">电价、补贴及光照资源</td>
 						<td>★用户电价</td>
 						<td>
-							峰<input type="text" name="feng" id="feng" class="form-control" class="zeroup"> 平
-							<input type="text" name="ping" id="ping" class="form-control" class="zeroup"> 谷
-							<input type="text" name="gu" id="gu" class="form-control" class="zeroup">
+							峰<input type="text" name="feng" id="c62" class="form-control" class="zeroup"> 平
+							<input type="text" name="ping" id="c63" class="form-control" class="zeroup"> 谷
+							<input type="text" name="gu" id="c64" class="form-control" class="zeroup">
 						</td>
 						<td><input type="text" style="width:150px" name="c7" id="c7"></td>
 					</tr>
@@ -197,9 +199,9 @@
 					<tr>
 						<td>★用户进线电压</td>
 						<td>
-							<input type="radio" name="in" id="in1" value="in1">AC220V
-							<input type="radio" name="in" id="in2" value="in2">AC380V
-							<input type="radio" name="in" value="3" id="in3" value="in3">其它<input type="text"  name="c29" id="c29">
+							<input type="radio" name="inn" id="in1" value="in1">AC220V
+							<input type="radio" name="inn" id="in2" value="in2">AC380V
+							<input type="radio" name="inn" value="3" id="in3" value="in3">其它<input type="text"  name="c29" id="c29">
 						</td>
 						<td><input type="text" style="width:150px"  name="c30" id="c30"></td>
 					</tr>
@@ -349,7 +351,7 @@
 							<br>
 							<p>5、 银行征信调查★；
 								<span class="wh50"></span> 征信是否已过
-								<input type="checkbox" name="bank" id="bank" value="bank">
+								<input type="checkbox" name="c60" id="bank" value="bank">
 								<br><span class="note">注：此内容由工贷部完成。</span>
 							</p>
 							<br>
@@ -464,6 +466,7 @@
 		}
 		$.getStepBtns(projId,jmstoken,function(data){
 			$(".steps").empty();
+			console.log(data,999)
 			if(data.length){
 				data.splice(0,8).map(function(item){
 					$(".steps").append(btn(item))
@@ -609,70 +612,60 @@
 		});
 	}
 	function saveForm() {
-		
-		$('input[type=text]').each(function(i, k) {
-			$(k).attr('value', k.value);
-		});
-		$('input[type=checkbox],input[type=radio]').each(function(i, k) {
+	//	alert($('input[type=radio][name=kind]:checked').val())
+		// $('input[type=text]').each(function(i, k) {
+		// 	$(k).attr('value', k.value);
+		// });
+		$('input[type=checkbox]').each(function(i, k) {
 			k.checked ? $(k).attr('checked', '') : $(k).removeAttr('checked');
 		});
-		$('select').each(function(i, k) {
-			if (k.value) {
-				$(this).find("option[value='" + k.value + "']").attr("selected", "selected");
-			}
-		});
-		$('textarea').each(function(i, k) {
-			$(k).text(k.value);
-		});
+		// $('select').each(function(i, k) {
+		// 	if (k.value) {
+		// 		$(this).find("option[value='" + k.value + "']").attr("selected", "selected");
+		// 	}
+		// });
+		// $('textarea').each(function(i, k) {
+		// 	$(k).text(k.value);
+		// });
 		var tableData = $('#tableFormSign tbody').clone();
 		var data2 = {
 			id: !isNaN(projId) ? projId : 0,
-			name: $("input[name='name']").val(),
-			project: $("input[name='project']").val(),
-			subSubLocation: {
-				id: $("select[name='location']").val()
-			},
-			code: $('[name=code]').val(),
-			process: $('[name=process]').val(),
-			address: $("input[name='address']").val(),
-			saleMan: $("select[name='saleMan']").val(),
-			mobile: $('[name=mobile]').val(),
-			lng: $('[name=lng]').val(),
-			lat: $('[name=lat]').val(),
+			code: $('#code').val(),
+			process: $('#process').val(),
+			address: $("#address").val(),
+			saleMan: $("#saleMan").val(),
+			mobile: $('#mobile').val(),
+			lng: $('#lng').val(),
+			lat: $('#lat').val(),
+			tele:$('#tele').val(),
 			commit: 0,
 			currStep: 1,
-				name: $("input[name='name']").val(),
-				project: $("input[name='project']").val(),
-				subSubLocation: {
-					id: $("select[name='location']").val()
-				},
-				code: $('[name=code]').val(),
-				process: $('[name=process]').val(),
-				address: $("input[name='address']").val(),
-				saleMan: $("select[name='saleMan']").val(),
-				mobile: $('[name=mobile]').val(),
-				lng: $('[name=lng]').val(),
-				lat: $('[name=lat]').val(),
-				intent:$('[name=intent]:checked').val(),
-				type:$('[name=type]:checked').val(),
-				kind:$('[name=kind]:checked').val(),
-				how:$('[name=how]:checked').val(),
-				in:$('[name=in]:checked').val(),
-				inkind:$('[name=inkind]:checked').val(),
-				item:$('[name=item]:checked').val(),
-				item1:$('[name=item1]:checked').val(),
-				ni:$('[name=ni]:checked').val(),		
+			name: $("#name").val(),
+			project: $("#project").val(),
+			subSubLocation: {
+				id: $("#location").val()
+			},
+			intent:$('input[type=radio][name=intent]:checked').val(),
+			type:$('input[type=radio][name=type]:checked').val(),
+			kind:$('input[type=radio][name=kind]:checked').val(),
+			how:$('input[type=radio][name=how]:checked').val(),
+			inn:$('input[type=radio][name=inn]:checked').val(),
+			inkind:$('input[type=radio][name=inkind]:checked').val(),
+			item:$('input[type=radio][name=item]:checked').val(),
+			item1:$('input[type=radio][name=item1]:checked').val(),
+			ni:$('input[type=radio][name=ni]:checked').val(),		
 		};
 		for(var i =1 ;i<13;i++){
 			var p = "p"+i;
-			data2[p]= {
-				file:$("#u"+i).find(".fileName").val(),
-				org:$("#u"+i).find(".orgName").val()
-				}
+			data2[p]= $("#u"+i).find(".fileName").val()
 		}
-		for(var i =1 ;i<62;i++){
+		for(var i =1 ;i<65;i++){
 			var c = "c"+i;
-			i>=51?data2[c]= $("#c"+i).attr("checked"):data2[c]= $("#c"+i).val();
+			if(i>=51 && i<=60){
+				data2[c]= $("#c"+i).attr("checked")
+			}else{
+				data2[c]= $("#c"+i).val()
+			};
 		}
 		console.log(data2,0)
 		var data = JSON.stringify(data2)
@@ -689,34 +682,71 @@
 
 		$('#tableFormSign').append(tableData);
 	}
-	//初始化的填值
-	(function (){
-		if(!parseInt(projId)){
-			return;
-		}
-		$.initProj(formId, projId,function(data){
-			console.log(data,11)
-
-
-
-
-		})
-	})();
-
-
 	function restoreForm(callback) {
 		if(!parseInt(projId)){
 			return;
 		}
 		$.readForm(formId, projId, function(data) {
 			dataId = data.id;
-			var html = data.content;
 			var clientId = data.code;
-			html && $('.container').html(html);
-			clientId && $('#clientId').text(clientId);
-			data.c1 && $('#c1').text(data.c1);
-			data.c2 && $('#c2').text(data.c2);
-			data.c3 && $('#c3').text(data.c3);
+			var data = data.content;
+			console.log(data)
+			$("#name").val(data.name);
+			$("#mobile").val(data.mobile);
+			$("#proress").val(data.project);
+			// $("#location").val(data.id);
+			setTimeout(function(){
+				$("#location").find("option[value='"+data.idSubSubLocation+"']").attr("selected",true);
+			}, 1000)
+			
+			$('#code').val(data.code);
+			$('#tele').val(data.tele),
+			$("#project").val(data.project);
+			$("#address").val(data.address);
+			$("#saleMan").val(data.saleMan);
+			$('input[name=lng]').val(data.lng);
+			$('input[name=lat]').val(data.lat);
+			data[mobile] && $("input:radio[name=mobile][value="+data.mobile+"]").attr('checked',true);
+			data.project && $("input:radio[name=project][value="+data.project+"]").attr('checked',true);
+			data.intent && $("input:radio[name=intent][value="+data.intent+"]").attr('checked',true);
+			data.type && $("input:radio[name=type][value="+data.type+"]").attr('checked',true);
+			data.kind && $("input:radio[name=kind][value="+data.kind+"]").attr('checked',true);
+			data.how && $("input:radio[name=how][value="+data.how+"]").attr('checked',true);
+			data.inn && $("input:radio[name=in][value="+data.inn+"]").attr('checked',true);
+			data.inkind&& $("input:radio[name=inkind][value="+data.inkind+"]").attr('checked',true);
+			data.item && $("input:radio[name=item][value="+data.item+"]").attr('checked',true);
+			data.item1 && $("input:radio[name=item1][value="+data.item1+"]").attr('checked',true);
+			data.ni && $("input:radio[name=ni][value="+data.ni+"]").attr('checked',true);
+			for(var i =1 ;i<65;i++){
+				var c = "c"+i;
+				if(i>=51 && i<=60){
+					if(data[c] ==="checked"){
+						$("#c"+i).attr("checked",true)
+					}
+				}else{
+					$("#c"+i).val(data[c]);
+				}
+				
+			}
+			for(var i =1 ;i<13;i++){
+			var p = "p"+i;
+				if(data[p]){
+				 var $li = $("<li class='enclosureItem'><a target='_blank' href='" + $clientURL + "getImage/" + data[p] + "/'><img style='background-image:url(" + $clientURL + "getImage/" + data[p] +
+						"/)' /></a><br><a class='del' href='javascript:;'>删除</a>"+
+						"<input type='hidden' value="+data[p]+" class='fileName'>"+
+						"</li>");
+				 $li.appendTo($(this.element).next('.enclosureList'));
+					$('.enclosure').find('.dz-success').remove();
+					$li.find('.del').click(function() {
+						$(this).parents('.enclosureItem').remove();
+					});
+					if(!$("#u"+i).html()){
+						$("#u"+i).append($li);
+					}
+					
+				}
+			}
+			
 			if (callback) callback();
 
 			$('.step1').blur(function() {

@@ -138,10 +138,6 @@
 		//  debugger;
       $.JMSClient('project/saveProject',{'type':'POST',headers:{'JMS-TOKEN':jmstoken},data:data},callback);
       };
-      //项目初始化的时候的填值
-      $.initProj = function(formId,projId,callback){
-        $.JMSClient('project/getForm'+formId,{'type':'GET',headers:{'JMS-TOKEN':jmstoken},data:{projectId:projId}},callback);
-      };
       //保存项目进度
       $.saveProjSteps = function(data,callback){
       $.JMSClient('project/saveProjectSteps',{'type':'POST',headers:{'JMS-TOKEN':jmstoken},data:data},callback);
