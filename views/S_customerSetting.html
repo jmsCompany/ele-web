@@ -1,6 +1,6 @@
 <div class="cont">
 	<div class="r-header-body">
-		<h2>客户设置 </h2>
+		<h2>账号列表</h2>
 	</div>
 	<table id="table" class="display" cellspacing="0" width="100%">
 		<thead>
@@ -77,7 +77,7 @@
 				"columnDefs": [{
 					"targets": -1,
 					"data": null,
-					"defaultContent": '<button class="button-open">开通</button> <button class="button-pwd">更改密码</button>'
+					"defaultContent": '<button class="button-open">开通</button> <button class="button-pwd">更改密码</button> <button class="button-device device">设备列表</button>'
 				}],
 				"language": {
 					"url": "js/datatable/chinese.json"
@@ -122,6 +122,10 @@
 				_this.id = rowData[rowData.length-1]
 				$('.tcbox-pwd').show()
 			})
+			$('#table').on('click','.device',function(){
+				var rowData = _this.table.row($(this).parents('tr')).data()
+				location.hash="#/?groupId=S_customerSetting&viewId=S_customerDevice&id="+rowData[rowData.length-1]
+			});
 			$('.submit').on('click',function(){
 				if($(".password").val().length==0){
 					return alert('请输入密码')
@@ -138,5 +142,10 @@
 	}
 	$(function(){
 		app.init()
+		//关闭
+		$('.tcbox').on('click', '.tc_close', function() {
+			$("#pwdForm")[0].reset()
+			$('.tcbox').hide();
+		});
 	})
 </script>

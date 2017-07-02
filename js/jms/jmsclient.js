@@ -1043,4 +1043,13 @@
 	$.updateUsersPassword=function(data,jmstoken,callback){
 		$.JMSClient('sys/customer/updateUsersPasswordByProjectId',{'type':'POST',headers:{'JMS-TOKEN':jmstoken},data:data},callback);
 	}
+	$.saveDevice=function(data,jmstoken,callback){
+		$.JMSClient('project/saveDevice',{'type':'POST',headers:{'JMS-TOKEN':jmstoken},data:data},callback);
+	}
+	$.findCustomerDeviceById=function(data,jmstoken,callback){
+		$.JMSClient('project/findCustomerDeviceById',{'type':'POST',headers:{'JMS-TOKEN':jmstoken},data:data},callback);
+	}
+	$.deleteCustomerDevice=function(data,jmstoken,callback){
+		$.JMSClient('project/deleteCustomerDevice?deviceId='+data,{'type':'POST',headers:{'JMS-TOKEN':jmstoken},data:{}},callback);
+	}
 })(jQuery, window, document);
