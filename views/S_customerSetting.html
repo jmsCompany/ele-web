@@ -1,0 +1,151 @@
+<div class="cont">
+	<div class="r-header-body">
+		<h2>账号列表</h2>
+	</div>
+	<table id="table" class="display" cellspacing="0" width="100%">
+		<thead>
+			<tr>
+				<th>客户名</th>
+				<th>区域</th>
+				<th>地址</th>
+				<th>电话</th>
+				<th>状态</th>
+				<th>是否开通</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody class="customer">
+
+		</tbody>
+	</table>
+</div>
+
+<!-- 弹窗-PWD start -->
+<div class="tcbox tcbox-pwd container-fluid" id="draggable1">
+	<div class="tcbox_cont row">
+		<div class="body-head-title">
+			<span class="h-title">更改密码</span>
+		</div>
+		<input type="button" class="tc_close">
+		<form id="pwdForm" class="form-inline">
+			<div class="col-xs-12 mar-top-20px">
+				<div class="form-group">
+					<label style="text-align:center;width:80px;">密码</label>
+					<input type="text" class="form-control input-w-3 password" id="password"/>
+				</div>
+			</div>
+			<div class="aligncenter">
+				<div class="form-group">
+					<button type="button" class="btn btn-primary submit">保存</button>
+					<!--<button id="return" type="reset" class="btn  btn-info">返回</button>-->
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+<script type="text/javascript">
+  var app = {
+		table:null,
+		id:null,
+		init:function(){
+			var top = $('#body').scrollTop();
+			var left = $('#body').scrollLeft();
+			$('.tcbox-pwd').css({
+				top: $(window).height() * 0.2 + top,
+				left: $(window).height() * 0.5 + left
+			}).draggable();
+			this.loadTable()
+		},
+		loadTable:function(){
+			var _this = this
+			this.table = $('#table').DataTable({
+				"ordering": false,
+				"bDestroy": true,
+				"processing": true,
+				"serverSide": true,
+				"stateSave": true,
+				"stateDuration": -1,
+				"ajax": {
+					"type": 'POST',
+					"url": $clientURL + "project/customerTable",
+					"dataType": "json",
+					"headers": {
+						'JMS-TOKEN': jmstoken
+					}
+				},
+				"columnDefs": [{
+					"targets": -1,
+					"data": null,
+					"defaultContent": '<button class="button-open">开通</button> <button class="button-pwd">更改密码</button> <button class="button-device device">设备列表</button>'
+				}],
+				"language": {
+					"url": "js/datatable/chinese.json"
+				},
+				dom: "tip",
+				pageLength: "50",
+				initComplete:function(){
+					_this.bindEvent()
+					$('tr').each(function(){
+						if ($(this).find('td').eq(5).text()=='已开通') {
+							$(this).find('.button-open').remove()
+							$(this).find('td:last-child').prepend('<button class="button-close">关闭</button>')
+						}
+					})
+				}
+			});
+		},
+		bindEvent(){
+			var _this = this
+			$('#table').on('click','.button-open',function(){
+				var rowData = _this.table.row($(this).parents('tr')).data()
+				$.openAccount(rowData[rowData.length-1],jmstoken,function(data){
+					if (data.valid) {
+						_this.loadTable()
+					}else {
+						alert(data.msg)
+					}
+				})
+			})
+			$('#table').on('click','.button-close',function(){
+				var rowData = _this.table.row($(this).parents('tr')).data()
+				$.disabledUsersAccount(rowData[rowData.length-1],jmstoken,function(data){
+					if (data.valid) {
+						_this.loadTable()
+					}else {
+						alert(data.msg)
+					}
+				})
+			})
+			$('#table').on('click','.button-pwd',function(){
+				var rowData = _this.table.row($(this).parents('tr')).data()
+				_this.id = rowData[rowData.length-1]
+				$('.tcbox-pwd').show()
+			})
+			$('#table').on('click','.device',function(){
+				var rowData = _this.table.row($(this).parents('tr')).data()
+				location.hash="#/?groupId=S_customerSetting&viewId=S_customerDevice&id="+rowData[rowData.length-1]
+			});
+			$('.submit').on('click',function(){
+				if($(".password").val().length==0){
+					return alert('请输入密码')
+				}
+				$.updateUsersPassword(JSON.stringify({projId:_this.id,password:$(".password").val()}),jmstoken,function(data){
+					$('.tcbox-pwd').hide()
+					if (data.valid) {
+					}else {
+						alert(data.msg)
+					}
+				})
+			})
+		}
+	}
+	$(function(){
+		app.init()
+		//关闭
+		$('.tcbox').on('click', '.tc_close', function() {
+			$("#pwdForm")[0].reset()
+			$('.tcbox').hide();
+		});
+	})
+</script>
