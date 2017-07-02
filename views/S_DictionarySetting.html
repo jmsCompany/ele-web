@@ -1,0 +1,190 @@
+<div class="cont">
+    <div class="r-header-body">
+        <!--<div class="right-list">-->
+        	<label>字典类别：</label>
+            <select id="dict-type"></select>
+            <!-- <button id="search" class="button-sytle1">查询</button> -->
+            <button id="add" class="button-sytle1" data-action="new" style="float:right">新建</button>
+        <!--</div>-->
+    </div>
+    
+    <table id="tableDic" class="tabletxt" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>值</th>
+                <th>描述</th>
+                <th>类别</th>
+                <th>只读</th>
+                <th style="min-width:200px;">操作</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+<!-- 弹窗 start -->
+    <div class="tcbox container-fluid" id="draggable1">
+        <div class="tcbox_cont row">
+            <div class="body-head-title">
+                <span class="h-title">新建/编辑</span>
+            </div>
+            <form id="poForm" class="form-inline">
+                <input type="button" class="tc_close">
+                <input type="hidden" name="id" value="0"/>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">值</label>
+                        <input type="text" class="form-control input-w-3" name="code" data-bv-notempty/>
+                    </div>
+                </div>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">描述</label>
+                        <input type="text" class="form-control input-w-3" name="descr" data-bv-notempty/>
+                    </div>
+                </div>
+                <div class="aligncenter">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary submit">保存</button>
+                        <!--<button id="return" type="reset" class="btn  btn-info">返回</button>-->
+                    </div>
+                </div>
+                <input type="hidden" id="idPo" name="idPo:number" />
+            </form>
+        </div>
+    </div>
+
+<script>
+$('#dict-type').selectautofill('sys/dic/dicDicSelects',{headers:{'JMS-TOKEN':jmstoken}},function(data){
+    setTimeout("$('#dict-type').trigger('change')",300);
+});
+
+$('#dict-type').on('change',function(){
+   if ($.fn.DataTable.isDataTable("#tableDic")) {
+  $('#tableDic').DataTable().clear().destroy();
+}
+    $('#tableDic').DataTable( {
+            "ordering": false,
+            "bDestroy": true,
+            "processing": true,
+            "serverSide": true,
+            "stateSave": true,
+            "stateDuration": -1,
+            "ajax": {
+           "type": 'POST',
+                    "url": $clientURL+"sys/dic/dicTable",
+                    "dataType": "json",
+           "headers":{'JMS-TOKEN':jmstoken},
+           "data": {'dicDicId':$('#dict-type').val()}
+                },
+                "columnDefs": [ {
+                    "targets": -1,
+                    "data": null,
+                    "defaultContent": '<button class="button-edit" data-action="edit">编辑</button><button class="button-bin" data-action="del">删除</button>'
+                } ],
+           "language": {
+                            "url": "js/datatable/chinese.json"
+                       },
+          
+            dom: "tip",
+        pageLength:"50",
+        initComplete: function(){
+            $('#tableDic tr[role=row] td:nth-child(5)').each(function(i,k){
+                if($(k).text() == '是') $(k).next().html('-');
+            });
+
+            //弹出框-编辑
+            $('.button-edit').on('click', function () {
+                if(!flag){
+                    flag=1;
+                    var action =$(this).data('action');
+                    var actions={
+                        'edit':function(){
+                        var top = $('#body').scrollTop();
+                        var left = $('#body').scrollLeft();
+
+                        $('[name=id]').val($(this).parents('td').siblings().eq(0).text());
+                        $('[name=dicDicId]').val($('#dict-type').val());
+                        $('[name=code]').val($(this).parents('td').siblings().eq(1).text());
+                        $('[name=descr]').val($(this).parents('td').siblings().eq(2).text());
+
+                            $('.tcbox').css({
+                                top: $(window).height() * 0.2 + top,
+                                left:$(window).height() * 0.5 + left
+                            }).draggable().show();
+                        }
+                    };
+                    actions[action].call(this);
+                }
+                else{
+                    return false;
+                }
+            });
+
+            //弹出框-编辑
+            $('.button-bin').on('click', function () {
+                if(confirm('确认删除？')){
+                    $.delDic($(this).parents('td').siblings().eq(0).text(), function(){ $('#dict-type').trigger('change')});
+                }
+            });
+}
+});
+});
+
+//弹出框
+var flag=0;
+
+//新建
+$('button#add').on( 'click', function () {
+    if(!flag){
+        flag=1;
+        var action =$(this).data('action');
+        var actions={
+            'new':function(){
+            var top = $('#body').scrollTop();
+                var left = $('#body').scrollLeft();
+                $('.tcbox').css({
+                    top: $(window).height() * 0.2 + top,
+                    left:$(window).height() * 0.5 + left
+                }).draggable().show();
+            }
+        };
+        actions[action]();
+    }
+    else{
+        return false;
+    }
+});
+
+//关闭
+$('.tcbox').on('click','.tc_close',function(){
+    $('.tcbox').hide();
+    $('#poForm')[0].reset();
+    $('[name=id]').val(0);
+    flag=0;
+});
+
+//保存
+$('.tcbox').on('click','.submit',function(){
+    if(!validateForm($(this).parents('form'))) return;
+
+    $.saveDic(JSON.stringify({
+        id : $('[name=id]').val()
+    ,   dicDic : { id: $('#dict-type').val() }
+    ,   code : $('[name=code]').val()
+    ,   descr : $('[name=descr]').val()
+    }), function(){ $('#dict-type').trigger('change');
+    });
+    $('.tcbox .tc_close').trigger('click');
+});
+
+//表单验证
+$("form").each(function(i,k) {
+    $(k).bootstrapValidator();
+});
+function validateForm(elForm){
+    var data = $(elForm).data('bootstrapValidator');
+    data.validate();
+    return data.isValid();
+}
+</script>

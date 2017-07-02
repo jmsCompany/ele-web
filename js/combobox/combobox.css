@@ -1,0 +1,33 @@
+.custom-combobox {
+    position: relative;
+    display: inline-block;
+    width: 88px;
+    height:29px;
+    /*padding-top: 1px;*/
+}
+.custom-combobox-toggle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin-left: -1px;
+    padding: 0;
+    /* 支持： IE7 */
+    *height: 1.7em;
+    *top: 0.1em;
+    width: 17px;
+    height:29px!important;
+}
+.custom-combobox-input {
+    margin: 0;
+    padding: 0.3em;
+    width: 88px;
+    height:29px;
+    /*padding-top: 1px;*/
+}
+
+.matLocCreate .custom-combobox {
+    width: 182px!important;
+}
+.matLocCreate .custom-combobox-input {
+    width: 182px!important;
+}

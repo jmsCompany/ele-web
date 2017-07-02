@@ -1,0 +1,125 @@
+﻿<script>
+$(".in_menu").mouseleave(function () {
+ $("#in_menu").slideUp(500);
+})
+$("#logout").click(function(){
+store.remove('JMS-TOKEN');
+store.remove('ID_USER');
+store.remove('userProfile');
+location.href="login.html";
+})
+$("#setup").click(function(){
+	var top = $('#body').scrollTop();
+	$('#tcbox-password2').css({
+		top: $(window).height() * 0.2 + top
+	}).show();
+	var userId = store.get('userProfile').idUser;
+	$('#idUser').val(userId);
+})
+
+$('.tcboxPassword').on('click','.tc_close, #return',function(){
+	$('.tcboxPassword').hide();
+	$('#passswordFormPersonnel')[0].reset();
+});
+
+$('#passswordFormPersonnel').bootstrapValidator({
+	message: 'This value is not valid',
+	feedbackIcons: {
+		valid: 'glyphicon glyphicon-ok',
+		invalid: 'glyphicon glyphicon-remove',
+		validating: 'glyphicon glyphicon-refresh'
+	},
+	fields: {
+		'password': {
+			validators: {
+				notEmpty: {
+					message: '原密码不能为空'
+				}
+			}
+		},
+		'newPassword': {
+			validators: {
+				notEmpty: {
+					message: '新密码不能为空'
+				},
+				identical: {
+					field: 'confirmPassword',
+					message: '新密码与确认密码不同！'
+				}
+			}
+		},
+		'confirmPassword': {
+			validators: {
+				notEmpty: {
+					message: '确认密码不能为空'
+				},
+				identical: {
+					field: 'newPassword',
+					message: '新密码与确认密码不同！'
+				}
+			}
+		},
+	}
+}).on('success.form.bv', function(e) {
+	e.preventDefault();
+	var $form     = $(e.target),
+	validator = $form.data('bootstrapValidator');
+	var userPassword =JSON.stringify($('#passswordFormPersonnel').serializeJSON());
+	
+	$.saveUserPassword1(userPassword,jmstoken,function(data){
+		if(!data.valid){
+			alert(data.msg);
+		}
+		else{
+		
+			location.href="login.html";
+		}
+	});
+});
+
+</script>
+<div class="in_menu" id="in_menu">
+<!-- 	<p><a href="">个人主页</a></p>
+	<p><a href="">帮助中心</a></p> -->
+	<p><a href="#" id="setup">设置</a></p>
+	<p><a href="#" id="logout">注销</a></p>
+</div>
+
+<!-- 弹窗 start -->
+<div class="tcboxPassword container-fluid" id="tcbox-password2">
+	<div class="tcbox_cont row">
+		<div class="body-head-title">
+			<span class="h-title">修改密码</span>
+		</div>
+		<input type="button" class="tc_close">
+		<form id="passswordFormPersonnel" class="form-inline">
+			<div class="col-xs-12 mar-top-20px">
+				<div class="form-group">
+					<label for="" class="input-w-160">原密码</label>
+					<input type="password" class="form-control input-w-3"  name="password" id="password"/>
+				</div>
+			</div>
+			<div class="col-xs-12 mar-top-20px">
+				<div class="form-group">
+					<label for="" class="input-w-160">新密码</label>
+					<input type="password" class="form-control input-w-3"  name="newPassword" id="newPassword"/>
+				</div>
+			</div>
+			<div class="col-xs-12 mar-top-20px">
+				<div class="form-group">
+					<label for="" class="input-w-160">确认密码</label>
+					<input type="password" class="form-control input-w-3"  name="confirmPassword" id="confirmPassword"/>
+				</div>
+			</div>
+			<div class="aligncenter">
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary ">保存</button>
+					<button id="return" type="reset" class="btn  btn-info">返回</button>
+				</div>
+			</div>
+			<input type="hidden" id="idUser" name="idUser:number"/>
+		</form>
+	</div>
+</div>
+
+<!-- 弹窗 over -->

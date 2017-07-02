@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	<!--[if lt IE 9]>
+		<script type="text/javascript" src="js/html5.js"></script>
+		<![endif]-->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+	<link href="css/reg.css" rel="stylesheet" type="text/css">
+	<link href="css/jms.css" rel="stylesheet" type="text/css">
+	<script src="js/login/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	<!--<script type="text/javascript" src="js/jquery/jquery.js"></script>-->
+	<script type="text/javascript" src="js/jquery/jquery-ui.js"></script>
+	<script type="text/javascript" src="js/layout/jquery.layout.js"></script>
+    <script type="text/javascript" src="js/form/jquery.serializejson.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="js/datatable/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="js/datatable/dataTables.scroller.js"></script>
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.css"/>
+    <!--<link rel="stylesheet" href="css/bootstrap/bootstrapValidator.css"/>-->
+     <script type="text/javascript" src="js/bootstrap/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap/bootstrapValidator.js"></script>
+    <script type="text/javascript" src="js/bootstrap/language/zh_CN.js"></script>
+     <script type="text/javascript" src="js/jms/jmsclient.js"></script>
+	 <script type="text/javascript" src="js/store/store.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="js/lib/jquery.blockUI.js"></script>
+
+	<!--引入CSS_JS部分-->
+	<link rel="stylesheet" type="text/css" href="css/login/basic.css"/>
+	<link rel="stylesheet" type="text/css" href="css/login/pages.css"/>
+	<link rel="stylesheet" type="text/css" href="css/login/reset.css"/>
+	<link rel="stylesheet" type="text/css" href="css/login/style.css"/>
+	
+	<script src="js/login/html5.js" type="text/javascript" charset="utf-8"></script>
+	<!--<script src="js/login/base.js" type="text/javascript" charset="utf-8"></script>-->
+	<script src="js/login/main.js" type="text/javascript" charset="utf-8"></script>
+	
+	<!--CSS_JS部分end-->
+	<script type="text/javascript">
+	var myLayout; 
+    var middleLayout;
+	$(document).ready(function () {
+		myLayout = $('body').layout({
+                       
+                        north__size:50
+			,south__size:30
+                        ,west__size:260
+                        ,north__spacing_open:2
+                        ,south__spacing_open:2
+                        ,west__spacing_open:4
+                        ,center__onresize:"middleLayout.resizeAll" 
+		});
+
+
+               middleLayout = $('div.ui-layout-center').layout({ 
+			 south__size:30
+             ,north__spacing_open:2
+		        ,south__spacing_open:0
+		}); 
+
+		
+          $.get("layout/pre/top1.html",function(data){
+	        $("#top").html(data);
+	   });
+          //$.get("layout/menu.html",function(data){
+	      //  $("#menu").html(data);
+	  // });
+	  $.get("layout/footer.html",function(data){
+	        $("#footer").html(data);
+	   });
+         //  var body = getUrlParam('body');
+          // if(body==null)
+          // body="calendar";
+	   $.get("views/login-body.html",function(data){
+	        $("#body").html(data);
+	   });
+
+        
+ 	});
+	</script>
+	</head>
+	<body>
+		
+		<div class= "ui-layout-south" id="footer" >
+			
+		</div>	
+		
+		<div class="ui-layout-center " id="body-center" >
+			<div class="ui-layout-center bg-lg" id="body">
+		       
+			</div> 
+		</div>
+	</body>
+</html>

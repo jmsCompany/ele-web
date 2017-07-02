@@ -1,0 +1,10 @@
+@charset "utf-8";
+.scroll {
+	border:0px; padding:5px 10px; overflow-y:scroll; margin:20px 0;
+}
+.jmsdivbg0{
+	background:url(../images/divbg.png);
+}
+.jmsdivbg1{
+	background:url(../images/divbg1.png);
+}

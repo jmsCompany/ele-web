@@ -1,0 +1,260 @@
+<div class="project">
+	<div class="cont">
+        <div class="r-header-body">
+            <h2>项目进度</h2>
+        </div>
+        <div class="r-header-body">
+            <div class="right-list">
+                <button id="add" class="button-sytle1" onclick="history.back()">返回</button>
+            </div>
+        </div>
+        <table id="tableProgSteps" class="display" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>步骤编号</th>
+                    <th>名称</th>
+                    <th>最快天数</th>
+                    <th>最慢天数</th>
+                    <th>实际开始</th>
+                    <th>实际结束</th>
+                    <th>实际天数</th>
+                    <th>进度</th>
+                    <th>完工</th>
+                    <th>备注</th>
+                    <th>部门</th>
+                    <th>员工</th>
+                    <th>表单</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <!-- 弹窗 start -->
+    <div class="tcbox container-fluid" id="draggable1">
+        <div class="tcbox_cont row">
+            <div class="body-head-title">
+                <span class="h-title">新建/编辑</span>
+            </div>
+            <form id="poForm" class="form-inline">
+                <input type="button" class="tc_close">
+                <input type="hidden" name="id">
+                <input type="hidden" name="stepId">
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">名称</label>
+                        <span id="name"></span>
+                    </div>
+                </div>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">最快天数</label>
+                        <span id="forcastDays"></span>
+                    </div>
+                </div>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">最慢天数</label>
+                        <span id="lastedDays"></span>
+                    </div>
+                </div>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">实际开始</label>
+                        <input type="date" name="start" class="input-w-3 form-control" data-bv-notempty data-bv-date>
+                    </div>
+                </div>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">实际结束</label>
+                        <input type="date" name="end" class="input-w-3 form-control" data-bv-date>
+                    </div>
+                </div>
+                <!-- <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">进度</label>
+                        <select class="input-w-3 form-control" name="idProgress"></select>
+                    </div>
+                </div> -->
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">完工</label>
+                        <select class="input-w-3 form-control" name="statusId"></select>
+                    </div>
+                </div>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">员工</label>
+                        <select class="input-w-3 form-control" name="userId"></select>
+                    </div>
+                </div>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">备注</label>
+                        <textarea class="form-control" style="width:180px" rows="3" name="remark"></textarea>
+                    </div>
+                </div>
+                <div class="aligncenter">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary submit">保存</button>
+                        <!--<button id="return" type="reset" class="btn  btn-info">返回</button>-->
+                    </div>
+                </div>
+                <input type="hidden" id="idPo" name="idPo:number" />
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+var hash = location.hash;
+var projId = hash.slice(hash.indexOf('&projId=') + 8)/1;
+
+function init(){
+
+$('#tableProgSteps').DataTable( {
+            "ordering": false,
+            "bDestroy": true,
+            "processing": true,
+            "serverSide": true,
+            "stateSave": true,
+            "stateDuration": -1,
+            "ajax": {
+           "type": 'POST',
+                    "url": $clientURL+"project/projectStepsTable",
+                    "dataType": "json",
+           "headers":{'JMS-TOKEN':jmstoken},
+           "data": {projectId:projId}
+                },
+                "columnDefs": [
+                {
+                    "targets": -1,
+                    "data": null,
+                    "defaultContent": '<button class="button-edit" data-action="edit">编辑</button>'
+                } ],
+           "language": {
+                            "url": "js/datatable/chinese.json"
+                       },
+          
+            dom: "t",
+        pageLength:"50",
+        initComplete: function(){
+            $('#tableProgSteps tr[role=row] td:nth-child(14)').each(function(i,k){
+                var formId = $(k).text();
+                formId && $(k).html('<button class="button-edit" data-action="view-form" data-form="'+formId+'">查看</button>');
+            });
+
+            //弹出框-编辑
+            $('.button-edit').on('click', function () {
+                debugger;
+                if(!flag){
+                    flag=1;
+                    var action =$(this).data('action');
+                    var actions={
+                        'edit':function(){
+                        var top = $('#body').scrollTop();
+                        var left = $('#body').scrollLeft();
+                        var _this = this;
+
+                        $('[name=customerId]').val(projId);
+                        $('[name=id]').val($(this).parents('td').siblings().eq(0).text());
+                        $('[name=stepId]').val($(this).parents('td').siblings().eq(1).text());
+                        $('#name').text($(this).parents('td').siblings().eq(2).text());
+                        $('#forcastDays').text($(this).parents('td').siblings().eq(3).text());
+                        $('#lastedDays').text($(this).parents('td').siblings().eq(4).text());
+                        $('[name=start]').val($(this).parents('td').siblings().eq(5).text());
+                        $('[name=end]').val($(this).parents('td').siblings().eq(6).text());
+                        $('[name=remark]').val($(this).parents('td').siblings().eq(10).text());
+                        $('[name=userId]').val($(this).parents('td').siblings().eq(12).text());
+                        $('[name=form]').val($(this).parents('td').siblings().eq(13).text());
+
+                            $('.tcbox').css({
+                                top: $(window).height() * 0.2 + top,
+                                left:$(window).height() * 0.5 + left
+                            }).draggable().show();
+
+                            $('[name=statusId]').selectautofill('sys/dic/dicSelects',{headers:{'JMS-TOKEN':jmstoken},data:{dicDicName:'ps_status'}},function(){
+                            $('[name=statusId] option').each(function(i,k){
+                                if(k.innerHTML == $(_this).parents('td').siblings().eq(9).text())
+                                    k.selected = true;
+                             });
+                            });
+
+                            $('[name=idProgress]').selectautofill('sys/dic/dicSelects',{headers:{'JMS-TOKEN':jmstoken},data:{dicDicName:'Progress'}},function(){
+                            $('[name=idProgress] option').each(function(i,k){
+                                if(k.innerHTML == $(_this).parents('td').siblings().eq(8).text())
+                                    k.selected = true;
+                               });
+                            });
+
+                            $('[name=userId]').selectautofill('sys/user/userSelects',{headers:{'JMS-TOKEN':jmstoken},data:{dicDicName:'Progress'}},function(){
+                            $('[name=userId] option').each(function(i,k){
+                                if(k.innerHTML == $(_this).parents('td').siblings().eq(12).text())
+                                    k.selected = true;
+                               });
+                            });
+
+                        },
+                        'view-form':function(){
+                            location.hash="#/?groupId=P_ProjectManagement&viewId=" + $(this).data('form')+'&projId='+projId;
+
+                        }
+
+                    };
+                    actions[action].call(this);
+                }
+                else{
+                    return false;
+                }
+            });
+}
+});
+
+}
+init();
+
+
+//弹出框
+var flag=0;
+
+//关闭
+$('.tcbox').on('click','.tc_close',function(){
+    $('.tcbox').hide();
+    $('#poForm')[0].reset();
+    flag=0;
+});
+
+//保存
+$('.tcbox').on('click','.submit',function(){
+    if(!validateForm($(this).parents('form'))) return;
+
+    $.saveProjSteps(JSON.stringify({
+        customerId : projId
+    ,   id : $('[name=id]').val()/1
+    ,   idProgress : $('[name=idProgress]').val()/1
+    ,   userId : $('[name=userId]').val()/1
+    ,   statusId : $('[name=statusId]').val()/1
+    ,   stepId : $('[name=stepId]').val()/1
+    // ,   name : $('[name=name]').val()
+    // ,   forcastDays : $('[name=forcastDays]').val()/1
+    // ,   lastedDays : $('[name=lastedDays]').val()/1
+    ,   start : $('[name=start]').val()
+    ,   end : $('[name=end]').val()
+    ,   remark : $('[name=remark]').val()
+    }), init);
+    $('.tcbox .tc_close').trigger('click');
+});
+
+
+//表单验证
+$("form").each(function(i,k) {
+    $(k).bootstrapValidator();
+});
+function validateForm(elForm){
+    var data = $(elForm).data('bootstrapValidator');
+    var isDateValid = new Date($('[name=start]').val()) <= new Date($('[name=end]').val());
+    data.validate();
+    !isDateValid && alert('实际开始日期必须早于实际结束日期！');
+    return data.isValid() && isDateValid;
+}
+</script>

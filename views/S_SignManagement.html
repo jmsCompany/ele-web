@@ -1,0 +1,53 @@
+<div class="cont">
+    <div class="r-header-body">
+        <h2>签字列表</h2>
+    </div>
+    <table id="tableSign" class="tabletxt" cellspacing="0" width="300px" style="float:left">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>签字名称</th>
+                <th>相关表单</th>
+                <th>签字内容</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+<script type="text/javascript">
+function init(){
+$('#tableSign').DataTable( {
+            "ordering": false,
+            "bDestroy": true,
+            "processing": true,
+            "serverSide": true,
+            "stateSave": true,
+            "stateDuration": -1,
+            "ajax": {
+           "type": 'POST',
+                    "url": $clientURL+"sys/sign/signWorkflowTable",
+                    "dataType": "json",
+           "headers":{'JMS-TOKEN':jmstoken},
+                },
+                "columnDefs": [
+                {
+                    "targets": -1,
+                    "data": null,
+                    "defaultContent": '<button class="button-edit" data-action="edit">编辑</button>'
+                } ],
+           "language": {
+                            "url": "js/datatable/chinese.json"
+                       },
+          
+            dom: "t",
+        pageLength:"50",
+        initComplete: function(){
+            // 编辑
+            $('.button-edit').on('click',function(){
+                location.hash="#/?groupId=S_SignManagement&viewId=Sys_Signature_d&title=" + escape($(this).parents('td').siblings().eq(1).text()).replace(/\%u/ig,'-') +  "&id=" + $(this).parents('td').siblings().eq(0).text();
+            });
+        }
+        });
+}
+init();
+
+</script>

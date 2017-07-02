@@ -1,0 +1,79 @@
+/*---- 原jscroll.css样式 start ----*/
+.scroll {
+	border:0px; padding:5px 10px; overflow-y:scroll; margin:20px 0;
+}
+.jmsdivbg0{
+	background:url(../images/divbg.png);
+}
+.jmsdivbg1{
+	background:url(../images/divbg1.png);
+}
+/*---- 原jscroll.css样式 over ----*/
+ul.new-income-list-nav {
+  width: inherit;
+  background: #88b5ed;
+  color: white;
+  font-size: 14px;
+  height: 30px;
+  line-height: 30px;
+}
+ul.new-income-list-nav li {
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  transition: .3s ease;
+}
+ul.new-income-list-nav li:hover {
+  color: #FF9900;
+}
+.income-create-list {
+  position: relative;
+}
+.income-create-list select {
+  cursor: pointer;
+  vertical-align: bottom;
+  height: 30px;
+}
+.income-create-list select:hover {
+  color: rgba(0, 0, 0, 0.5);
+  border: 1px solid #88b5ed;
+}
+.income-create-list select ~ .new-income-infoList {
+  display: none;
+}
+.income-create-list select:hover ~ .new-income-infoList {
+  display: block;
+  /*绝对定位的浮层样式*/
+  z-index: 999;
+  position: absolute;
+  left: 5px;
+  top: 30px;
+  width: 120px;
+  background: #fff;
+}
+.income-create-list select:hover ~ .new-income-infoList i {
+  font-style: normal;
+  line-height: 25px;
+  display: block;
+  width: inherit;
+  text-align: center;
+  border: 1px solid #88b5ed;
+}
+.po-order-hint {
+  width: 100%;
+  margin: 5px 0;
+  font-size: 16px;
+  padding: 20px;
+}
+.po-order-hint b {
+  display: inline-block;
+  margin-left: 10px;
+}
+.po-order-hint textarea {
+  margin-left: 20px;
+  width: 580px;
+  border: 1px solid #ddd;
+  padding: 15px 10px 20px 10px;
+  resize: none;
+  text-align: left;
+}

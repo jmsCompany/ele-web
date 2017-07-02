@@ -1,0 +1,89 @@
+﻿<div class="menu_left">
+	<ul></ul>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+    var userprofile = store.get('userProfile');
+    var menu = userprofile.wsmenuList;
+    var submenu = '';
+
+    var currentgroup = '';
+    for (var index = 0; index < menu.length; index++) {
+        var view = menu[index].url;
+        var group = menu[index].group;
+        var name = menu[index].name;
+        //var permission= menu[index].permission;
+        if (group != currentgroup) {
+            if (currentgroup != '')
+                submenu += '</ul></li>';
+	            currentgroup = group;
+	            submenu += '<li id=""><span>' + group + '</span><ul class="child" style="display: none;">';
+        }
+        submenu += '<li page-name="' + view + '"><span>' + name + '</span></li>';
+    }
+
+    $('.menu_left>ul').html(submenu);
+
+    $(".menu_left>ul>li").click(function(event){
+	  if(!$(this).find(".child>li").hasClass("active")){
+	   $(this).find(".child>li").eq(0).addClass("active").parent().show();
+	   $(this).siblings().find(".child>li").removeClass("active").parent().hide();
+	   
+	         //避免多次历史记录
+	   var id=$(this).find(".child>li").eq(0).attr("page-name");
+	         var params=RouterManager.getParams();
+	         // routerPage(id,params);
+	  }
+	  event.stopPropagation();
+	 });
+	 $("ul.child>li").click(function(event){
+	  if(!$(this).hasClass("active")){
+	   $(this).addClass("active").siblings().removeClass("active");
+	   var id=$(this).attr("page-name");
+	         var params=RouterManager.getParams();
+	         // routerPage(id,params);
+	  }
+	  event.stopPropagation();
+	 });
+
+    $('li[page-name]').click(function(){
+        //避免多次历史记录
+        var id = $(this).attr("page-name");
+        var params=RouterManager.getParams();
+        if(Object.keys(params).length==1 && $("#"+id).css('color').match('255')){
+            return false
+        }
+        /**
+         * 开始执行点击请求，用RouteManager 来管理
+         * 同时增加判断条件，避免重复点击事件
+         */
+        if (history.pushState){
+            // 如果支持这个api，就用这个管理路由
+            $.get("views/"+id+".html",function(data){
+                $("#body").html(data);
+                // $(".menu-img").each(function(){
+                //     var tid=this.id;
+                //     tid =tid.substring(4,tid.length);
+                //     $(this).attr("src", "images/menu/"+tid+".png");
+                //     $("#"+tid).attr("style","color:#000000;");
+                // });
+                // $("#img_"+id).attr("src", "images/menu/"+id+"_c.png");
+                // $("#"+id).attr("style","color:#FF9900;");
+                RouterManager.setUrl({groupId:id,viewId:id});
+            });
+        }else{
+            alert('请用chrome/firefox/或者IE10打开应用,请升级您的浏览器');
+        }
+    });
+
+
+});
+
+</script>
+
+<!--刷新映射界面模块-->
+<script type="text/javascript" charset="UTF-8" src="js/RefreshManager.js"></script>
+
+

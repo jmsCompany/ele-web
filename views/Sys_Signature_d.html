@@ -1,0 +1,211 @@
+<div class="cont">
+    <div class="r-header-body">
+        <h2>签字名称：<span id="title">信息采集</span></h2>
+        <div class="right-list">
+            <button id="add" class="button-sytle1" data-action="new">新建</button>
+        </div>
+    </div>
+    <table id="tableSignD" class="tabletxt" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>签字层级</th>
+                <th>签字内容</th>
+                <th>应签字部门</th>
+                <th>应签字人</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+    <!-- 弹窗 start -->
+    <div class="tcbox container-fluid" id="draggable1">
+        <div class="tcbox_cont row">
+            <div class="body-head-title">
+                <span class="h-title">新建/编辑</span>
+            </div>
+            <input type="button" class="tc_close">
+            <input type="hidden" name="id" value="0">
+            <form id="poForm" class="form-inline">
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">签字层级</label>
+                        <input type="text" class="form-control input-w-3" name="lvl" data-bv-notempty data-bv-numeric/>
+                    </div>
+                </div>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">签字内容</label>
+                        <input type="text" class="form-control input-w-3" name="content" data-bv-notempty/>
+                    </div>
+                </div>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">应签字人</label>
+                        <select class="input-w-3 form-control" name="idSignatory" id="sign"></select>
+                    </div>
+                </div>
+                <div class="aligncenter">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary submit">保存</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+<script type="text/javascript">
+var hash = location.hash;
+var id = hash.slice(hash.indexOf('&id=') + 4);
+var title = unescape(hash.slice(hash.indexOf('&title=') + 7, hash.indexOf('&id=')).replace(/\-/g,'%u'));
+
+$('#title').text(title);
+$('[name=idSignWorkflow]').val(id);
+
+function init(){
+
+$('#tableSignD').DataTable( {
+            "ordering": false,
+            "bDestroy": true,
+            "processing": true,
+            "serverSide": true,
+            "stateSave": true,
+            "stateDuration": -1,
+            "ajax": {
+           "type": 'POST',
+                    "url": $clientURL+"sys/sign/signWorkflowStepsTable",
+                    "dataType": "json",
+           "headers":{'JMS-TOKEN':jmstoken},
+           "data": {'idSignWorkflow':id}
+                },
+                "columnDefs": [
+                {
+                    "targets": -1,
+                    "data": null,
+                    "defaultContent": '<button class="button-edit" data-action="edit">编辑</button><button class="button-bin" data-action="del">删除</button>'
+                } ],
+           "language": {
+                            "url": "js/datatable/chinese.json"
+                       },
+          
+            dom: "tip",
+        pageLength:"50",
+        initComplete: function(){
+            $('#tableDepart tr[role=row] td:nth-child(4)').each(function(i,k){
+                if($(k).text() == '是') $(k).next().html('-');
+            });
+
+            //弹出框-编辑
+            $('.button-edit').on('click', function () {
+                if(!flag){
+                    flag=1;
+                    var action =$(this).data('action');
+                    var actions={
+                        'edit':function(){
+                        var top = $('#body').scrollTop();
+                        var left = $('#body').scrollLeft();
+                        var _this = this;
+
+                        $('[name=id]').val($(this).parents('td').siblings().eq(0).text());
+                        $('[name=lvl]').val($(this).parents('td').siblings().eq(1).text());
+                        $('[name=content]').val($(this).parents('td').siblings().eq(2).text());
+
+                            $('.tcbox').css({
+                                top: $(window).height() * 0.2 + top,
+                                left:$(window).height() * 0.5 + left
+                            }).draggable().show();
+                            $('[name=idSignatory]').selectautofill('sys/user/userSelects',{headers:{'JMS-TOKEN':jmstoken}},function(){
+                   $('[name=idSignatory] option').each(function(i,k){
+                        if(k.innerHTML == $(_this).parents('td').siblings().eq(3).text())
+                                k.selected = true;
+                       });
+                });
+                        }
+                    };
+                    actions[action].call(this);
+                }
+                else{
+                    return false;
+                }
+            });
+
+            //弹出框-编辑
+            $('.button-bin').on('click', function () {
+                if(confirm('确认删除？')){
+                    $.delSign($(this).parents('td').siblings().eq(0).text(), init);
+                }
+            });
+}
+});
+
+}
+init();
+
+//弹出框
+var flag=0;
+var isflag = 0;  //判断是不是新建
+
+//新建
+$('button#add').on( 'click', function () {
+    if(!flag){
+        flag=1;
+        var action =$(this).data('action');
+        var actions={
+            'new':function(){
+            var top = $('#body').scrollTop();
+                var left = $('#body').scrollLeft();
+                $('.tcbox').css({
+                    top: $(window).height() * 0.2 + top,
+                    left:$(window).height() * 0.5 + left
+                }).draggable().show();
+
+                $('[name=idSignatory]').selectautofill('sys/user/userSelects',{headers:{'JMS-TOKEN':jmstoken}});
+            }
+        };
+        actions[action]();
+
+
+    }
+    else{
+        return false;
+    }
+});
+
+//关闭
+$('.tcbox').on('click','.tc_close',function(){ 
+    $('.tcbox').hide();
+    $('#poForm')[0].reset();
+    $('[name=id]').val('');
+    flag=0;
+});
+
+//保存
+$('.tcbox').on('click','.submit',function(){
+    console.log()
+
+    if(!validateForm($(this).parents('form'))) return;
+    if(!$('#sign').val()){
+        alert("请填写签字人！")
+        return
+    }
+    $.saveSign(JSON.stringify({
+        idSignWorkflow : id
+    ,   id : $('[name=id]').val()
+    ,   content : $('[name=content]').val()
+    ,   lvl : $('[name=lvl]').val()
+    ,   idSignatory : $('[name=idSignatory]').val()
+    }), init);
+    $('.tcbox .tc_close').trigger('click');
+});
+
+
+//表单验证
+$("form").each(function(i,k) {
+    $(k).bootstrapValidator();
+});
+function validateForm(elForm){
+    var data = $(elForm).data('bootstrapValidator');
+    data.validate();
+    return data.isValid();
+}
+</script>

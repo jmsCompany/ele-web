@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>工作管理</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<!--公共样式-->
+	<link rel="stylesheet" type="text/css" href="css/jms.css">
+    <link rel="stylesheet" type="text/css" href="css/jscroll.css">
+	<link rel="stylesheet" type="text/css" href="css/datatable/jquery.dataTables.min.css">
+	<link rel="stylesheet" type="text/css" href="css/datatable/dataTables.scroller.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css"/>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrapValidator.css"/>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-datetimepicker.css">
+	<link rel="stylesheet" type="text/css" href="css/dropzone/basic.css">
+	<link rel="stylesheet" type="text/css" href="css/dropzone/dropzone.min.css">
+
+	<!--自定义样式-->
+	<link rel="stylesheet" type="text/css" href="css/customize.css">
+	<script type="text/javascript" charset="UTF-8" src="js/jquery/jquery.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="js/jquery/jquery-ui.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="js/layout/jquery.layout.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="js/form/jquery.serializejson.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="js/datatable/jquery.dataTables.min.bak.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="js/datatable/dataTables.scroller.js"></script>
+	<script type="text/javascript" charset="UTF-8" src='js/textarea/jquery.autosize.js'></script>
+	<script type="text/javascript" charset="UTF-8" src="js/bootstrap/bootstrap.min.js"></script>       
+	<script type="text/javascript" charset="UTF-8" src="js/bootstrap/bootstrapValidator.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="js/bootstrap/language/zh_CN.js"></script>      
+    <script type="text/javascript" charset="UTF-8" src="js/jquery/draggabilly.pkgd.min.js"></script><!--拖拽插件-->
+	<script type="text/javascript" charset="UTF-8" src="js/bootstrap/moment-with-locales.js"></script>    
+	<script type="text/javascript" charset="UTF-8" src="js/bootstrap/bootstrap-datetime.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="js/jms/jmsclient.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="js/jms/jsonform.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="js/jms/jscroll.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="js/jms/utils.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="js/lib/jquery.blockUI.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="js/lib/underscore.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="js/store/store.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="js/jquery.dateFormat.js"></script>
+    <script src="https://cdn.bootcss.com/echarts/3.6.1/echarts.common.js"></script>
+	<!-- poshytip -->
+    <link rel="stylesheet" href="js/jquery/tip-yellow/tip-yellow.css" type="text/css" />
+    <script type="text/javascript" charset="UTF-8" src="js/jquery/jquery.poshytip.min.js"></script>
+	<link rel="stylesheet" href="js/select2/css/select2.css" />
+	<script src="js/select2/js/select2.full.js"></script>
+
+	<!--<link rel="stylesheet" href="css/jquery-ui.min.css">-->
+	<link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+	<script src="js/jquery-ui.min.js"></script>
+	<link rel="stylesheet" href="js/combobox/combobox.css" />
+	<script src="js/combobox/combobox.js"></script>
+	<!-- End_Exclude -->
+
+	<!-- excel -->
+	<link rel="stylesheet" type="text/css" href="css/dailyMain.css">
+	<link rel="stylesheet" type="text/css" href="css/preMain.css">
+
+	<!-- 折线图 -->
+	<script type="text/javascript" charset="UTF-8" src="js/chart/highcharts.src.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="js/chart/modules/data.js"></script>
+
+
+	<!-- 打印 -->
+	<script type="text/javascript" charset="UTF-8" src="js/printArea.js"></script>
+
+
+	<!-- 质量 -->t
+
+	<!--<link rel="stylesheet" type="text/css" href="js/quality/css/bootstrap.css">-->
+	<link rel="stylesheet" type="text/css" href="js/quality/css/bootstrap-customize.css">
+	<link rel="stylesheet" type="text/css" href="js/quality/css/style.css">
+	<link rel="stylesheet" type="text/css" href="js/quality/css/pages.css">
+	<script type="text/javascript" src="js/quality/js/html5.js"></script>
+	<!--<script type="text/javascript" src="js/quality/js/jquery.js"></script>-->
+	<!--<script type="text/javascript" src="js/quality/js/bootstrap.js"></script>-->
+	<script type="text/javascript" src="js/quality/js/respond.src.js"></script>
+	<script type="text/javascript" src="js/quality/js/base.js"></script>
+	<script type="text/javascript" src="js/quality/js/main.js"></script>
+	<!-- 多选 -->
+	<link rel="stylesheet" type="text/css" href="css/bootstrap/multiple.min.css"/>
+	<script type="text/javascript" charset="UTF-8" src="js/bootstrap/multiple.min.js"></script>
+	<script type="text/javascript">
+
+	var jmstoken=store.get('JMS-TOKEN');
+
+
+	 if (jmstoken=='' || jmstoken==undefined)
+	 {
+	  location.href='login.html';
+	 }
+	 else
+	 {
+	  $.checktoken(jmstoken,function(result)
+	  {
+	   //alert(JSON.stringify(result));
+	   if(!result.valid)
+	   {
+	    location.href='login.html';
+	   }
+	  });
+	 }
+
+	var myLayout; 
+    var middleLayout;
+	
+	$(document).ready(function () {
+		myLayout = $('body').layout({
+			north__size:55
+			,south__size:30
+			,west__size:150
+			,north__spacing_open:0
+			,north__resizable:false	
+			,south__resizable:false	
+			,south__spacing_open:0		
+			,west__spacing_open:4
+			,center__onresize:"middleLayout.resizeAll" 
+		});
+			middleLayout = $('div.ui-layout-center').layout({ 
+			south__size:30
+			,north__spacing_open:2
+			,south__spacing_open:0
+		}); 
+
+		
+		$.get("layout/top.html",function(data){
+	        $("#top").html(data);
+	   	});
+        $.get("layout/top_right.html",function(data){
+	        $("#top_right").html(data);
+	   	});
+	  	$.get("layout/footer.html",function(data){
+	        $("#footer").html(data);
+	   	});
+ 	
+		$.get("layout/menu.html",function(data){
+	        $("#menu").html(data);
+	   	}); 
+ 	});
+ 	
+	</script>
+	<!--上传文件模块-->
+	<script type="text/javascript" charset="UTF-8" src="js/lib/dropzone.js"></script>
+	<!--路由及历史记录管理模块-->
+	<script type="text/javascript" charset="UTF-8" src="js/RouteManager.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="js/RefreshManager.js"></script>
+
+</head>
+<body style="min-width:980px;">
+
+
+<div class="ui-layout-north" id="top">
+	
+</div>
+<div id="top_right"></div>
+<div class="ui-layout-west" id="menu">
+
+
+</div>
+
+<div class= "ui-layout-south" id="footer" >
+	
+</div>
+
+
+<div class="ui-layout-center"  id="body-center">
+	<div class="ui-layout-center" id="body">
+       
+	</div> 
+	<!--<div class="ui-layout-south" id="inner-footer"></div>-->
+</div>
+
+</body>
+</html>

@@ -1,0 +1,144 @@
+<div class="cont">
+    <div class="r-header-body">
+        <h2>主区域</h2>
+        <button id="add" class="button-sytle1" data-action="new" style="float:right">新建</button>
+    </div>
+    <table id="tableLocation" class="tabletxt" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>主区域</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+  <!-- 弹窗 start -->
+    <div class="tcbox container-fluid" id="draggable1">
+        <div class="tcbox_cont row">
+            <div class="body-head-title">
+                <span class="h-title">新建</span>
+            </div>
+            <input type="button" class="tc_close">
+            <form id="poForm" class="form-inline">
+                <input type="hidden" name="id" value="0"/>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">省</label>
+                        <select class="input-w-3 form-control" name="province"></select>
+                    </div>
+                </div>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">市</label>
+                        <select class="input-w-3 form-control" name="city"></select>
+                    </div>
+                </div>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">区</label>
+                        <select class="input-w-3 form-control" name="area"></select>
+                    </div>
+                </div>
+                <div class="aligncenter">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary submit">保存</button>
+                        <!--<button id="return" type="reset" class="btn  btn-info">返回</button>-->
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+<script type="text/javascript">function init(){
+    $('#tableLocation').DataTable( {
+                "ordering": false,
+                "bDestroy": true,
+                "processing": true,
+                "serverSide": true,
+                "stateSave": true,
+                "stateDuration": -1,
+                "ajax": {
+               "type": 'POST',
+                        "url": $clientURL+"sys/location/locationTable",
+                        "dataType": "json",
+               "headers":{'JMS-TOKEN':jmstoken},
+               "data": {'dicDicId':1}
+                    },
+                    "columnDefs": [
+                    {
+                        "targets": -1,
+                        "data": null,
+                        "defaultContent": '<button class="button-bin" data-action="del">删除</button>'
+                    } ],
+               "language": {
+                                "url": "js/datatable/chinese.json"
+                           },
+              
+                dom: "tip",
+            pageLength:"50",
+            initComplete: function(){
+                //弹出框-删除
+                $('.button-bin').on('click', function () {
+                    if(confirm('确认删除？')){
+                        $.delLocation($(this).parents('td').siblings().eq(0).text(), init);
+                    }
+                });
+        }
+    });
+}
+
+init();
+
+    //弹出框
+    var flag=0;
+
+    //新建
+    $('button#add').on( 'click', function () {
+        if(!flag){
+            flag=1;
+            var action =$(this).data('action');
+            var actions={
+                'new':function(){
+                var top = $('#body').scrollTop();
+                    var left = $('#body').scrollLeft();
+                    $('.tcbox').css({
+                        top: $(window).height() * 0.2 + top,
+                        left:$(window).height() * 0.5 + left
+                    }).draggable().show();
+
+                    $('[name=province]').selectautofill('sys/location/allLocationSelects',{headers:{'JMS-TOKEN':jmstoken}},function(){$('[name=province]').trigger('change');});
+
+                    $('[name=province]').change(function(){
+                        $('[name=city]').selectautofill('sys/location/subLocationSelects',{headers:{'JMS-TOKEN':jmstoken},data:{locationId:$('[name=province]').val()}},
+                            function(){
+                                $('[name=city]')
+                                .off()
+                                .change(function(){
+                                $('[name=area]').selectautofill('sys/location/subSubLocationSelects',{headers:{'JMS-TOKEN':jmstoken},data:{subLocationId:$('[name=city]').val()}});
+                                })
+                                .trigger('change');
+                            });
+                    });
+                }
+            };
+            actions[action]();
+        }
+        else{
+            return false;
+        }
+    });
+    
+    //关闭
+    $('.tcbox').on('click','.tc_close',function(){
+        $('.tcbox').hide();
+        $('#poForm')[0].reset();
+        $('[name=id]').val(0);
+        flag=0;
+    });
+
+    //保存
+    $('.tcbox').on('click','.submit',function(){
+        $.saveLocation($('[name=area]').val(), init);
+        $('.tcbox .tc_close').trigger('click');
+    });
+</script>

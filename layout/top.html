@@ -1,0 +1,87 @@
+﻿<script type="text/javascript"> 
+$('#div-r').html(store.get('JMS-TOKEN'));
+
+$(function() {
+    $('.aw').click(function(e) {
+        e.preventDefault();
+        $(".in_menu").slideToggle(500);
+    });
+})
+
+var userprofile = store.get('userProfile');
+var loginDetai = '';
+loginDetai = '<label>登录名：'+ userprofile.username +' 姓名：'+ userprofile.name +' 部门：' + userprofile.department + '</label>';
+$('#showDetail').html(loginDetai);
+if(userprofile.isAdmin){
+    $('#admin').show();
+}
+
+$(document).on('click','.sys',function(e){
+    var historyParams={
+        groupId:'system'
+    };
+    e.preventDefault();
+    e.stopPropagation();
+    $.get("views/sys-position.html",function(data){
+        historyParams.viewId = 'sys-position';
+        RouterManager.setUrl(historyParams);
+        $("#body").html(data);
+    });
+})
+</script>
+<div class="header">
+    <div class="logo">
+        <a href="#"><img src="images/top/logo.png" /></a>
+    </div>
+    <div id="showDetail" class="logininfo">
+    </div>
+    <div class="menu">
+	    <ul>
+		    <!-- <li><div class="item"><p><a href="#"><img src="images/top/ico_l2-3a.png" alt=""></a></p></div></li>
+	        <li><div class="item"><p><a href="#"><img src="images/top/ico_l2-3b.png" alt=""></a></p></div></li> -->
+		    <li id='admin' style="display:none;"><div class="item sys"><p><a href="#"><img src="images/top/ico_l2-3c.png" alt=""></a></p></div></li>
+		    <li><div class="item"><p><a href="#" class="aw" >个人中心</a></p></div></li>
+        </ul>
+    
+<input type="hidden" id="_key1" />  <!-- 物料信息-->
+<input type="hidden" id="_key2" />  <!-- 合作公司详细信息-->
+<input type="hidden" id="_key3" />  <!-- 物料信息-->
+<input type="hidden" id="_key4" />  <!-- 采购订单编号-->
+<input type="hidden" id="_key5" />  <!-- 仓库编号-->
+<input type="hidden" id="_key27" />  <!--货架编号-->
+<input type="hidden" id="_key28" />  <!--货架名称-->
+<input type="hidden" id="_key29" />  <!--物料小类-->
+<input type="hidden" id="_key6" />  <!-- 联系人编号-->
+<input type="hidden" id="_key30" />  <!--合作公司简称-->
+<input type="hidden" id="_key7" />  <!-- 来料入库单号-->
+<input type="hidden" id="_key8" />  <!-- 采购订单行项目编号-->
+<input type="hidden" id="_key9" />  <!-- 出货单号-->
+<input type="hidden" id="_key10" />  <!-- 销售单号-->
+<input type="hidden" id="_key14" />  <!-- 采购退货单编号-->
+<input type="hidden" id="_key15" />  <!-- 销售退货单编号-->
+<input type="hidden" id="_key32" />  <!-- 看板编号-->
+
+<input type="hidden" id="_key11" />  <!-- 工艺路线-->
+<input type="hidden" id="_key12" />  <!-- 总生产计划-->
+<input type="hidden" id="_key13" />  <!-- 停工计划-->
+<input type="hidden" id="_key33" />  <!-- 实际生产编号-->
+<input type="hidden" id="_key16" />  <!-- 物料清单-->
+<input type="hidden" id="_key17" />  <!-- 人事计划-->
+
+<input type="hidden" id="_key18" />  <!-- 机器编号-->
+<input type="hidden" id="_key19" />  <!-- 维修历史编号-->
+
+<input type="hidden" id="_key20" />  <!-- 员工ehs编号-->
+
+<input type="hidden" id="_key22" />  <!-- 首件检查清单编号-->
+<input type="hidden" id="_key23" />  <!-- 过程检查清单编号-->
+<input type="hidden" id="_key24" />  <!-- 尺寸报告编号-->
+<input type="hidden" id="_key25" />  <!-- 最终审核检查清单编号-->
+<input type="hidden" id="_key26" />  <!-- 不合格处理单编号-->
+
+
+<input type="hidden" id="_key31" />  <!-- 详情-->
+</div>
+
+
+</div>

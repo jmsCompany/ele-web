@@ -1,0 +1,176 @@
+<div class="project">
+	<div class="cont">
+        <div class="r-header-body">
+            <h2>销售跟踪单</h2>
+        </div>
+        <table id="proSale" class="tabletxt" cellpadding="0" cellspacing="0" border="0" width="650px">
+            <tbody>
+        		<tr>
+        			<td style="text-align: left;">客户：</td><td><span id="name"></span></td>
+        			<td>区域：</td><td colspan="4"><span id="address"></span></td>
+        		</tr>
+        		<tr>
+        			<td colspan="3" style="text-align: left;">建档日期：<span id="soCreationTime"></span></td>
+        			<td colspan="4" style="text-align: left;">客户编号：<span id="code"></span></td>
+        		</tr>
+        		<tr>
+        			<td>序号</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td colspan="2"></td>
+        		</tr>
+        		<tr>
+        			<td>1</td>
+        			<td>实际容量（瓦）</td>
+        			<td><input type="number" name="actVol"></td></td>
+        			<td>&nbsp;</td>
+        			<td>&nbsp;</td>
+        			<td colspan="2">&nbsp;</td>
+        		</tr>
+        		<tr>
+        			<td>2</td>
+        			<td>销售价格（瓦）</td>
+        			<td><input type="number" name="unitPrice"></td></td>
+        			<td>&nbsp;</td>
+        			<td>&nbsp;</td>
+        			<td colspan="2">&nbsp;</td>
+        		</tr>
+        		<tr>
+        			<td>3</td>
+        			<td>建设成本</td>
+        			<td><input type="number" name="unitCost"></td></td>
+        			<td>&nbsp;</td>
+        			<td>&nbsp;</td>
+        			<td colspan="2">&nbsp;</td>
+        		</tr>
+        		<tr>
+        			<td>4</td>
+        			<td>销售人员</td>
+        			<td><span id="salesMan"></span></td>
+        			<td>&nbsp;</td>
+        			<td>&nbsp;</td>
+        			<td colspan="2">&nbsp;</td>
+        		</tr>
+        		<tr>
+        			<td>5</td>
+        			<td>开发费用</td>
+        			<td>总额</td>
+        			<td>销售人员</td>
+        			<td>管理人员</td>
+        			<td >代理商</td>
+                    <td >运维费用</td>
+        		</tr>
+        		<tr>
+        			<td>&nbsp;</td>
+        			<td>&nbsp;</td>
+        			<td><span id="devCost"></span></td>
+        			<td><input type="number" name="saleCost"></td></td>
+        			<td><input type="number" name="managementCost"></td></td>
+        			<td ><input type="number" name="agentCost"></td>
+                    <td ><input type="number" name="yunweicost"></td>
+        		</tr>
+        		<tr>
+        			<td>6</td>
+        			<td>每月还贷金额（元）</td>
+        			<td><input type="number" name="monthLoan"></td></td>
+        			<td>&nbsp;</td>
+        			<td>&nbsp;</td>
+        			<td colspan="2">&nbsp;</td>
+
+        		</tr>
+        		<tr>
+        			<td>7</td>
+        			<td>贷款期限（月）</td>
+        			<td><input type="number" name="durationLoan"></td>
+        			<td>&nbsp;</td>
+        			<td>&nbsp;</td>
+        			<td colspan="2">&nbsp;</td>
+        		</tr>
+        		<tr>
+        			<td>8</td>
+        			<td>还贷时间</td>
+        			<td><input type="number" name="loanTime"></td>
+        			<td>&nbsp;</td>
+        			<td>&nbsp;</td>
+        			<td colspan="2">&nbsp;</td>
+        		</tr>
+        		<tr>
+        			<td>9</td>
+        			<td>预计每月售电收入</td>
+        			<td><input type="number" name="monthIncome"></td>
+        			<td>分成比例</td>
+        			<td><input type="number" name="proportion" class="showactProfit" placeholder="格式写法6成写成 0.6"></td>
+        			<td colspan="2">&nbsp;</td>
+        		</tr>
+        		<tr>
+        			<td>&nbsp;</td>
+        			<td>净利：</td>
+        			<td><span id="netProfit"></span></td>
+        			<td>实际得利</td>
+        			<td><span id="actProfit"></span></td>
+        			<td colspan="2">&nbsp;</td>
+        		</tr>
+        	</tbody>
+        </table>
+	</div>
+    <button type="submit" class="btn btn-primary" style="padding:5px 10px;margin:20px">保 存</button>
+    <button type="button" class="btn" style="padding:5px 10px;margin:20px" onclick="history.back()">返 回</button>
+</div>
+
+<script type="text/javascript">
+var hash = location.hash;
+var projId = hash.slice(hash.indexOf('&projId=') + 8);
+$(".showactProfit").keyup(function(){
+    var realitymoney = $(this).val() * $("#netProfit").html();
+    $("#actProfit").html(realitymoney);
+})
+function saveForm(){
+    var data = JSON.stringify({
+         id : projId
+    ,    actVol : $('[name=actVol]').val()
+    ,    unitPrice : $('[name=unitPrice]').val()
+    ,    unitCost : $('[name=unitCost]').val()
+    ,    saleCost : $('[name=saleCost]').val()
+    ,    managementCost : $('[name=managementCost]').val()
+    ,    agentCost : $('[name=agentCost]').val()
+    ,    monthLoan : $('[name=monthLoan]').val()
+    ,    durationLoan : $('[name=durationLoan]').val()
+    ,    loanTime : $('[name=loanTime]').val()
+    ,    monthIncome : $('[name=monthIncome]').val()
+    ,    mainternanceCost : $('[name = yunweicost]').val() //运维费用
+    ,    percent: $('[name = proportion]').val() //分成比例
+    });
+    $.saveSaleForm(data, function(){ alert('保存成功！');});
+}
+
+function restoreForm(callback){
+    $.readSaleForm(projId, function(data){
+        $('#name').text(data.name);
+        $('#address').text(data.address);
+        $('#soCreationTime').text(data.soCreationTime);
+        $('#code').text(data.code);
+        $('[name=actVol]').val(data.actVol);
+        $('[name=unitPrice]').val(data.unitPrice);
+        $('[name=unitCost]').val(data.unitCost);
+        $('#salesMan').text(data.salesMan);
+        $('#devCost').text(data.devCost);
+        $('[name=saleCost]').val(data.saleCost);
+        $('[name=managementCost]').val(data.managementCost);
+        $('[name=agentCost]').val(data.agentCost);
+        $('[name=monthLoan]').val(data.monthLoan);
+        $('[name=durationLoan]').val(data.durationLoan);
+        $('[name=loanTime]').val(data.loanTime);
+        $('[name=monthIncome]').val(data.monthIncome);
+        $('#netProfit').text(data.netProfit);
+        $('[name=yunweicost]').val(data.mainternanceCost);//运维费用
+        $('[name=proportion]').val(data.percent);//分成比例
+        $('#actProfit').html(data.actProfit);//实际收益
+        
+        if(callback) callback();
+    });
+}
+
+restoreForm(function(){
+    $('button[type=submit]').on('click',saveForm);
+});
+
+$('input[type=number]').on('keyup',function(){this.value = this.value});
+
+</script>

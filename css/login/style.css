@@ -1,0 +1,340 @@
+﻿body{
+	font-family: 微软雅黑;
+}
+body .bg-lg{
+	background: url(../../images/login/bg-lg.jpg) no-repeat 50% 0;
+background-size:cover; 
+}
+input,
+select,
+textarea{
+	font-family: 微软雅黑;
+}
+.wrap{
+	width: 100%;
+	margin: 0 auto;
+	position: relative;
+}
+
+.br3{
+	border-radius: 3px;
+}
+.br5{
+	border-radius: 5px;
+}
+.br5.bt{
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+
+
+
+
+
+
+
+
+
+/*----------header----------*/
+.header{
+	position: relative;
+	z-index: 1;
+}
+.header .head{
+	height: 55px;
+	background-color: #324573;
+	position: relative;
+}
+.header .logo{
+	position: absolute;
+	top: 12px;
+	left: 20px;
+}
+.header .menu{
+	position: absolute;
+	right: 75px;
+	top: 0;
+}
+.header .menu >ul{
+
+}
+.header .menu >ul >li{
+	float: left;
+	margin-left: 35px;
+}
+.header .menu .item{
+	height: 55px;
+	position: relative;
+}
+.header .menu .item >p{
+	vertical-align: middle;
+	line-height: 55px;
+	color: #fff;
+	font-size: 14px;
+}
+.header .menu .item >p a{
+	color: #ffffff;
+}
+.header .menu .item >p a img{
+	*margin-top: 20px;
+}
+.header .menu .item >p .aw{
+	display: inline-block;
+	background: url(../img/ico_l2-4a.png) no-repeat 100% 50%;
+	padding-right: 18px;
+}
+.in_menu{
+	width: 143px;
+	border: 1px solid #e5e7e9;
+	position: absolute;
+	top: 55px;
+	left: 0;
+	background-color: #fff;
+	display: none;
+}
+li:hover .in_menu{
+	display: block;
+}
+.in_menu p{
+	border-bottom: 1px solid #eff1f3;
+	text-align: left;
+}
+.in_menu p.nobb{
+	border-bottom: none;
+}
+.in_menu p a{
+	display: block;
+	line-height: 24px;
+	text-align: left;
+	color: #222933;
+	text-indent: 10px;
+}
+.in_menu p a:hover,
+.in_menu p a.on{
+	background-color: #f8fafc;
+	color: #00a9ff;
+	text-decoration: none;
+}
+
+
+
+
+
+
+
+
+
+/*----------mainer----------*/
+.mainer{
+
+}
+
+
+
+
+
+
+
+
+
+
+/*----------footer----------*/
+.footer{
+
+}
+.footer .foot{
+	height: 30px;
+	background-color: #d6d6d6;
+}
+.footer .foot p{
+	line-height: 30px;
+	text-align: center;
+	color: #585858;
+	font-size: 14px;
+}
+
+
+
+
+
+
+
+
+
+
+/*----------custom----------*/
+.checkbox{
+	display: inline-block;
+	width: 17px;
+	height: 17px;
+	background: url(../../images/login/ico_l2-2a.png) no-repeat;
+	vertical-align: middle;
+	overflow: hidden;
+	outline: none;
+}
+.checkbox.on{
+	background: url(../../images/login/ico_l2-2b.png) no-repeat;
+}
+
+.form{
+
+}
+.form .bd{
+	border: 1px solid #dfe3e9;
+	position: relative;
+}
+.form .select{
+	
+}
+.form .select a{
+	display: inline-block;
+	width: 25px;
+	height: 32px;
+	background: url(../img/ico_l2-4k.png) no-repeat center #dfe3e9;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+.form .select.on a{
+	background-image: url(../img/ico_l2-4j.png);
+}
+.form .select p{
+	height: 32px;
+	line-height: 32px;
+	color: #000;
+}
+.form .select p.tt{
+	text-indent: 10px;
+	color: #adadad;
+}
+.form .select p img{
+	vertical-align: text-top;
+	margin: 0 10px;
+}
+.form .text{
+}
+.form .text input{
+	border: none;
+	height: 32px;
+	line-height: 32px;
+	color: #000;
+	width: 100%;
+	background: transparent;
+	text-indent: 10px;
+}
+.form .text.bg-a{
+	background-color: #f4f7fa;
+}
+.form .combox{
+	padding: 5px;
+}
+.form .combox >p{
+
+}
+.form .combox >p input{
+	border: none;
+	height: 24px;
+	line-height: 24px;
+	color: #000;
+	width: 100%;
+	background: transparent;
+	text-indent: 10px;
+}
+.form .combox >.ct{
+	height: 200px;
+	overflow: hidden;
+	overflow-y: scroll;
+}
+.form .combox >.ct p{
+
+}
+.form .combox >.ct p a{
+	display: block;
+	height: 34px;
+	line-height: 34px;
+	color: #7f8fa3;
+	font-size: 14px;
+	text-indent: 10px;
+}
+.form .combox >.ct p a:hover,
+.form .combox >.ct p a.on{
+	color: #fff;
+	text-decoration: none;
+	background-color: #3875d7;
+}
+.form .radio{
+
+}
+.form .radio a{
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	background: url(../img/ico_l2-8a.png);
+	vertical-align: text-top;
+}
+.form .radio.on a{
+	background: url(../img/ico_l2-8b.png);
+}
+.form .radio label{
+	color: #333;
+	margin-left: 5px;
+}
+.form .radio.on label{
+	color: #000;
+}
+.form .button{
+    display: inline-block;
+    width: 120px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    color: #fff;
+    font-size: 14px;
+}
+.form .button.bg-a{
+	background-color: #1bb934;
+}
+.form .button.bg-b{
+	background-color: #7a7a7a;
+}
+.form .textarea{
+	padding: 10px;
+}
+.form .textarea textarea{
+	width: 100%;
+	border: none;
+	resize: none;
+	line-height: 24px;
+	color: #000;
+}
+.form .file{
+}
+.form .file >a{
+    display: inline-block;
+    width: 120px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    color: #fff;
+    font-size: 14px;
+    background-color: #1bb934;
+    float: left;
+	margin-left: 15px;
+}
+.form .file .path{
+	height: 50px;
+	width: 308px;
+	display: inline-block;
+	float: left;
+}
+.form .file .path a{
+    display: inline-block;
+    width: 120px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    color: #fff;
+    font-size: 14px;
+    background-color: #d2d2d2;
+    margin: 5px;
+}

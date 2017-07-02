@@ -1,0 +1,315 @@
+<div class="cont">
+    <div class="r-header-body">
+        <h2>员工信息 </h2>
+        <button id="add" class="button-sytle1" data-action="new" style="float:right">新建</button>
+   </div>
+    <table id="tableUser" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>登录名</th>
+                <th>姓名</th>
+                <th>邮件</th>
+                <th>手机</th>
+                <th>部门</th>
+                <th>职位</th>
+                <th>角色</th>
+                <th>状态</th>
+                <th>有效</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+    <!-- 弹窗 start -->
+    <div class="tcbox tcbox-new container-fluid" id="draggable1">
+        <div class="tcbox_cont row">
+            <div class="body-head-title">
+                <span class="h-title">新建/编辑</span>
+            </div>
+            <input type="button" class="tc_close">
+            <form id="poForm" class="form-inline">
+                <input type="hidden" name="id" value="0"/>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">登录名</label>
+                        <input type="text" class="form-control input-w-3" name="username" data-bv-notempty/>
+                    </div>
+                </div>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">姓名</label>
+                        <input type="text" class="form-control input-w-3" name="name" data-bv-notempty/>
+                    </div>
+                </div>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">邮件</label>
+                        <input type="text" class="form-control input-w-3" name="email" data-bv-notempty data-bv-emailaddress/>
+                    </div>
+                </div>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">手机</label>
+                        <input type="text" class="form-control input-w-3" name="mobile" />
+                    </div>
+                </div>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">部门</label>
+                        <select class="input-w-3 form-control" name="dicByDepartment"></select>
+                    </div>
+                </div>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">职位</label>
+                        <select class="input-w-3 form-control" name="dicByPos"></select>
+                    </div>
+                </div>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">角色</label>
+                        <select class="input-w-3 form-control" name="dicByRole"></select>
+                    </div>
+                </div>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">状态</label>
+                        <select class="input-w-3 form-control" name="dicByEmpStatus"></select>
+                    </div>
+                </div>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">有效</label>
+                        <select class="input-w-3 form-control" name="enabled">
+                            <option value="0">无效</option>
+                            <option value="1">有效</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="aligncenter">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary submit">保存</button>
+                        <!--<button id="return" type="reset" class="btn  btn-info">返回</button>-->
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- 弹窗-PWD start -->
+    <div class="tcbox tcbox-pwd container-fluid" id="draggable1">
+        <div class="tcbox_cont row">
+            <div class="body-head-title">
+                <span class="h-title">重设密码</span>
+            </div>
+            <input type="button" class="tc_close">
+            <form id="pwdForm" class="form-inline">
+                <input type="hidden" name="id" value="0"/>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">密码</label>
+                        <input type="text" class="form-control input-w-3" name="pwd" data-bv-notempty/>
+                    </div>
+                </div>
+                <div class="aligncenter">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary submit">保存</button>
+                        <!--<button id="return" type="reset" class="btn  btn-info">返回</button>-->
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+<script type="text/javascript">
+
+function init(){
+    $('#tableUser').DataTable( {
+                "ordering": false,
+                "bDestroy": true,
+                "processing": true,
+                "serverSide": true,
+                "stateSave": true,
+                "stateDuration": -1,
+                "ajax": {
+               "type": 'POST',
+                        "url": $clientURL+"sys/user/usersTable",
+                        "dataType": "json",
+               "headers":{'JMS-TOKEN':jmstoken},
+               "data": {'dicDicId':1}
+                    },
+                    "columnDefs": [
+                    {
+                        "targets": -1,
+                        "data": null,
+                        "defaultContent": '<button class="button-edit" data-action="edit">编辑</button><button class="button-bin" data-action="del">删除</button><button class="button-edit" data-action="pwd">重设密码</button>'
+                    } ],
+               "language": {
+                                "url": "js/datatable/chinese.json"
+                           },
+              
+                dom: "tip",
+            pageLength:"50",
+            initComplete: function(){
+
+                //弹出框-编辑
+                $('[data-action=edit],[data-action=pwd]').on('click', function () {
+                    if(!flag){
+                        flag=1;
+                        var action =$(this).data('action');
+                        var actions={
+                            'edit':function(){
+                            var top = $('#body').scrollTop();
+                            var left = $('#body').scrollLeft();
+                            var _this = this;
+
+                            $('.tcbox-new [name=id]').val($(this).parents('td').siblings().eq(0).text());
+                            $('[name=username]').val($(this).parents('td').siblings().eq(1).text());
+                            $('[name=name]').val($(this).parents('td').siblings().eq(2).text());
+                            $('[name=email]').val($(this).parents('td').siblings().eq(3).text());
+                            $('[name=mobile]').val($(this).parents('td').siblings().eq(4).text());
+
+                            $('[name=dicByDepartment]').selectautofill('sys/dic/dicSelects',{headers:{'JMS-TOKEN':jmstoken}, data:{dicDicName:'Department'}},function(){
+                               $('[name=dicByDepartment] option').each(function(i,k){
+                                    if(k.innerHTML == $(_this).parents('td').siblings().eq(5).text())
+                                            k.selected = true;
+                                   });
+                            });
+                            $('[name=dicByPos]').selectautofill('sys/dic/dicSelects',{headers:{'JMS-TOKEN':jmstoken}, data:{dicDicName:'Position'}},function(){
+                               $('[name=dicByPos] option').each(function(i,k){
+                                    if(k.innerHTML == $(_this).parents('td').siblings().eq(6).text())
+                                            k.selected = true;
+                                   });
+                            });
+                            $('[name=dicByRole]').selectautofill('sys/dic/dicSelects',{headers:{'JMS-TOKEN':jmstoken}, data:{dicDicName:'Role'}},function(){
+                               $('[name=dicByRole] option').each(function(i,k){
+                                    if(k.innerHTML == $(_this).parents('td').siblings().eq(7).text())
+                                            k.selected = true;
+                                   });
+                            });
+                            $('[name=dicByEmpStatus]').selectautofill('sys/dic/dicSelects',{headers:{'JMS-TOKEN':jmstoken}, data:{dicDicName:'Emp_Status'}},function(){
+                               $('[name=dicByEmpStatus] option').each(function(i,k){
+                                    if(k.innerHTML == $(_this).parents('td').siblings().eq(8).text())
+                                            k.selected = true;
+                                   });
+                            });
+                            $('[name=enabled] option').each(function(i,k){
+                                    if(k.innerHTML == $(_this).parents('td').siblings().eq(9).text())
+                                            k.selected = true;
+                            });
+
+                                $('.tcbox-new').css({
+                                    top: $(window).height() * 0.2 + top,
+                                    left:$(window).height() * 0.5 + left
+                                }).draggable().show();
+                            }
+                        ,    'pwd':function(){
+                            var top = $('#body').scrollTop();
+                                var left = $('#body').scrollLeft();
+
+                                $('.tcbox-pwd [name=id]').val($(this).parents('td').siblings().eq(0).text());
+
+                                $('.tcbox-pwd').css({
+                                    top: $(window).height() * 0.2 + top,
+                                    left:$(window).height() * 0.5 + left
+                                }).draggable().show();
+                            }
+                        };
+                        actions[action].call(this);
+                    }
+                    else{
+                        return false;
+                    }
+                });
+
+                //弹出框-删除
+                $('[data-action=del]').on('click', function () {
+                    if(confirm('确认删除？')){
+                        $.delUser($(this).parents('td').siblings().eq(1).text(), init);
+                    }
+                });
+    }
+    });
+}
+
+init();
+
+//弹出框
+var flag=0;
+
+//新建
+$('button#add').on( 'click', function () {
+    if(!flag){
+        flag=1;
+        var action =$(this).data('action');
+        var actions={
+            'new':function(){
+            var top = $('#body').scrollTop();
+                var left = $('#body').scrollLeft();
+                $('.tcbox-new').css({
+                    top: $(window).height() * 0.2 + top,
+                    left:$(window).height() * 0.5 + left
+                }).draggable().show();
+                $('[name=dicByDepartment]').selectautofill('sys/dic/dicSelects',{headers:{'JMS-TOKEN':jmstoken}, data:{dicDicName:'Department'}});
+                $('[name=dicByPos]').selectautofill('sys/dic/dicSelects',{headers:{'JMS-TOKEN':jmstoken}, data:{dicDicName:'Position'}});
+                $('[name=dicByRole]').selectautofill('sys/dic/dicSelects',{headers:{'JMS-TOKEN':jmstoken}, data:{dicDicName:'Role'}});
+                $('[name=dicByEmpStatus]').selectautofill('sys/dic/dicSelects',{headers:{'JMS-TOKEN':jmstoken}, data:{dicDicName:'Emp_Status'}});
+            }
+        };
+        actions[action]();
+    }
+    else{
+        return false;
+    }
+});
+
+//关闭
+$('.tcbox').on('click','.tc_close',function(){
+    $('.tcbox').hide();
+    $('#poForm')[0].reset();
+    $('#pwdForm')[0].reset();
+    $('[name=id]').val(0);
+    flag=0;
+});
+
+//保存员工
+$('.tcbox-new').on('click','.submit',function(){
+    if(!validateForm($(this).parents('form'))) return;
+
+    $.saveUser(JSON.stringify({
+        idUser : $('.tcbox-new [name=id]').val()/1
+    ,   username : $('[name=username]').val()
+    ,   name : $('[name=name]').val()
+    ,   email : $('[name=email]').val()
+    ,   mobile : $('[name=mobile]').val()
+    ,   idDepartment : $('[name=dicByDepartment]').val()/1
+    ,   idPos : $('[name=dicByPos]').val()/1
+    ,   idRole : $('[name=dicByRole]').val()/1
+    ,   idEmpStatus : $('[name=dicByEmpStatus]').val()/1
+    ,   enabled : $('[name=enabled]').val()/1
+    }), init);
+    $('.tcbox-new .tc_close').trigger('click');
+});
+
+//保存员工密码
+$('.tcbox-pwd').on('click','.submit',function(){
+    if(!validateForm($(this).parents('form'))) return;
+
+    $.saveUserPwd(JSON.stringify({
+        idUser : $('.tcbox-pwd [name=id]').val()/1
+    ,   newPassword : $('[name=pwd]').val()
+    }));
+    $('.tcbox-pwd .tc_close').trigger('click');
+});
+
+//表单验证
+$("form").each(function(i,k) {
+    $(k).bootstrapValidator();
+});
+function validateForm(elForm){
+    var data = $(elForm).data('bootstrapValidator');
+    data.validate();
+    return data.isValid();
+}
+</script>
