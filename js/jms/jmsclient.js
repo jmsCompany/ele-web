@@ -1,7 +1,7 @@
 ﻿(function($, window, document,undefined) {
 
 
-    $clientURL = "http://192.168.1.107:9997/ele/"
+    $clientURL = "http://192.168.1.105:9997/ele/"
    //$clientURL = "http://118.178.94.7:9997/ele/"
    //$clientURL = "http://localhost:9997/ele/"
    //  $clientURL = "http://192.168.1.103:9997/ele/"
@@ -1024,5 +1024,23 @@
 	}
 	$.finishStep=function(data,jmstoken,callback){
 		$.JMSClient('project/finishProjectStep?proStepId='+data,{'type':'POST',headers:{'JMS-TOKEN':jmstoken},data:{}},callback);
+	}
+	$.getUserJob=function(data,jmstoken,callback){
+		$.JMSClient('sys/user/userRoles',{'type':'GET',headers:{'JMS-TOKEN':jmstoken},data:data},callback);
+	}
+	$.saveUserRoles=function(data,jmstoken,callback){
+		$.JMSClient('sys/user/saveUserRoles',{'type':'POST',headers:{'JMS-TOKEN':jmstoken},data:data},callback);
+	}
+	$.customerTable=function(data,jmstoken,callback){
+		$.JMSClient('project/customerTable',{'type':'POST',headers:{'JMS-TOKEN':jmstoken},data:data},callback);
+	}
+	$.openAccount=function(data,jmstoken,callback){
+		$.JMSClient('sys/customer/openAccount?projId='+data,{'type':'POST',headers:{'JMS-TOKEN':jmstoken},data:{}},callback);
+	}
+	$.disabledUsersAccount=function(data,jmstoken,callback){
+		$.JMSClient('sys/customer/disabledUsersAccount?projId='+data,{'type':'POST',headers:{'JMS-TOKEN':jmstoken},data:{}},callback);
+	}
+	$.updateUsersPassword=function(data,jmstoken,callback){
+		$.JMSClient('sys/customer/updateUsersPasswordByProjectId',{'type':'POST',headers:{'JMS-TOKEN':jmstoken},data:data},callback);
 	}
 })(jQuery, window, document);

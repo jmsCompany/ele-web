@@ -82,11 +82,11 @@ li:hover .in_menu{display:block}
 .sousuo .icon-ss-bg{display:inline-block;width:16px;height:16px;background:url(../images/icon_ss.png) no-repeat;overflow:hidden;margin-right:6px;vertical-align:middle}
 .sousuo a:hover .icon-ss-bg{background:url(../images/icon_ss.png) 0 -16px no-repeat}
 .btn-group-left{float:left;margin-right:20px}
-.button-bin,.button-edit,.button-finish,.button-po-auto,.button-print,.button-sytle1{display:inline-block;height:20px;padding:0 10px;color:#fff;text-decoration:none;background:#0af;font-size:12px;line-height:20px;border-radius:5px}
+.button-bin,.button-edit,.button-close,.button-open,.button-pwd,.button-job,.button-finish,.button-po-auto,.button-print,.button-sytle1{display:inline-block;height:20px;padding:0 10px;color:#fff;text-decoration:none;background:#0af;font-size:12px;line-height:20px;border-radius:5px}
 .button-bin:hover,.button-edit:hover,.button-finish:hover,.button-po-auto:hover,.button-print:hover,.button-sytle1:hover{background:#0091ff;color:#fff;text-decoration:none}
 .button-sytle1{height:30px;padding:0 15px;font-size:14px}
 .button-delete,.button-sytle2{display:inline-block;height:30px;padding:0 15px;color:#fff;text-decoration:none;background:#d9534f;font-size:14px;line-height:30px;border-radius:5px}
-.button-bin,.button-delete,.button-edit,.button-finish,.button-po-auto,.button-print{height:20px;padding:0 10px;line-height:20px;margin:0 3px;font-size:12px}
+.button-bin,.button-delete,.button-close,.button-edit,.button-finish,.button-po-auto,.button-print{height:20px;padding:0 10px;line-height:20px;margin:0 3px;font-size:12px}
 .button-delete:hover,.button-sytle2:hover{background:#c9302c;color:#fff;text-decoration:none}
 .right-list{float:right}
 .main-body{padding:20px}
@@ -430,9 +430,3 @@ input.error:focus,select.error:focus,textarea.error:focus{border-color:#843534;-
 	display: block;
 	margin:20px auto;
 }
-
-
-
-
-
-
