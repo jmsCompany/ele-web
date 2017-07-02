@@ -674,7 +674,7 @@
 			var c = "c"+i;
 			i>=51?data2[c]= $("#c"+i).attr("checked"):data2[c]= $("#c"+i).val();
 		}
-		console.log(data2)
+		console.log(data2,0)
 		var data = JSON.stringify(data2)
 		$('#tableFormSign tbody').remove();
 		$.saveProj(data, function(e) {
