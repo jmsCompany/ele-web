@@ -133,6 +133,7 @@
 								<p>施工单位 <input type="text" class="longinput" name="c49" id="c49"></p>
 								<p>施工人员 <input type="text" class="longinput" name="c50" id="c50"></p>
 								<p>施工人数 <input type="text" class="zeroup longinput" name="c51" id="c51"></p>
+								<p>入场时间 <input  name="c74" id="c74" type="date" style="border-bottom: 1px solid #000;" class="zeroup longinput choosetime"></p>
 							</td>
 							<td><input type="text" class="longinp" name="c52" id="c52"></td>
 							<td><input type="text" class="longinp" name="c53" id="c53"></td>
@@ -145,7 +146,7 @@
 								<li>
 								（现场施工完毕照片图，作为附件）
 								<button class="btn enclosure" style="padding:5px 10px">上传图片 </button>
-								<ul class="enclosureList"></ul>
+								<ul class="enclosureList" id="u1"></ul>
 
 								<input type="hidden" class="ralign" name="c73" id="c73"></p>
 								</li>
@@ -460,7 +461,7 @@ function saveForm(){
 		data[p]= $("#u"+i).find(".fileName").val()
 	}
 
-	//console.log(data,0);
+	console.log(data,0);
 	var data = JSON.stringify(data);
 
 
@@ -480,8 +481,8 @@ function saveForm(){
 
 function restoreForm(callback){
 	$.readForm(formId, projId, function(data){
-		debugger
 		//var html = data.content;
+		console.log(data)
 		dataId = data.id;
 		var clientId = data.code;
 		//html && $('.container').html(html);
