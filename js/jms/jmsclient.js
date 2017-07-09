@@ -2,9 +2,9 @@
 
 
     //$clientURL = "http://192.168.1.105:9997/ele/"
-     $clientURL = "http://118.178.94.7:9996/ele/"
+    // $clientURL = "http://118.178.94.7:9996/ele/"
   // $clientURL = "http://localhost:9997/ele/"
-   //  $clientURL = "http://192.168.1.103:9997/ele/"
+    $clientURL = "http://192.168.1.104:9997/ele/"
 	//$.fn.dataTable.ext.errMode = 'throw';
 
     $.JMSClient = function (path,opt,callback) {

@@ -86,6 +86,9 @@ footer{
   left: 0;
   top: 0;
 }
+table tr td{
+  overflow: hidden;
+}
 .ui-table-aa table{
   width: 100%;
   position: relative;
