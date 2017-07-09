@@ -497,6 +497,7 @@
 					//alert("is null");
 					$(this).focus();
 					$(this).css({"border":"1px solid pink"});
+					//alert("1:");
 					signable=false;
 					return false;
 				}
@@ -505,7 +506,7 @@
 		var checkedRequire = [
 		$('input[type=radio][name=type]:checked'),
 		$('input[type=radio][name=kind]:checked'),
-		$('input[type=radio][name=tepe]:checked'),
+
 		$('input[type=radio][name=inn]:checked'),
 		$('input[type=radio][name=inkind]:checked'),
 		$('input[type=radio][name=item]:checked'),
@@ -516,10 +517,13 @@
 		$('.checked2:checked'),
 		$("#c58:checked"),
 		$("#c60:checked")]
+
+
+
 		var checkedRequire2 = [
 		$('input[type=radio][name=type]'),
 		$('input[type=radio][name=kind]'),
-		$('input[type=radio][name=tepe]'),
+
 		$('input[type=radio][name=inn]'),
 		$('input[type=radio][name=inkind]'),
 		$('input[type=radio][name=item]'),
@@ -535,6 +539,7 @@
 					if (!$(this).val()) {
 						checkedRequire2[key].parents('p').css({"background":"pink"});
 						signable=false;
+
 						return false;
 					}else{
 						checkedRequire2[key].parents('p').css({"background":"inherit"});
@@ -561,10 +566,11 @@
 		if(piclen < 3){
 			alert("屋顶现场照片和接入照片要超过3张");
 			signable = false;
+
 			return false;
 		}
 
-  if(signable)
+  if(signable==true)
   {
 	  $.startSign(dataId,jmstoken,function(data){
 			//console.log(data,8)
