@@ -383,7 +383,7 @@
 								备注：以上所有资料为市场部搜集；<br><span class="note">注：本节内容由市场部、工程部签字。</span>
 							</p>
 							<br>
-							<p>4、供电局用户项目申请表、项目实施方案；<input type="radio" name="c65" id="c65" value="item1"> 是 <input type="radio" name="c65" id="c65" value="item2"> 否 <br>
+							<p>4、供电局用户项目申请表、项目实施方案；<input type="checkbox" name="c65" id="c65" value="item1"> 是 <br>
 							<span class="note">注：此两项内容由工程部完成，工贷部提交供电局。</span> </p>
 							<br>
 							<p>5、 银行征信调查★；
@@ -515,7 +515,7 @@
 		$('input[type=radio][name=item]:checked'),
 		$('input[type=radio][name=item1]:checked'),
 		$('input[type=radio][name=ni]:checked'),
-		$('input[type=radio][name=c65]:checked'),
+		$('input[type=checkbox][name=c65]:checked'),
 		$('.checked:checked'),
 		$('.checked2:checked'),
 		$("#c58:checked"),
@@ -532,7 +532,7 @@
 		$('input[type=radio][name=item]'),
 		$('input[type=radio][name=item1]'),
 		$('input[type=radio][name=ni]'),
-		$('input[type=radio][name=c65]'),
+		$('input[type=checkbox][name=c65]'),
 		$('.checked'),
 		$('.checked2'),
 		$("#c58"),
@@ -807,7 +807,7 @@
 			item:$('input[type=radio][name=item]:checked').val(),
 			item1:$('input[type=radio][name=item1]:checked').val(),
 			ni:$('input[type=radio][name=ni]:checked').val(),
-			c65:$('input[type=radio][name=c65]:checked').val()	
+			c65:$('input[type=checkbox][name=c65]:checked').val()	
 		};
 		for(var i =1 ;i<13;i++){
 			var p = "p"+i;
@@ -886,7 +886,7 @@
 			data.item && $("input:radio[name=item][value="+data.item+"]").attr('checked',true);
 			data.item1 && $("input:radio[name=item1][value="+data.item1+"]").attr('checked',true);
 			data.ni && $("input:radio[name=ni][value="+data.ni+"]").attr('checked',true);
-			data.c65 && $("input:radio[name=c65][value="+data.c65+"]").attr('checked',true);
+			data.c65 && $("input:checkbox[name=c65][value="+data.c65+"]").attr('checked',true);
 			for(var i =1 ;i<65;i++){
 				var c = "c"+i;
 				if(i>=51 && i<=60){

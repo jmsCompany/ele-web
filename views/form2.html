@@ -30,7 +30,7 @@
 			text-align: center;
 			display: inline-block;
 		}
-		input[type="date"]{
+		input.longinput{
 			width: 210px!important;
 		}
  		td{padding: 0!important;}
@@ -170,7 +170,9 @@
 								<p>施工单位 <input type="text" class="longinput" name="c49" id="c49"></p>
 								<p>施工人员 <input type="text" class="longinput" name="c50" id="c50"></p>
 								<p>施工人数 <input type="text" class="zeroup longinput" name="c51" id="c51"></p>
-								<p>入场时间 <input  name="c74" id="c74" type="date" style="border-bottom: 1px solid #000;" class="zeroup longinput choosetime"></p>
+								<p>入场时间 
+									<input   name="c74" id="c74"  type="text" style="border-bottom: 1px solid #000;" class="zeroup longinput " onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm'})">
+								</p>
 							</td>
 							<td><input type="text" class="longinp" name="c52" id="c52"></td>
 							<!-- <td><input type="text" class="longinp" name="c53" id="c53"></td> -->
@@ -181,7 +183,8 @@
 							<td colspan="4" align="center">
 								<ul class="upload-images">
 								<li>
-									<p>竣工时间 <input  name="c75" id="c75" type="date" style="border-bottom: 1px solid #000;" class="zeroup longinput choosetime"></p>
+									<p>竣工时间 
+									<input  name="c75" id="c75" type="text" style="border-bottom: 1px solid #000;" class="zeroup longinput " onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm'})"></p>
 								</li>
 								<li>
 								（现场施工完毕照片图，作为附件）
@@ -224,7 +227,8 @@
 						<tr>
 							<td><b>供电局验收并网日期</b></td>
 							<td colspan="4">
-								<input type="date" class="zeroup longinput"  name="c64" id="c64">
+								<!-- <input type="date" class="zeroup longinput"  name="c64" id="c64"> -->
+								<input  name="c64" id="c64" type="text" style="border-bottom: 1px solid #000;" class="zeroup longinput " onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm'})">
 							</td>
 							<td><input type="text" class="longinp"  name="c65" id="c65"></td>
 							<td><input type="text" class="longinp"  name="c66" id="c66"></td>
@@ -236,7 +240,8 @@
 						<tr>
 							<td rowspan="2"><b>贷款</b></td>
 							<td colspan="4">
-								贷款资料的搜集齐全；日期<input  name="c67" id="c67" type="date" style="border-bottom: 1px solid #000;" class="zeroup longinput choosetime">
+								贷款资料的搜集齐全；日期
+								<input name="c67" id="c67" type="text" style="border-bottom: 1px solid #000;" class="zeroup longinput " onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm'})">
 							</td>
 							<td><input type="text" class="longinp"  name="c68" id="c68"></td>
 							<td><input type="text" class="longinp"  name="c69" id="c69"></td>
@@ -247,7 +252,8 @@
 						</tr>
 						<tr>
 							<td colspan="4">
-								贷款发放；日期<input  name="c70" id="c70" type="date" style="border-bottom: 1px solid #000;" class="zeroup longinput choosetime">
+								贷款发放；日期
+								<input name="c70" id="c70" type="text" style="border-bottom: 1px solid #000;" class="zeroup longinput " onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm'})">
 							</td>
 							<td><input type="text" class="longinp"  name="c71" id="c71"></td>
 							<td><input type="text" class="longinp"  name="c72" id="c72"></td>
