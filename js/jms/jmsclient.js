@@ -2,9 +2,9 @@
 
 
 
-   //  $clientURL = "http://118.178.94.7:9996/ele/"
+   $clientURL = "http://118.178.94.7:9997/ele/"
   // $clientURL = "http://localhost:9997/ele/"
-     $clientURL = "http://192.168.1.104:9997/ele/"
+    // $clientURL = "http://192.168.1.104:9997/ele/"
 
 	//$.fn.dataTable.ext.errMode = 'throw';
 
@@ -256,7 +256,14 @@
     $.startSign=function(data,jmstoken,callback){
         $.JMSClient('/project/startSignForm1',{'type':'GET',headers:{'JMS-TOKEN':jmstoken},data:{projId:data}},callback);
     }
-
+   //发起项目表单2签字
+    $.startSign2=function(data,jmstoken,callback){
+        $.JMSClient('/project/startSignForm2',{'type':'GET',headers:{'JMS-TOKEN':jmstoken},data:{projId:data}},callback);
+    }
+    //销售跟踪单的更改状态   
+    $.saleTracking=function(data,jmstoken,callback){
+        $.JMSClient('/project/changeProjectStatus',{'type':'GET',headers:{'JMS-TOKEN':jmstoken},data:data},callback);
+    }
 
 
 

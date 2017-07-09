@@ -431,7 +431,7 @@
 	</div>
 	<center class="margintop0">
 		<button type="button" class="btn btn-primary" style="padding:5px 10px;margin:20px" id="sure">保 存</button>
-		<button type="button" id="start_sign" class="btn btn-primary btn-sm" name="button">发起签字</button>
+		<button type="button" id="start_sign" class="btn btn-primary" name="button">发起签字</button>
 		<button type="button" class="btn" style="padding:5px 10px;margin:20px" onclick="history.back()">返 回</button>
 	</center>
 	<script id="btn-items" type="text/template">
@@ -473,6 +473,9 @@
 
 	.enclosureItem .del {
 		margin-left: 8px;
+	}
+	.margintop0 button{
+		width: 100px;
 	}
 </style>
 <script type="text/javascript">
@@ -534,6 +537,7 @@
 		$('.checked2'),
 		$("#c58"),
 		$("#c60")]
+
 		$.each(checkedRequire, function(key, value) {
 
 					if (!$(this).val()) {
@@ -573,7 +577,12 @@
   if(signable==true)
   {
 	  $.startSign(dataId,jmstoken,function(data){
-			//console.log(data,8)
+			console.log(data,8)
+			if(data.valid){
+				alert("签字成功！");
+				window.location.reload();
+				//window.location.hash="#/?groupId=P_ProjectManagement&viewId=form1&projId="+projId
+			}
 		});
 
   }
@@ -698,6 +707,7 @@
 					$.signsubmit(objectdata, jmstoken, function(data) {
 						if (data.valid) {
 							alert("确认成功");
+							window.location.reload();
 						} else {
 							alert(data.msg);
 						}
@@ -738,8 +748,8 @@
 				});
 
 				this.on('success', function(file, res) {
-					var $li = $("<li class='enclosureItem'><a target='_blank' href='" + $clientURL + "getImage/" + res.fileName + "/'><img style='background-image:url(" + $clientURL + "getImage/" + res.fileName +
-						"/)' /></a><br><a class='del' href='javascript:;'>删除</a>"+
+					var $li = $("<li class='enclosureItem'><a target='_blank' href='" + $clientURL + "getImage/" + res.fileName + "/'><img src="+$clientURL + "getImage/" + res.fileName +
+						"/ /></a><br><a class='del' href='javascript:;'>删除</a>"+
 						"<input type='hidden' value="+res.fileName+" class='fileName'>"+
 						"<input type='hidden' value="+res.orgName+" class='orgName'>"+
 						"</li>");
@@ -803,16 +813,14 @@
 			var p = "p"+i;
 			data2[p]= $("#u"+i).find(".fileName").val()
 		}
-		for(var i =1 ;i<66;i++){
+		for(var i =1 ;i<65;i++){
 			var c = "c"+i;
 			if(i>=51 && i<=60){
 				data2[c]= $("#c"+i).attr("checked")
 			}else{
 				data2[c]= $("#c"+i).val()
 			};
-			if(i==65){
-				data2[c]= $("#c"+i).attr("checked")
-			}
+			
 		}
 		console.log(data2,0)
 		var data = JSON.stringify(data2)
@@ -831,10 +839,15 @@
 	}
 	function restoreForm(callback) {
 		if(!parseInt(projId)){
+
+			$('#start_sign').attr("disabled",true).css({"background":"#ccc","border":"1px solid #ccc"});
+
 			return;
 		}
 		$.readForm(formId, projId, function(data) {
 			dataId = data.id;
+			console.log(dataId,data,9)
+			
 			var clientId = data.code;
 			clientId && $('#clientId').text(clientId);
 
@@ -873,8 +886,8 @@
 			data.item && $("input:radio[name=item][value="+data.item+"]").attr('checked',true);
 			data.item1 && $("input:radio[name=item1][value="+data.item1+"]").attr('checked',true);
 			data.ni && $("input:radio[name=ni][value="+data.ni+"]").attr('checked',true);
-			data.c65 && $("input:radio[name=ni][value="+data.c65+"]").attr('checked',true);
-			for(var i =1 ;i<66;i++){
+			data.c65 && $("input:radio[name=c65][value="+data.c65+"]").attr('checked',true);
+			for(var i =1 ;i<65;i++){
 				var c = "c"+i;
 				if(i>=51 && i<=60){
 					if(data[c] ==="checked"){
@@ -889,8 +902,8 @@
 			for(var i =1 ;i<13;i++){
 			var p = "p"+i;
 				if(data[p]){
-				 var $li = $("<li class='enclosureItem'><a target='_blank' href='" + $clientURL + "getImage/" + data[p] + "/'><img style='background-image:url(" + $clientURL + "getImage/" + data[p] +
-						"/)' /></a><br><a class='del' href='javascript:;'>删除</a>"+
+				 var $li = $("<li class='enclosureItem'><a target='_blank' href='" + $clientURL + "getImage/" + data[p] + "/'><img src=" + $clientURL + "getImage/" + data[p] +
+						"//></a><br><a class='del' href='javascript:;'>删除</a>"+
 						"<input type='hidden' value="+data[p]+" class='fileName'>"+
 						"</li>");
 				 $li.appendTo($(this.element).next('.enclosureList'));

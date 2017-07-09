@@ -30,7 +30,9 @@
 			text-align: center;
 			display: inline-block;
 		}
-
+		input[type="date"]{
+			width: 210px!important;
+		}
  		td{padding: 0!important;}
  		input[type="text"].longinp{width:80px;margin:0;float: left;outline: none}
  		/*.longinput{width:300px!important}*/
@@ -78,18 +80,18 @@
 							<td><b>数量</b></td>
 							<td><b>进场时间</b></td>
 							<td><b>负责人</b></td>
-							<td><b>签名</b></td>
+							<!-- <td><b>签名</b></td> -->
 							<td style="width: 200px"><b>备注</b></td>
 						</tr>
 						<tr>
-							<td rowspan="8"><b>"材料采购项目（确认订购材料是否符合规范）"</b></td>
+							<td rowspan="8"><b>材料采购项目<br>（确认订购材料是否符合规范）</b></td>
 							<td align="center">组件</td>
 							<td><input type="text" class="longinp" name="c1" id="c1"></td>
 							<td><input type="text" class="longinp" name="c2" id="c2"></td>
 							<td><input type="text" class="zeroup longinp " name="c3" id="c3"></td>
 							<td><input type="text" class="longinp choosetime" name="c4" id="c4"></td>
 							<td><input type="text" class="longinp" name="c5" id="c5"></td>
-							<td><input type="text" class="longinp" name="c6" id="c6"></td>
+							<!-- <td><input type="text" class="longinp" name="c6" id="c6"></td> -->
 							<td>工程部</td>
 						</tr>
 						<tr>
@@ -99,7 +101,7 @@
 							<td><input type="text" class="zeroup longinp "  name="c9" id="c9"></td>
 							<td><input type="text" class="longinp choosetime" name="c10" id="c10"></td>
 							<td><input type="text" class="longinp" name="c11" id="c11"></td>
-							<td><input type="text" class="longinp" name="c12" id="c12"></td>
+							<!-- <td><input type="text" class="longinp" name="c12" id="c12"></td> -->
 							<td>工程部</td>
 						</tr>
 						<tr>
@@ -109,7 +111,7 @@
 							<td><input type="text" class="zeroup longinp " name="c15" id="c15"></td>
 							<td><input type="text" class="longinp choosetime" name="c16" id="c16"></td>
 							<td><input type="text" class="longinp" name="c17" id="c17"></td>
-							<td><input type="text" class="longinp" name="c18" id="c18"></td>
+							<!-- <td><input type="text" class="longinp" name="c18" id="c18"></td> -->
 							<td>工程部</td>
 						</tr>
 						<tr>
@@ -119,7 +121,7 @@
 							<td><input type="text" class="zeroup longinp " name="c21" id="c21"></td>
 							<td><input type="text" class="longinp choosetime" name="c22" id="c22"></td>
 							<td><input type="text" class="longinp" name="c23" id="c23"></td>
-							<td><input type="text" class="longinp" name="c24" id="c24"></td>
+							<!-- <td><input type="text" class="longinp" name="c24" id="c24"></td> -->
 							<td>工程部</td>
 						</tr>
 						<tr>
@@ -129,7 +131,7 @@
 							<td><input type="text" class="zeroup longinp " name="c27" id="c27"></td>
 							<td><input type="text" class="longinp choosetime" name="c28" id="c28"></td>
 							<td><input type="text" class="longinp" name="c29" id="c29"></td>
-							<td><input type="text" class="longinp" name="c30" id="c30"></td>
+							<!-- <td><input type="text" class="longinp" name="c30" id="c30"></td> -->
 							<td>工程部</td>
 						</tr>
 						<tr>
@@ -139,7 +141,7 @@
 							<td><input type="text" class="zeroup longinp " name="c33" id="c33"></td>
 							<td><input type="text" class="longinp choosetime" name="c34" id="c34"></td>
 							<td><input type="text" class="longinp" name="c35" id="c35"></td>
-							<td><input type="text" class="longinp" name="c36" id="c36"></td>
+							<!-- <td><input type="text" class="longinp" name="c36" id="c36"></td> -->
 							<td>工程部</td>
 						</tr>
 						<tr>
@@ -149,7 +151,7 @@
 							<td><input type="text" class="zeroup longinp " name="c39" id="c39"></td>
 							<td><input type="text" class="longinp choosetime" name="c40" id="c40"></td>
 							<td><input type="text" class="longinp" name="c41" id="c41"></td>
-							<td><input type="text" class="longinp" name="c42" id="c42"></td>
+							<!-- <td><input type="text" class="longinp" name="c42" id="c42"></td> -->
 							<td>工程部</td>
 						</tr>
 						<tr>
@@ -159,7 +161,7 @@
 							<td><input type="text" class="zeroup longinp " name="c45" id="c45"></td>
 							<td><input type="text" class="longinp choosetime" name="c46" id="c46"></td>
 							<td><input type="text" class="longinp" name="c47" id="c47"></td>
-							<td><input type="text" class="longinp" name="c48" id="c48"></td>
+							<!-- <td><input type="text" class="longinp" name="c48" id="c48"></td> -->
 							<td>工程部</td>
 						</tr>
 						<tr>
@@ -171,13 +173,16 @@
 								<p>入场时间 <input  name="c74" id="c74" type="date" style="border-bottom: 1px solid #000;" class="zeroup longinput choosetime"></p>
 							</td>
 							<td><input type="text" class="longinp" name="c52" id="c52"></td>
-							<td><input type="text" class="longinp" name="c53" id="c53"></td>
+							<!-- <td><input type="text" class="longinp" name="c53" id="c53"></td> -->
 							<td>工程部</td>
 						</tr>
 						<tr>
 							<td><b>竣工时间</b></td>
-							<td colspan="5" align="center">
+							<td colspan="4" align="center">
 								<ul class="upload-images">
+								<li>
+									<p>竣工时间 <input  name="c75" id="c75" type="date" style="border-bottom: 1px solid #000;" class="zeroup longinput choosetime"></p>
+								</li>
 								<li>
 								（现场施工完毕照片图，作为附件）
 								<button class="btn enclosure" style="padding:5px 10px">上传图片 </button>
@@ -194,7 +199,7 @@
 						</tr>
 						<tr>
 							<td rowspan="2"><b>并网资料</b></td>
-							<td colspan="5">
+							<td colspan="4">
 								组件合格证、条形码 <input type="checkbox" name="c56" id="c56">
 								&nbsp;
 								逆变器合格证 <input type="checkbox" name="c57" id="c57">
@@ -209,7 +214,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td colspan="5">
+							<td colspan="4">
 								安装调试报告 <input type="checkbox" name="c61" id="c61">
 							</td>
 							<td><input type="text" class="longinp"  name="c62" id="c62"></td>
@@ -218,7 +223,7 @@
 						</tr>
 						<tr>
 							<td><b>供电局验收并网日期</b></td>
-							<td colspan="5">
+							<td colspan="4">
 								<input type="date" class="zeroup longinput"  name="c64" id="c64">
 							</td>
 							<td><input type="text" class="longinp"  name="c65" id="c65"></td>
@@ -230,7 +235,7 @@
 						</tr>
 						<tr>
 							<td rowspan="2"><b>贷款</b></td>
-							<td colspan="5">
+							<td colspan="4">
 								贷款资料的搜集齐全；日期<input  name="c67" id="c67" type="date" style="border-bottom: 1px solid #000;" class="zeroup longinput choosetime">
 							</td>
 							<td><input type="text" class="longinp"  name="c68" id="c68"></td>
@@ -241,7 +246,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td colspan="5">
+							<td colspan="4">
 								贷款发放；日期<input  name="c70" id="c70" type="date" style="border-bottom: 1px solid #000;" class="zeroup longinput choosetime">
 							</td>
 							<td><input type="text" class="longinp"  name="c71" id="c71"></td>
@@ -279,9 +284,9 @@
 			<div class="steps">
 				
 			</div>
-			<center style="clear:both">
-				<button type="button" id="start_sign" class="btn btn-primary btn-sm" name="button">发起签字</button>
+			<center style="clear:both">	
 				<button type="submit" class="btn btn-primary" style="padding:5px 10px;margin:20px">保 存</button>
+				<button type="button" id="start_sign" class="btn btn-primary btn-sm" name="button">发起签字</button>
     			<button type="button" class="btn" style="padding:5px 10px;margin:20px" onclick="history.back()">返 回</button>			</center>
 		</main>
 
@@ -527,6 +532,7 @@ function saveForm(){
 function restoreForm(callback){
 	$.readForm(formId, projId, function(data){
 		//var html = data.content;
+
 		$("#status").html(data.status);
 		if(data.status=="签字" || data.status=="激活"){
 				$("#start_sign").attr("disabled",true).removeClass("btn-primary");
@@ -536,6 +542,9 @@ function restoreForm(callback){
 			}
 		console.log(data)
 		dataId = data.id;
+		if(dataId==0){
+		$('#start_sign').attr("disabled",true).css({"background":"#ccc","border":"1px solid #ccc"});
+		}
 		var clientId = data.code;
 		//html && $('.container').html(html);
 		clientId && $('#clientId').text(clientId);
@@ -606,9 +615,18 @@ $( document ).on("keyup",'.zeroup',function(){
 						$(this).val(val)
 					}
 				}	
-})
+});
 
 
+$("#start_sign").on('click',function(){
+  $.startSign2(projId,jmstoken,function(data){
+		if(data.valid){
+			alert("签字成功！");
+			window.location.reload();
+			//window.location.hash="#/?groupId=P_ProjectManagement&viewId=form1&projId="+projId
+		}
+	});
+});
 
 
 
