@@ -360,9 +360,7 @@
 								<input type="checkbox" name="c59" id="c59"> 金额
 								<input type="number" class="text" style="border-bottom: 1px solid #000;"  name="c61" id="c61"> （如有）；
 								<br><span class="note">注：此内容由市场部完成。</span>
-								<p>
-									<button type="button" class="btn btn-primary btn-sm" name="button">发起签字</button>
-								</p>
+
 							</p>
 						</td>
 					</tr>
@@ -376,7 +374,7 @@
 										<th>签字步骤ID</th>
 										<th>签字内容</th>
 										<th>应签字部门</th>
-										<th>应签字人</th>
+										<th>应签字人/职位</th>
 										<th>签字时间</th>
 										<th>签字状态</th>
 										<th>签字备注</th>
@@ -395,6 +393,8 @@
 		</div>
 	</div>
 	<center>
+
+		<button type="button" id="start_sign" class="btn btn-primary btn-sm" name="button">发起签字</button>
 		<button type="button" class="btn btn-primary" style="padding:5px 10px;margin:20px" id="sure">保 存</button>
 		<button type="button" class="btn" style="padding:5px 10px;margin:20px" onclick="history.back()">返 回</button>
 	</center>
@@ -446,9 +446,17 @@
 	var dataId = "";
 	var btn = _.template($('#btn-items').html());
 
+	//发起签字
+	$("#start_sign").on('click',function(){
+		$.startSign(dataId,jmstoken,function(data){});
+
+	});
+
 	$("#sure").on('click',function(){
 		saveForm();
 	});
+
+
 
 	$('[name=location]').selectautofill('sys/location/locationSelects', {
 		headers: {
@@ -589,8 +597,8 @@
 				var that = this;
 				//发送请求时，挂载数据
 				this.on("sending", function(file, xhr, formData) {
-					var idRoutineD = $('#idRoutineD').val();
-					formData.append("routineDId", (idRoutineD ? idRoutineD : 0));
+					//var idRoutineD = $('#idRoutineD').val();
+					//formData.append("routineDId", (idRoutineD ? idRoutineD : 0));
 					// formData.append("routineDId",$('.routineDId').val()?$('.routineDId').val():0);
 				});
 
@@ -689,8 +697,9 @@
 		$.readForm(formId, projId, function(data) {
 			dataId = data.id;
 			var clientId = data.code;
+			clientId && $('#clientId').text(clientId);
 			var data = data.content;
-			console.log(data)
+		//	console.log(data)
 			$("#name").val(data.name);
 			$("#mobile").val(data.mobile);
 			$("#proress").val(data.project);

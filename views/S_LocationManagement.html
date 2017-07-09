@@ -8,6 +8,7 @@
             <tr>
                 <th>ID</th>
                 <th>主区域</th>
+                <th>编码</th>
                 <th>操作</th>
             </tr>
         </thead>
@@ -35,11 +36,19 @@
                     </div>
                 </div>
                 <div class="col-xs-12 mar-top-20px">
+                <div class="form-group">
+                    <label style="text-align:center;width:80px;">区</label>
+                    <select class="input-w-3 form-control" name="area"></select>
+                </div>
+            </div>
+
+                <div class="col-xs-12 mar-top-20px">
                     <div class="form-group">
-                        <label style="text-align:center;width:80px;">区</label>
-                        <select class="input-w-3 form-control" name="area"></select>
+                        <label style="text-align:center;width:80px;">编码</label>
+                        <input class="input-w-3 form-control" name="code" ／>
                     </div>
                 </div>
+
                 <div class="aligncenter">
                     <div class="form-group">
                         <button type="button" class="btn btn-primary submit">保存</button>
@@ -138,7 +147,7 @@ init();
 
     //保存
     $('.tcbox').on('click','.submit',function(){
-        $.saveLocation($('[name=area]').val(), init);
+        $.saveLocation($('[name=area]').val(), $('[name=code]').val(), init);
         $('.tcbox .tc_close').trigger('click');
     });
 </script>
