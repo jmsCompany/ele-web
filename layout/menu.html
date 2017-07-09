@@ -62,6 +62,8 @@ $(document).ready(function() {
         if (history.pushState){
             // 如果支持这个api，就用这个管理路由
             $.get("views/"+id+".html",function(data){
+
+               // alert("goto: " + id);
                 $("#body").html(data);
                 // $(".menu-img").each(function(){
                 //     var tid=this.id;
