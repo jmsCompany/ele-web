@@ -6,9 +6,42 @@
  		<script type="text/javascript" charset="UTF-8" src="js/lib/dropzone.js"></script>
  	</head>
  	<style>
+ 	.container {
+			float: left;
+			margin-left: 10px;
+		}
+		.steps {
+			margin-top: 115px;
+			margin-left: 10px;
+			width: 60px;
+			height: 400px;
+			float: left;
+		}
+		.steps button {
+			margin-bottom: 140px;
+		}
+		.status{
+			height:30px;
+			line-height: 30px;
+			width: 216px;
+			margin-bottom: 10px;
+			float: right;
+			text-indent: 10px;
+			text-align: center;
+			display: inline-block;
+		}
+
  		td{padding: 0!important;}
- 		input[type="text"].longinp{width:100px;margin:0;float: left;outline: none}
- 		.longinput{width:300px!important}
+ 		input[type="text"].longinp{width:80px;margin:0;float: left;outline: none}
+ 		/*.longinput{width:300px!important}*/
+ 		.num{
+			display: inline-block;
+			float: left;
+ 		}
+ 		.status{
+ 			display: inline-block;
+ 			float: right;
+ 		}
  	</style>
 	<body>
 		<main>
@@ -17,27 +50,29 @@
 				<div class="ui-tablehead">
 					<table>
 						<tr>
-							<td colspan="3">
+							<td ><!-- colspan="3" -->
 								<h3>施工-验收-贷款流转单</h3>
 							</td>
 						</tr>
 						<tr>
 							<td>&nbsp;</td>
 							<td>&nbsp;</td>
-							<td><b>编号：</b><span id="clientId"></span></td>
+							<td></td>
 						</tr>
 						<tr>
 							<td><b>项目名称：</b><span id="projectName"></span>
 							<td><b>项目地址：</b><span id="address"></span>
 							<td><b>实际容量</b><input name="actVol" id="actVol" type="text" class="zeroup"></td>
+							<td><b>编号：</b><span id="clientId"></span></td>
+							<td><b>状态: </b><span id="status"></span></td>
 						</tr>
 					</table>
 				</div>
 				<div class="ui-tablemain">
 					<table>
 						<tr>
-							<td style="width: 200px">&nbsp;</td>
-							<td style="width: 200px"><b>内容</b></td>
+							<td >&nbsp;</td>
+							<td ><b>内容</b></td>
 							<td><b>厂家品牌</b></td>
 							<td><b>规格型号</b></td>
 							<td><b>数量</b></td>
@@ -236,11 +271,15 @@
 					    </table>
 							</td>
 						</tr>
+
 					</table>
 				</div>
 				<div class="ht30"></div>
 			</div>
-			<center>
+			<div class="steps">
+				
+			</div>
+			<center style="clear:both">
 				<button type="button" id="start_sign" class="btn btn-primary btn-sm" name="button">发起签字</button>
 				<button type="submit" class="btn btn-primary" style="padding:5px 10px;margin:20px">保 存</button>
     			<button type="button" class="btn" style="padding:5px 10px;margin:20px" onclick="history.back()">返 回</button>			</center>
@@ -285,6 +324,12 @@ input.ralign {
 
 
 </style>
+<script id="btn-items" type="text/template">
+		<% if(status==0) %>
+			<button type="button" data-step="<%= proStepId %>" class="btn btn-primary btn-sm" disabled><%= stepName %></button>
+		<% else %>
+			<button type="button" data-step="<%= proStepId %>" class="btn btn-primary btn-sm"><%= stepName %></button>
+	</script>
 <script type="text/javascript">
 
 // $('.').val($.dateFormat.date(new Date(), 'yyyy-MM-dd'));
@@ -482,6 +527,13 @@ function saveForm(){
 function restoreForm(callback){
 	$.readForm(formId, projId, function(data){
 		//var html = data.content;
+		$("#status").html(data.status);
+		if(data.status=="签字" || data.status=="激活"){
+				$("#start_sign").attr("disabled",true).removeClass("btn-primary");
+				$("#sure").attr("disabled",true).removeClass("btn-primary");
+			}else if(data.status=="编辑"){
+				$("#tableFormSign").hide();
+			}
 		console.log(data)
 		dataId = data.id;
 		var clientId = data.code;
@@ -555,6 +607,40 @@ $( document ).on("keyup",'.zeroup',function(){
 					}
 				}	
 })
+
+
+
+
+
+
+var btn = _.template($('#btn-items').html());
+
+function getSteps(){
+		if(!parseInt(projId)){
+			return;
+		}
+		$.getStepBtns(projId,jmstoken,function(data){
+			$(".steps").empty();
+			if(data.length){
+				data.splice(8,12).map(function(item){
+					$(".steps").append(btn(item))
+				})
+			}
+		})
+	}
+	getSteps();
+	$('.steps').on('click','button',function(){
+		$.finishStep($(this).data('step'),jmstoken,function(data){
+			if(data.valid){
+				getSteps()
+			}else {
+				alert('执行步骤出错！')
+			}
+		})
+	});
+
+
+
 </script>
 
 	</body>
