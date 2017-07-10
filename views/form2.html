@@ -528,6 +528,7 @@ function saveForm(){
 	$.saveForm(formId, data, function(e){
 		if (e.valid) {
 			//alert("保存成功！");
+			$('#sure').attr("disabled",true).css({"background":"#ccc","border":"1px solid #ccc"});
 			location.hash = "#/?groupId=P_ProjectManagement&viewId=P_ProjectManagement";
 		} else {
 			alert("保存失败");
