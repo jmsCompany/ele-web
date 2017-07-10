@@ -124,7 +124,14 @@ $('#dict-type').on('change',function(){
             //弹出框-编辑
             $('.button-bin').on('click', function () {
                 if(confirm('确认删除？')){
-                    $.delDic($(this).parents('td').siblings().eq(0).text(), function(){ $('#dict-type').trigger('change')});
+                    $.delDic($(this).parents('td').siblings().eq(0).text(), function(data){ 
+                        if(!data.valid){
+                            alert(data.msg);
+                         }else{
+                            $('#dict-type').trigger('change');
+                         }
+                        
+                    });
                 }
             });
 }

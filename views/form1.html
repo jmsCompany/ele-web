@@ -576,6 +576,7 @@
 
   if(signable==true)
   {
+  		saveForm();
 	  $.startSign(dataId,jmstoken,function(data){
 			console.log(data,8)
 			if(data.valid){

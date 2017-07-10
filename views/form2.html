@@ -293,7 +293,7 @@
 			<div class="steps">
 				
 			</div>
-			<center style="clear:both">	
+			<center style="clear:both;margin-bottom: 99px;">	
 				<button type="submit" class="btn btn-primary" style="padding:5px 10px;margin:20px">保 存</button>
 				<button type="button" id="start_sign" class="btn btn-primary btn-sm" name="button">发起签字</button>
     			<button type="button" class="btn" style="padding:5px 10px;margin:20px" onclick="history.back()">返 回</button>			</center>
@@ -628,6 +628,7 @@ $( document ).on("keyup",'.zeroup',function(){
 
 
 $("#start_sign").on('click',function(){
+	saveForm();
   $.startSign2(projId,jmstoken,function(data){
 		if(data.valid){
 			alert("签字成功！");
