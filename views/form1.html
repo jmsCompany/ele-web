@@ -830,8 +830,12 @@
 			//console.log(e)
 			if (e.valid) {
 				alert("保存成功！");
-				$('#sure').attr("disabled",true).css({"background":"#ccc","border":"1px solid #ccc"});
-				location.hash = "#/?groupId=P_ProjectManagement&viewId=P_ProjectManagement";
+				alert(dataId)
+				if(!dataId){
+					location.hash = "#/?groupId=P_ProjectManagement&viewId=P_ProjectManagement";
+				}
+				//$('#sure').attr("disabled",true).css({"background":"#ccc","border":"1px solid #ccc"});
+				
 			} else {
 				alert("保存失败");
 			}

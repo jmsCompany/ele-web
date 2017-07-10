@@ -89,7 +89,13 @@
                 //弹出框-删除
                 $('.button-bin').on('click', function () {
                     if(confirm('确认删除？')){
-                        $.delLocation($(this).parents('td').siblings().eq(0).text(), init);
+                        $.delLocation($(this).parents('td').siblings().eq(0).text(), function(data){
+                            if(!data.valid){
+                                alert(data.msg);
+                            }else{
+                               init(); 
+                            }
+                        });
                     }
                 });
         }
@@ -115,7 +121,10 @@ init();
                         left:$(window).height() * 0.5 + left
                     }).draggable().show();
 
-                    $('[name=province]').selectautofill('sys/location/allLocationSelects',{headers:{'JMS-TOKEN':jmstoken}},function(){$('[name=province]').trigger('change');});
+                    $('[name=province]').selectautofill('sys/location/allLocationSelects',{headers:{'JMS-TOKEN':jmstoken}},function(){
+
+                        $('[name=province]').trigger('change');
+                    });
 
                     $('[name=province]').change(function(){
                         $('[name=city]').selectautofill('sys/location/subLocationSelects',{headers:{'JMS-TOKEN':jmstoken},data:{locationId:$('[name=province]').val()}},
@@ -147,7 +156,13 @@ init();
 
     //保存
     $('.tcbox').on('click','.submit',function(){
-        $.saveLocation($('[name=area]').val(), $('[name=code]').val(), init);
+        $.saveLocation($('[name=area]').val(), $('[name=code]').val(), function(data){
+            if(!data.valid){
+                alert(data.msg);
+            }else{
+               init(); 
+            }
+        });
         $('.tcbox .tc_close').trigger('click');
     });
 </script>
