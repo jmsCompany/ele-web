@@ -1,0 +1,439 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<link rel="stylesheet" type="text/css" href="form/css/pages.css">
+		<!--上传文件模块-->
+ 		<script type="text/javascript" charset="UTF-8" src="js/lib/dropzone.js"></script>
+ 	</head>
+ 	<style>
+ 		td{padding: 0!important;}
+ 		input[type="text"].longinp{width:100px;margin:0;float: left;outline: none}
+ 		.longinput{width:300px!important}
+ 	</style>
+	<body>
+		<main>
+			<div class="container">
+				<div class="ht30"></div>
+				<div class="ui-tablehead">
+					<table>
+						<tr>
+							<td colspan="3">
+								<h3>施工-验收-贷款流转单</h3>
+							</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td><b>编号：</b><span id="clientId"></span></td>
+						</tr>
+						<tr>
+							<td><b>项目名称：</b><span id="projectName"></span>
+							<td><b>项目地址：</b><span id="address"></span>
+							<td><b>实际容量</b><input name="actVol" id="actVol" type="text" class="zeroup"></td>
+						</tr>
+					</table>
+				</div>
+				<div class="ui-tablemain">
+					<table>
+						<tr>
+							<td style="width: 200px">&nbsp;</td>
+							<td style="width: 200px"><b>内容</b></td>
+							<td><b>厂家品牌</b></td>
+							<td><b>规格型号</b></td>
+							<td><b>数量</b></td>
+							<td><b>进场时间</b></td>
+							<td><b>负责人</b></td>
+							<td><b>签名</b></td>
+							<td style="width: 200px"><b>备注</b></td>
+						</tr>
+						<tr>
+							<td rowspan="8"><b>"材料采购项目（确认订购材料是否符合规范）"</b></td>
+							<td align="center">组件</td>
+							<td><input type="text" class="longinp" name="c1" id="c1"></td>
+							<td><input type="text" class="longinp" name="c2" id="c2"></td>
+							<td><input type="text" class="zeroup longinp " name="c3" id="c3"></td>
+							<td><input type="text" class="longinp choosetime" name="c4" id="c4"></td>
+							<td><input type="text" class="longinp" name="c5" id="c5"></td>
+							<td><input type="text" class="longinp" name="c6" id="c6"></td>
+							<td>工程部</td>
+						</tr>
+						<tr>
+							<td align="center">逆变器</td>
+							<td><input type="text" class="longinp" name="c7" id="c7"></td>
+							<td><input type="text" class="longinp" name="c8" id="c8"></td>
+							<td><input type="text" class="zeroup longinp "  name="c9" id="c9"></td>
+							<td><input type="text" class="longinp choosetime" name="c10" id="c10"></td>
+							<td><input type="text" class="longinp" name="c11" id="c11"></td>
+							<td><input type="text" class="longinp" name="c12" id="c12"></td>
+							<td>工程部</td>
+						</tr>
+						<tr>
+							<td align="center">支架（包含接地、压块）</td>
+							<td><input type="text" class="longinp" name="c13" id="c13"></td>
+							<td><input type="text" class="longinp" name="c14" id="c14"></td>
+							<td><input type="text" class="zeroup longinp " name="c15" id="c15"></td>
+							<td><input type="text" class="longinp choosetime" name="c16" id="c16"></td>
+							<td><input type="text" class="longinp" name="c17" id="c17"></td>
+							<td><input type="text" class="longinp" name="c18" id="c18"></td>
+							<td>工程部</td>
+						</tr>
+						<tr>
+							<td align="center">电表箱</td>
+							<td><input type="text" class="longinp" name="c19" id="c19"></td>
+							<td><input type="text" class="longinp" name="c20" id="c20"></td>
+							<td><input type="text" class="zeroup longinp " name="c21" id="c21"></td>
+							<td><input type="text" class="longinp choosetime" name="c22" id="c22"></td>
+							<td><input type="text" class="longinp" name="c23" id="c23"></td>
+							<td><input type="text" class="longinp" name="c24" id="c24"></td>
+							<td>工程部</td>
+						</tr>
+						<tr>
+							<td align="center">电线、电缆（包含套管、线管等）</td>
+							<td><input type="text" class="longinp" name="c25" id="c25"></td>
+							<td><input type="text" class="longinp" name="c26" id="c26"></td>
+							<td><input type="text" class="zeroup longinp " name="c27" id="c27"></td>
+							<td><input type="text" class="longinp choosetime" name="c28" id="c28"></td>
+							<td><input type="text" class="longinp" name="c29" id="c29"></td>
+							<td><input type="text" class="longinp" name="c30" id="c30"></td>
+							<td>工程部</td>
+						</tr>
+						<tr>
+							<td align="center">水泥墩</td>
+							<td><input type="text" class="longinp" name="c31" id="c31"></td>
+							<td><input type="text" class="longinp" name="c32" id="c32"></td>
+							<td><input type="text" class="zeroup longinp " name="c33" id="c33"></td>
+							<td><input type="text" class="longinp choosetime" name="c34" id="c34"></td>
+							<td><input type="text" class="longinp" name="c35" id="c35"></td>
+							<td><input type="text" class="longinp" name="c36" id="c36"></td>
+							<td>工程部</td>
+						</tr>
+						<tr>
+							<td align="center">其他</td>
+							<td><input type="text" class="longinp" name="c37" id="c37"></td>
+							<td><input type="text" class="longinp" name="c38" id="c38"></td>
+							<td><input type="text" class="zeroup longinp " name="c39" id="c39"></td>
+							<td><input type="text" class="longinp choosetime" name="c40" id="c40"></td>
+							<td><input type="text" class="longinp" name="c41" id="c41"></td>
+							<td><input type="text" class="longinp" name="c42" id="c42"></td>
+							<td>工程部</td>
+						</tr>
+						<tr>
+							<td align="center">其他</td>
+							<td><input type="text" class="longinp" name="c43" id="c43"></td>
+							<td><input type="text" class="longinp" name="c44" id="c44"></td>
+							<td><input type="text" class="zeroup longinp " name="c45" id="c45"></td>
+							<td><input type="text" class="longinp choosetime" name="c46" id="c46"></td>
+							<td><input type="text" class="longinp" name="c47" id="c47"></td>
+							<td><input type="text" class="longinp" name="c48" id="c48"></td>
+							<td>工程部</td>
+						</tr>
+						<tr>
+							<td><b>入场施工时间</b></td>
+							<td colspan="5">
+								<p>施工单位 <input type="text" class="longinput" name="c49" id="c49"></p>
+								<p>施工人员 <input type="text" class="longinput" name="c50" id="c50"></p>
+								<p>施工人数 <input type="text" class="zeroup longinput" name="c51" id="c51"></p>
+							</td>
+							<td><input type="text" class="longinp" name="c52" id="c52"></td>
+							<td><input type="text" class="longinp" name="c53" id="c53"></td>
+							<td>工程部</td>
+						</tr>
+						<tr>
+							<td><b>竣工时间</b></td>
+							<td colspan="5" align="center">
+								（现场施工完毕照片图，作为附件）
+								<button class="btn enclosure" style="padding:5px 10px">上传图片 </button>
+								<ul class="enclosureList"></ul>
+
+								<input type="hidden" class="ralign" name="c73" id="c73"></p>
+							</td>
+							<td><input type="text" class="longinp" name="c54" id="c54"></td>
+							<td><input type="text" class="longinp" name="c55" id="c55"></td>
+							<td>工程部</td>
+						</tr>
+						<tr>
+							<td rowspan="2"><b>并网资料</b></td>
+							<td colspan="5">
+								组件合格证、条形码 <input type="checkbox" name="c56" id="c56">
+								&nbsp;
+								逆变器合格证 <input type="checkbox" name="c57" id="c57">
+								&nbsp;
+								并网申请表 <input type="checkbox" name="c58" id="c58">
+							</td>
+							<td><input type="text" class="longinp"  name="c59" id="c59"></td>
+							<td><input type="text" class="longinp"  name="c60" id="c60"></td>
+							<td>
+								工程部负责收集<br>
+								并转交工贷文部
+							</td>
+						</tr>
+						<tr>
+							<td colspan="5">
+								安装调试报告 <input type="checkbox" name="c61" id="c61">
+							</td>
+							<td><input type="text" class="longinp"  name="c62" id="c62"></td>
+							<td><input type="text" class="longinp"  name="c63" id="c63"></td>
+							<td>工贷部</td>
+						</tr>
+						<tr>
+							<td><b>供电局验收并网日期</b></td>
+							<td colspan="5">
+								<input type="date" class="zeroup longinput"  name="c64" id="c64">
+							</td>
+							<td><input type="text" class="longinp"  name="c65" id="c65"></td>
+							<td><input type="text" class="longinp"  name="c66" id="c66"></td>
+							<td>
+								工贷部主办<br>
+								工程、市场部协办
+							</td>
+						</tr>
+						<tr>
+							<td rowspan="2"><b>贷款</b></td>
+							<td colspan="5">
+								贷款资料的搜集齐全；日期<input  name="c67" id="c67" type="date" style="border-bottom: 1px solid #000;" class="zeroup longinput choosetime">
+							</td>
+							<td><input type="text" class="longinp"  name="c68" id="c68"></td>
+							<td><input type="text" class="longinp"  name="c69" id="c69"></td>
+							<td>
+								工贷部主办<br>
+								市场部协办
+							</td>
+						</tr>
+						<tr>
+							<td colspan="5">
+								贷款发放；日期<input  name="c70" id="c70" type="date" style="border-bottom: 1px solid #000;" class="zeroup longinput choosetime">
+							</td>
+							<td><input type="text" class="longinp"  name="c71" id="c71"></td>
+							<td><input type="text" class="longinp"  name="c72" id="c72"></td>
+							<td>
+								工贷部主办<br>
+								市场部协办
+							</td>
+						</tr>
+						<tr>
+							<td colspan="9" style="padding:0">
+								 <table id="tableFormSign" class="tabletxt" cellspacing="0" width="100%" height="100%" style="float:left">
+					        <thead>
+					            <tr>
+					                <th>顺序</th>
+									<th>签字层级</th>
+									<th>签字步骤ID</th>
+									<th>签字内容</th>
+									<th>应签字部门</th>
+									<th>应签字人</th>
+									<th>签字时间</th>
+									<th>签字状态</th>
+									<th>签字备注</th>
+									<th>签字</th>
+					            </tr>
+					        </thead>
+					    </table>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="ht30"></div>
+			</div>
+			<center>
+				<button type="button" id="start_sign" class="btn btn-primary btn-sm" name="button">发起签字</button>
+				<button type="submit" class="btn btn-primary" style="padding:5px 10px;margin:20px">保 存</button>
+    			<button type="button" class="btn" style="padding:5px 10px;margin:20px" onclick="history.back()">返 回</button>			</center>
+		</main>
+
+<style>
+#tableFormSign th{
+	background:#fff;
+	/*border-color:#000;*/
+}
+</style>
+<script type="text/javascript">
+
+// $('.').val($.dateFormat.date(new Date(), 'yyyy-MM-dd'));
+$('.choosetime').click(function(){
+	var dataPickerOpt = {
+//			format: "YYYY-MM-DDTHH:mm:ss.SSSZ",
+			format: "YYYY-MM-DDTHH:mm",
+            useCurrent: false,
+            sideBySide: true
+		}
+$('.choosetime').datetimepicker(dataPickerOpt);
+})
+
+
+
+var formId = 2;
+var hash = location.hash;
+var projId = hash.slice(hash.indexOf('&projId=') + 8);
+var dataId = "";
+function loadSignTable(){
+$('#tableFormSign').DataTable( {
+            "ordering": false,
+            "bDestroy": true,
+            "processing": true,
+            "serverSide": true,
+            "stateSave": true,
+            "stateDuration": -1,
+            "ajax": {
+           "type": 'POST',
+                    "url": $clientURL+"sys/sign/signTable",
+                    "dataType": "json",
+           "headers":{'JMS-TOKEN':jmstoken},
+           "data":{
+           		eventId:dataId
+           	,	signWorkflowId:formId
+           	}
+           },
+           "columnDefs": [
+			{
+				"targets": -2,
+//				"data": null,
+				"defaultContent": '<input type="text" value="" />	'
+			}
+		],
+           "language": {
+                            "url": "js/datatable/chinese.json"
+                       },
+          
+            dom: "t",
+        pageLength:"50",
+        initComplete: function () {
+			$('#tableFormSign tr[role=row] td:nth-child(10)').each(function (i, k) {
+				var formId = $(k).text();
+				formId==1 && $(k).html('<button class="button-edit submitbtn" data-status="1"> 同意</button> <button class="button-edit submitbtn" data-status="0"> 拒绝</button>');
+				if(formId==0){
+					$(k).text("");
+					$(this).prev().html("")
+				}
+				var prevstr = $(this).prev().prev();
+				if(prevstr.html()==1){
+					prevstr.html("已签");
+				}else if(prevstr.html()==0){
+					prevstr.html("拒绝");
+				}else{
+					prevstr.html("");
+				}
+			});
+			$(".submitbtn").on("click",function(){
+				if($(this).data('status')==0 && !$(this).parent().prev().find('input').val()){
+					alert('请填写拒绝理由！');
+					return
+				}
+				var objectdata=JSON.stringify({
+					remark:$(this).parent().prev().find('input').val(),
+					idSignWorkflowSteps:$(this).parent().siblings().eq(2).html(),
+					idEvent:dataId,
+					status:$(this).data('status')
+				})
+
+				$.signsubmit(objectdata,jmstoken,function(data){
+					console.log(data)
+					if(data.valid){
+						alert("确认成功");
+					}else{
+						alert(data.msg);
+					}
+				})
+			})
+		}
+        });
+}
+
+function initUploader(){
+    var uploadEnclosureUrl = 'uploadFile';
+    var $enclosure = $('.enclosure');
+    var inited = $enclosure.data('init');
+    
+    if(inited) {
+        return;
+    }
+    
+    $enclosure.data('init', true);
+    
+    $enclosure.dropzone({
+        url: $clientURL+uploadEnclosureUrl,
+        headers: {'JMS-TOKEN':jmstoken},
+        addRemoveLinks: true,
+        dictRemoveLinks: "x",
+        dictCancelUpload: "x",
+//                maxFiles: 1,
+        maxFilesize: 10,
+        dictDefaultMessage:"",
+        init:function(){
+            var that = this;
+            //发送请求时，挂载数据
+            this.on("sending", function(file, xhr, formData) {
+                var idRoutineD = $('#idRoutineD').val();
+                formData.append("routineDId", (idRoutineD ? idRoutineD : 0));
+                // formData.append("routineDId",$('.routineDId').val()?$('.routineDId').val():0);
+            });
+
+            this.on('success',function(file, res) {
+                var $li = $("<li class='enclosureItem'><a target='_blank' href='"+$clientURL+"getImage/"+res.fileName+"/'>"+res.orgName+"</a><a class='close' onClick='close()'>x</a></li>");
+                $li.appendTo($(this.element).next('.enclosureList'));
+                $('.enclosure').find('.dz-success').remove();
+            });
+           
+        }
+    });
+}
+
+$(document).on("click",'.close',function(){
+	$(this).parent('li').remove();
+});
+function saveForm(){
+	$('input[type=text]').each(function(i,k){
+		$(k).attr('value',k.value);
+	});
+	$('input[type=checkbox]').each(function(i,k){
+		k.checked?$(k).attr('checked',''):$(k).removeAttr('checked');
+	});
+	$('textarea').each(function(i,k){
+		$(k).text(k.value);
+	});
+	var tableData = $('#tableFormSign tbody').clone();
+	var data = JSON.stringify({
+		idProject: projId
+	,	c4: $('[name=c4]').val()
+	,	content: $('.container').html()
+	});
+	$('#tableFormSign tbody').remove();
+	$.saveForm(formId, data, function(){ alert('保存成功！');});
+	$('#tableFormSign').append(tableData);
+
+}
+
+function restoreForm(callback){
+	$.readForm(formId, projId, function(data){
+		var html = data.content;
+		dataId = data.id;
+		var clientId = data.code;
+		html && $('.container').html(html);
+		clientId && $('#clientId').text(clientId);
+		data.address && $('#address').text(data.address);
+		data.projectName && $('#projectName').text(data.projectName);
+		data.actVol && $('#actVol').text(data.actVol);
+		if(callback) callback();
+	});
+}
+
+restoreForm(function(){
+	loadSignTable();
+	initUploader();
+	$('button[type=submit]').on('click',saveForm);
+});
+$( document ).on("keyup",'.zeroup',function(){
+	var val = $(this).val();
+	if (!/^[0-9][0-9.]*(\.[0-9]+)?$/.test(val)) {
+					if(val){
+						val = val.replace(/\./g,"").replace(/[^\d.]/g,"");
+						if(val.indexOf("0") == 0){
+							val = val.substring(1,val.length);
+						}
+						$(this).val(val)
+					}
+				}	
+})
+</script>
+
+	</body>
+</html>
