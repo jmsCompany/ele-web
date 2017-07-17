@@ -125,6 +125,7 @@
 			$('#table').on('click','.device',function(){
 				var rowData = _this.table.row($(this).parents('tr')).data()
 				location.hash="#/?groupId=S_customerSetting&viewId=S_customerDevice&id="+rowData[rowData.length-1]
+				window.location.reload();
 			});
 			$('.submit').on('click',function(){
 				if($(".password").val().length==0){

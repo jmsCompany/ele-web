@@ -197,6 +197,7 @@ $('#tableProgSteps').DataTable( {
                         },
                         'view-form':function(){
                             location.hash="#/?groupId=P_ProjectManagement&viewId=" + $(this).data('form')+'&projId='+projId;
+                            window.location.reload();
 
                         }
 
