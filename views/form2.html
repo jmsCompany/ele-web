@@ -527,11 +527,10 @@ function saveForm(){
 	$('#tableFormSign tbody').remove();
 	$.saveForm(formId, data, function(e){
 		if (e.valid) {
-			//alert("保存成功！");
+			alert("保存成功！");
 			$('#sure').attr("disabled",true).css({"background":"#ccc","border":"1px solid #ccc"});
-			location.hash = "#/?groupId=P_ProjectManagement&viewId=P_ProjectManagement";
-		} else {
-			alert("保存失败");
+			// location.hash = "#/?groupId=P_ProjectManagement&viewId=P_ProjectManagement";
+			window.location.reload();
 		}
 
 	});
@@ -635,6 +634,9 @@ $("#start_sign").on('click',function(){
 			alert("签字成功！");
 			window.location.reload();
 			//window.location.hash="#/?groupId=P_ProjectManagement&viewId=form1&projId="+projId
+		}else{
+			// alert("签字失败！");
+			window.location.reload();
 		}
 	});
 });

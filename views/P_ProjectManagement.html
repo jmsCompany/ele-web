@@ -211,19 +211,25 @@ $('#tableProj').DataTable( {
                         },
 
                         'view-sales':function(){
+
                             location.hash="#/?groupId=P_ProjectManagement&viewId=P_ProjectManagement_SalesTrailer&projId=" + $(this).parents('td').siblings().eq(0).text();
+                            window.location.reload();
                         },
                         'view-payment':function () {
                             location.hash="#/?groupId=P_ProjectManagement&viewId=form3&projId=" + $(this).parents('td').siblings().eq(0).text();
+                            window.location.reload();
                         },
                         'view-construction':function () {
                             location.hash="#/?groupId=P_ProjectManagement&viewId=form2&projId=" + $(this).parents('td').siblings().eq(0).text();
+                            window.location.reload();
                         },
                         'view-collection':function () {
                             location.hash="#/?groupId=P_ProjectManagement&viewId=form1&projId=" + $(this).parents('td').siblings().eq(0).text();
+                            window.location.reload();
                         },
                         'view-progress':function(){
                             location.hash="#/?groupId=P_ProjectManagement&viewId=P_ProjectManagement_Progress&projId=" + $(this).parents('td').siblings().eq(0).text();
+                            window.location.reload();
                         }
 
                     };
@@ -329,6 +335,7 @@ $('button#add').on( 'click', function () {
             },
             'view-form':function(){
                 location.hash="#/?groupId=P_ProjectManagement&viewId=" + $(this).data('form');
+                window.location.reload();
 
             }
 

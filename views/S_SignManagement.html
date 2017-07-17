@@ -44,6 +44,7 @@ $('#tableSign').DataTable( {
             // 编辑
             $('.button-edit').on('click',function(){
                 location.hash="#/?groupId=S_SignManagement&viewId=Sys_Signature_d&title=" + escape($(this).parents('td').siblings().eq(1).text()).replace(/\%u/ig,'-') +  "&id=" + $(this).parents('td').siblings().eq(0).text();
+                window.location.reload();
             });
         }
         });

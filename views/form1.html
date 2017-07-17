@@ -578,7 +578,6 @@
   {
   		saveForm();
 	  $.startSign(dataId,jmstoken,function(data){
-			console.log(data,8)
 			if(data.valid){
 				alert("签字成功！");
 				window.location.reload();
@@ -833,6 +832,7 @@
 				alert(dataId)
 				if(!dataId){
 					location.hash = "#/?groupId=P_ProjectManagement&viewId=P_ProjectManagement";
+					window.location.reload();
 				}
 				//$('#sure').attr("disabled",true).css({"background":"#ccc","border":"1px solid #ccc"});
 				

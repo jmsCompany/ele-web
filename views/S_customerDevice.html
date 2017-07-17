@@ -185,9 +185,11 @@
 		app.init()
 		$('.account').on('click',function(){
 				location.hash="#/?groupId=S_customerSetting&viewId=S_customerSetting"
+				window.location.reload();
 		});
 		$('.device').on('click',function(){
 				location.hash="#/?groupId=S_customerSetting&viewId=S_customerDevice"
+				window.location.reload();
 		});
 		//关闭
 		$('.tcbox').on('click', '.tc_close', function() {
