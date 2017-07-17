@@ -886,7 +886,7 @@
 			$('input[name=lng]').val(data.lng);
 			$('input[name=lat]').val(data.lat);
 			data[mobile] && $("input:radio[name=mobile][value="+data.mobile+"]").attr('checked',true);
-			data.project && $("input:radio[name=project][value="+data.project+"]").attr('checked',true);
+			data.project && $("input:radio[name=project][value='"+data.project+"']").attr('checked',true);
 			data.intent && $("input:radio[name=intent][value="+data.intent+"]").attr('checked',true);
 			data.type && $("input:radio[name=type][value="+data.type+"]").attr('checked',true);
 			data.kind && $("input:radio[name=kind][value="+data.kind+"]").attr('checked',true);
