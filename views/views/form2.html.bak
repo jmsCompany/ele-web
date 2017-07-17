@@ -6,47 +6,9 @@
  		<script type="text/javascript" charset="UTF-8" src="js/lib/dropzone.js"></script>
  	</head>
  	<style>
- 	.container {
-			float: left;
-			margin-left: 10px;
-		}
-		.steps {
-			margin-top: 115px;
-			margin-left: 10px;
-			width: 60px;
-			height: 400px;
-			float: left;
-		}
-		.steps button {
-			margin-bottom: 140px;
-		}
-		.status{
-			height:30px;
-			line-height: 30px;
-			width: 216px;
-			margin-bottom: 10px;
-			float: right;
-			text-indent: 10px;
-			text-align: center;
-			display: inline-block;
-		}
-		input.longinput{
-			width: 210px!important;
-		}
  		td{padding: 0!important;}
- 		input[type="text"].longinp{width:80px;margin:0;float: left;outline: none}
- 		/*.longinput{width:300px!important}*/
- 		.num{
-			display: inline-block;
-			float: left;
- 		}
- 		.status{
- 			display: inline-block;
- 			float: right;
- 		}
- 		.choosetime{
- 			width: 140px!important;
- 		}
+ 		input[type="text"].longinp{width:100px;margin:0;float: left;outline: none}
+ 		.longinput{width:300px!important}
  	</style>
 	<body>
 		<main>
@@ -55,46 +17,44 @@
 				<div class="ui-tablehead">
 					<table>
 						<tr>
-							<td ><!-- colspan="3" -->
+							<td colspan="3">
 								<h3>施工-验收-贷款流转单</h3>
 							</td>
 						</tr>
 						<tr>
 							<td>&nbsp;</td>
 							<td>&nbsp;</td>
-							<td></td>
+							<td><b>编号：</b><span id="clientId"></span></td>
 						</tr>
 						<tr>
 							<td><b>项目名称：</b><span id="projectName"></span>
 							<td><b>项目地址：</b><span id="address"></span>
 							<td><b>实际容量</b><input name="actVol" id="actVol" type="text" class="zeroup"></td>
-							<td><b>编号：</b><span id="clientId"></span></td>
-							<td><b>状态: </b><span id="status"></span></td>
 						</tr>
 					</table>
 				</div>
 				<div class="ui-tablemain">
 					<table>
 						<tr>
-							<td >&nbsp;</td>
-							<td ><b>内容</b></td>
+							<td style="width: 200px">&nbsp;</td>
+							<td style="width: 200px"><b>内容</b></td>
 							<td><b>厂家品牌</b></td>
 							<td><b>规格型号</b></td>
 							<td><b>数量</b></td>
 							<td><b>进场时间</b></td>
 							<td><b>负责人</b></td>
-							<!-- <td><b>签名</b></td> -->
+							<td><b>签名</b></td>
 							<td style="width: 200px"><b>备注</b></td>
 						</tr>
 						<tr>
-							<td rowspan="8"><b>材料采购项目<br>（确认订购材料是否符合规范）</b></td>
+							<td rowspan="8"><b>"材料采购项目（确认订购材料是否符合规范）"</b></td>
 							<td align="center">组件</td>
 							<td><input type="text" class="longinp" name="c1" id="c1"></td>
 							<td><input type="text" class="longinp" name="c2" id="c2"></td>
 							<td><input type="text" class="zeroup longinp " name="c3" id="c3"></td>
-							<td><input type="text" class="longinp choosetime" name="c4" id="c4" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm'})"></td>
+							<td><input type="text" class="longinp choosetime" name="c4" id="c4"></td>
 							<td><input type="text" class="longinp" name="c5" id="c5"></td>
-							<!-- <td><input type="text" class="longinp" name="c6" id="c6"></td> -->
+							<td><input type="text" class="longinp" name="c6" id="c6"></td>
 							<td>工程部</td>
 						</tr>
 						<tr>
@@ -102,9 +62,9 @@
 							<td><input type="text" class="longinp" name="c7" id="c7"></td>
 							<td><input type="text" class="longinp" name="c8" id="c8"></td>
 							<td><input type="text" class="zeroup longinp "  name="c9" id="c9"></td>
-							<td><input type="text" class="longinp choosetime" name="c10" id="c10" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm'})"></td>
+							<td><input type="text" class="longinp choosetime" name="c10" id="c10"></td>
 							<td><input type="text" class="longinp" name="c11" id="c11"></td>
-							<!-- <td><input type="text" class="longinp" name="c12" id="c12"></td> -->
+							<td><input type="text" class="longinp" name="c12" id="c12"></td>
 							<td>工程部</td>
 						</tr>
 						<tr>
@@ -112,9 +72,9 @@
 							<td><input type="text" class="longinp" name="c13" id="c13"></td>
 							<td><input type="text" class="longinp" name="c14" id="c14"></td>
 							<td><input type="text" class="zeroup longinp " name="c15" id="c15"></td>
-							<td><input type="text" class="longinp choosetime" name="c16" id="c16" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm'})"></td>
+							<td><input type="text" class="longinp choosetime" name="c16" id="c16"></td>
 							<td><input type="text" class="longinp" name="c17" id="c17"></td>
-							<!-- <td><input type="text" class="longinp" name="c18" id="c18"></td> -->
+							<td><input type="text" class="longinp" name="c18" id="c18"></td>
 							<td>工程部</td>
 						</tr>
 						<tr>
@@ -122,9 +82,9 @@
 							<td><input type="text" class="longinp" name="c19" id="c19"></td>
 							<td><input type="text" class="longinp" name="c20" id="c20"></td>
 							<td><input type="text" class="zeroup longinp " name="c21" id="c21"></td>
-							<td><input type="text" class="longinp choosetime" name="c22" id="c22" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm'})"></td>
+							<td><input type="text" class="longinp choosetime" name="c22" id="c22"></td>
 							<td><input type="text" class="longinp" name="c23" id="c23"></td>
-							<!-- <td><input type="text" class="longinp" name="c24" id="c24"></td> -->
+							<td><input type="text" class="longinp" name="c24" id="c24"></td>
 							<td>工程部</td>
 						</tr>
 						<tr>
@@ -132,9 +92,9 @@
 							<td><input type="text" class="longinp" name="c25" id="c25"></td>
 							<td><input type="text" class="longinp" name="c26" id="c26"></td>
 							<td><input type="text" class="zeroup longinp " name="c27" id="c27"></td>
-							<td><input type="text" class="longinp choosetime" name="c28" id="c28" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm'})"></td>
+							<td><input type="text" class="longinp choosetime" name="c28" id="c28"></td>
 							<td><input type="text" class="longinp" name="c29" id="c29"></td>
-							<!-- <td><input type="text" class="longinp" name="c30" id="c30"></td> -->
+							<td><input type="text" class="longinp" name="c30" id="c30"></td>
 							<td>工程部</td>
 						</tr>
 						<tr>
@@ -142,9 +102,9 @@
 							<td><input type="text" class="longinp" name="c31" id="c31"></td>
 							<td><input type="text" class="longinp" name="c32" id="c32"></td>
 							<td><input type="text" class="zeroup longinp " name="c33" id="c33"></td>
-							<td><input type="text" class="longinp choosetime" name="c34" id="c34" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm'})"></td>
+							<td><input type="text" class="longinp choosetime" name="c34" id="c34"></td>
 							<td><input type="text" class="longinp" name="c35" id="c35"></td>
-							<!-- <td><input type="text" class="longinp" name="c36" id="c36"></td> -->
+							<td><input type="text" class="longinp" name="c36" id="c36"></td>
 							<td>工程部</td>
 						</tr>
 						<tr>
@@ -152,9 +112,9 @@
 							<td><input type="text" class="longinp" name="c37" id="c37"></td>
 							<td><input type="text" class="longinp" name="c38" id="c38"></td>
 							<td><input type="text" class="zeroup longinp " name="c39" id="c39"></td>
-							<td><input type="text" class="longinp choosetime" name="c40" id="c40" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm'})"></td>
+							<td><input type="text" class="longinp choosetime" name="c40" id="c40"></td>
 							<td><input type="text" class="longinp" name="c41" id="c41"></td>
-							<!-- <td><input type="text" class="longinp" name="c42" id="c42"></td> -->
+							<td><input type="text" class="longinp" name="c42" id="c42"></td>
 							<td>工程部</td>
 						</tr>
 						<tr>
@@ -162,9 +122,9 @@
 							<td><input type="text" class="longinp" name="c43" id="c43"></td>
 							<td><input type="text" class="longinp" name="c44" id="c44"></td>
 							<td><input type="text" class="zeroup longinp " name="c45" id="c45"></td>
-							<td><input type="text" class="longinp choosetime" name="c46" id="c46" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm'})"></td>
+							<td><input type="text" class="longinp choosetime" name="c46" id="c46"></td>
 							<td><input type="text" class="longinp" name="c47" id="c47"></td>
-							<!-- <td><input type="text" class="longinp" name="c48" id="c48"></td> -->
+							<td><input type="text" class="longinp" name="c48" id="c48"></td>
 							<td>工程部</td>
 						</tr>
 						<tr>
@@ -173,31 +133,19 @@
 								<p>施工单位 <input type="text" class="longinput" name="c49" id="c49"></p>
 								<p>施工人员 <input type="text" class="longinput" name="c50" id="c50"></p>
 								<p>施工人数 <input type="text" class="zeroup longinput" name="c51" id="c51"></p>
-								<p>入场时间 
-									<input   name="c74" id="c74"  type="text" style="border-bottom: 1px solid #000;" class="zeroup longinput " onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm'})">
-								</p>
 							</td>
 							<td><input type="text" class="longinp" name="c52" id="c52"></td>
-							<!-- <td><input type="text" class="longinp" name="c53" id="c53"></td> -->
+							<td><input type="text" class="longinp" name="c53" id="c53"></td>
 							<td>工程部</td>
 						</tr>
 						<tr>
 							<td><b>竣工时间</b></td>
-							<td colspan="4" align="center">
-								<ul class="upload-images">
-								<li>
-									<p>竣工时间 
-									<input  name="c75" id="c75" type="text" style="border-bottom: 1px solid #000;" class="zeroup longinput " onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm'})"></p>
-								</li>
-								<li>
+							<td colspan="5" align="center">
 								（现场施工完毕照片图，作为附件）
 								<button class="btn enclosure" style="padding:5px 10px">上传图片 </button>
-								<ul class="enclosureList" id="u1"></ul>
+								<ul class="enclosureList"></ul>
 
 								<input type="hidden" class="ralign" name="c73" id="c73"></p>
-								</li>
-                             </ul>
-
 							</td>
 							<td><input type="text" class="longinp" name="c54" id="c54"></td>
 							<td><input type="text" class="longinp" name="c55" id="c55"></td>
@@ -205,7 +153,7 @@
 						</tr>
 						<tr>
 							<td rowspan="2"><b>并网资料</b></td>
-							<td colspan="4">
+							<td colspan="5">
 								组件合格证、条形码 <input type="checkbox" name="c56" id="c56">
 								&nbsp;
 								逆变器合格证 <input type="checkbox" name="c57" id="c57">
@@ -220,7 +168,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td colspan="4">
+							<td colspan="5">
 								安装调试报告 <input type="checkbox" name="c61" id="c61">
 							</td>
 							<td><input type="text" class="longinp"  name="c62" id="c62"></td>
@@ -229,9 +177,8 @@
 						</tr>
 						<tr>
 							<td><b>供电局验收并网日期</b></td>
-							<td colspan="4">
-								<!-- <input type="date" class="zeroup longinput"  name="c64" id="c64"> -->
-								<input  name="c64" id="c64" type="text" style="border-bottom: 1px solid #000;" class="zeroup longinput " onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm'})">
+							<td colspan="5">
+								<input type="date" class="zeroup longinput"  name="c64" id="c64">
 							</td>
 							<td><input type="text" class="longinp"  name="c65" id="c65"></td>
 							<td><input type="text" class="longinp"  name="c66" id="c66"></td>
@@ -242,9 +189,8 @@
 						</tr>
 						<tr>
 							<td rowspan="2"><b>贷款</b></td>
-							<td colspan="4">
-								贷款资料的搜集齐全；日期
-								<input name="c67" id="c67" type="text" style="border-bottom: 1px solid #000;" class="zeroup longinput " onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm'})">
+							<td colspan="5">
+								贷款资料的搜集齐全；日期<input  name="c67" id="c67" type="date" style="border-bottom: 1px solid #000;" class="zeroup longinput choosetime">
 							</td>
 							<td><input type="text" class="longinp"  name="c68" id="c68"></td>
 							<td><input type="text" class="longinp"  name="c69" id="c69"></td>
@@ -254,9 +200,8 @@
 							</td>
 						</tr>
 						<tr>
-							<td colspan="4">
-								贷款发放；日期
-								<input name="c70" id="c70" type="text" style="border-bottom: 1px solid #000;" class="zeroup longinput " onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm'})">
+							<td colspan="5">
+								贷款发放；日期<input  name="c70" id="c70" type="date" style="border-bottom: 1px solid #000;" class="zeroup longinput choosetime">
 							</td>
 							<td><input type="text" class="longinp"  name="c71" id="c71"></td>
 							<td><input type="text" class="longinp"  name="c72" id="c72"></td>
@@ -285,17 +230,13 @@
 					    </table>
 							</td>
 						</tr>
-
 					</table>
 				</div>
 				<div class="ht30"></div>
 			</div>
-			<div class="steps">
-				
-			</div>
-			<center style="clear:both;margin-bottom: 99px;">	
-				<button type="submit" class="btn btn-primary" style="padding:5px 10px;margin:20px">保 存</button>
+			<center>
 				<button type="button" id="start_sign" class="btn btn-primary btn-sm" name="button">发起签字</button>
+				<button type="submit" class="btn btn-primary" style="padding:5px 10px;margin:20px">保 存</button>
     			<button type="button" class="btn" style="padding:5px 10px;margin:20px" onclick="history.back()">返 回</button>			</center>
 		</main>
 
@@ -304,58 +245,19 @@
 	background:#fff;
 	/*border-color:#000;*/
 }
-
-.upload-images>li {
-	float: left;
-	margin: 10px;
-}
-/*.upload-images li:nth-child(2){
-clear:both;
-}*/
-
-input.ralign {
-	text-align: right;
-}
-
-.enclosureItem {
-	margin-top: 15px;
-	margin-left: -8px;
-}
-
-.enclosureItem img {
-	width: 100px;
-	height: 100px;
-	background: #ccc url() no-repeat center;
-	background-size: contain;
-}
-
-.enclosureItem .del {
-	margin-left: 8px;
-}
-
-
-
-
-
 </style>
-<script id="btn-items" type="text/template">
-		<% if(status==0) %>
-			<button type="button" data-step="<%= proStepId %>" class="btn btn-primary btn-sm" disabled><%= stepName %></button>
-		<% else %>
-			<button type="button" data-step="<%= proStepId %>" class="btn btn-primary btn-sm"><%= stepName %></button>
-	</script>
 <script type="text/javascript">
 
 // $('.').val($.dateFormat.date(new Date(), 'yyyy-MM-dd'));
-// $('.choosetime').click(function(){
-// 	var dataPickerOpt = {
-// //			format: "YYYY-MM-DDTHH:mm:ss.SSSZ",
-// 			format: "YYYY-MM-DDTHH:mm",
-//             useCurrent: false,
-//             sideBySide: true
-// 		}
-// $('.choosetime').datetimepicker(dataPickerOpt);
-// })
+$('.choosetime').click(function(){
+	var dataPickerOpt = {
+//			format: "YYYY-MM-DDTHH:mm:ss.SSSZ",
+			format: "YYYY-MM-DDTHH:mm",
+            useCurrent: false,
+            sideBySide: true
+		}
+$('.choosetime').datetimepicker(dataPickerOpt);
+})
 
 
 
@@ -436,63 +338,52 @@ $('#tableFormSign').DataTable( {
         });
 }
 
-function initUploader() {
-	var uploadEnclosureUrl = 'uploadFile';
-	var $enclosure = $('.enclosure');
-	var inited = $enclosure.data('init');
-	if (inited) {
-		return;
-	}
+function initUploader(){
+    var uploadEnclosureUrl = 'uploadFile';
+    var $enclosure = $('.enclosure');
+    var inited = $enclosure.data('init');
+    
+    if(inited) {
+        return;
+    }
+    
+    $enclosure.data('init', true);
+    
+    $enclosure.dropzone({
+        url: $clientURL+uploadEnclosureUrl,
+        headers: {'JMS-TOKEN':jmstoken},
+        addRemoveLinks: true,
+        dictRemoveLinks: "x",
+        dictCancelUpload: "x",
+//                maxFiles: 1,
+        maxFilesize: 10,
+        dictDefaultMessage:"",
+        init:function(){
+            var that = this;
+            //发送请求时，挂载数据
+            this.on("sending", function(file, xhr, formData) {
+                var idRoutineD = $('#idRoutineD').val();
+                formData.append("routineDId", (idRoutineD ? idRoutineD : 0));
+                // formData.append("routineDId",$('.routineDId').val()?$('.routineDId').val():0);
+            });
 
-	$enclosure.data('init', true);
-
-	$enclosure.dropzone({
-		url: $clientURL + uploadEnclosureUrl,
-		headers: {
-			'JMS-TOKEN': jmstoken
-		},
-		addRemoveLinks: true,
-		dictRemoveLinks: "x",
-		dictCancelUpload: "x",
-		// maxFiles: 1,
-		maxFilesize: 10,
-		dictDefaultMessage: "",
-		init: function() {
-			var that = this;
-			//发送请求时，挂载数据
-			this.on("sending", function(file, xhr, formData) {
-				var idRoutineD = $('#idRoutineD').val();
-				formData.append("routineDId", (idRoutineD ? idRoutineD : 0));
-				// formData.append("routineDId",$('.routineDId').val()?$('.routineDId').val():0);
-			});
-
-			this.on('success', function(file, res) {
-				var $li = $("<li class='enclosureItem'><a target='_blank' href='" + $clientURL + "getImage/" + res.fileName + "/'><img style='background-image:url(" + $clientURL + "getImage/" + res.fileName +
-						"/)' /></a><br><a class='del' href='javascript:;'>删除</a>"+
-						"<input type='hidden' value="+res.fileName+" class='fileName'>"+
-						"<input type='hidden' value="+res.orgName+" class='orgName'>"+
-						"</li>");
-				$(this.element).next('.enclosureList').empty();
-				$li.appendTo($(this.element).next('.enclosureList'));
-				$('.enclosure').find('.dz-success').remove();
-				$li.find('.del').click(function() {
-					$(this).parents('.enclosureItem').remove();
-				});
-			});
-
-		}
-	});
+            this.on('success',function(file, res) {
+                var $li = $("<li class='enclosureItem'><a target='_blank' href='"+$clientURL+"getImage/"+res.fileName+"/'>"+res.orgName+"</a><a class='close' onClick='close()'>x</a></li>");
+                $li.appendTo($(this.element).next('.enclosureList'));
+                $('.enclosure').find('.dz-success').remove();
+            });
+           
+        }
+    });
 }
 
 $(document).on("click",'.close',function(){
 	$(this).parent('li').remove();
 });
 function saveForm(){
-
 	$('input[type=text]').each(function(i,k){
 		$(k).attr('value',k.value);
 	});
-
 	$('input[type=checkbox]').each(function(i,k){
 		k.checked?$(k).attr('checked',''):$(k).removeAttr('checked');
 	});
@@ -500,109 +391,27 @@ function saveForm(){
 		$(k).text(k.value);
 	});
 	var tableData = $('#tableFormSign tbody').clone();
-	var data = {
+	var data = JSON.stringify({
 		idProject: projId
-	,			commit: 0
-	,	actVol: $("#actVol").val()
-	};
-
-	for(var i =1 ;i<77;i++){
-		var c = "c"+i;
-		if((i>=56 && i<=58)||i==61){
-			data[c]= $("#c"+i).attr("checked")
-		}else{
-			data[c]= $("#c"+i).val()
-		};
-	}
-
-	for(var i =1 ;i<2;i++){
-		var p = "p"+i;
-		data[p]= $("#u"+i).find(".fileName").val()
-	}
-
-	console.log(data,0);
-	var data = JSON.stringify(data);
-
-
-	$('#tableFormSign tbody').remove();
-	$.saveForm(formId, data, function(e){
-		if (e.valid) {
-			alert("保存成功！");
-			$('#sure').attr("disabled",true).css({"background":"#ccc","border":"1px solid #ccc"});
-			// location.hash = "#/?groupId=P_ProjectManagement&viewId=P_ProjectManagement";
-			window.location.reload();
-		}
-
+	,	c4: $('[name=c4]').val()
+	,	content: $('.container').html()
 	});
+	$('#tableFormSign tbody').remove();
+	$.saveForm(formId, data, function(){ alert('保存成功！');});
 	$('#tableFormSign').append(tableData);
 
 }
 
 function restoreForm(callback){
 	$.readForm(formId, projId, function(data){
-		//var html = data.content;
-
-		$("#status").html(data.status);
-		if(data.status=="签字" || data.status=="激活"){
-				$("#start_sign").attr("disabled",true).removeClass("btn-primary");
-				$("#sure").attr("disabled",true).removeClass("btn-primary");
-			}else if(data.status=="编辑"){
-				$("#tableFormSign").hide();
-			}
-		console.log(data)
+		var html = data.content;
 		dataId = data.id;
-		if(dataId==0){
-		$('#start_sign').attr("disabled",true).css({"background":"#ccc","border":"1px solid #ccc"});
-		}
 		var clientId = data.code;
-		//html && $('.container').html(html);
+		html && $('.container').html(html);
 		clientId && $('#clientId').text(clientId);
 		data.address && $('#address').text(data.address);
 		data.projectName && $('#projectName').text(data.projectName);
-
-
-
-		var data = data.content;
-
-		data.actVol && $('#actVol').val(data.actVol);
-
-		for(var i =1 ;i<77;i++){
-			var c = "c"+i;
-			if((i>=56 && i<=58)||i==61){
-				if(data[c] ==="checked"){
-					$("#c"+i).attr("checked",true)
-				}
-			}else{
-				$("#c"+i).val(data[c]);
-			}
-
-		}
-
-
-
-		for(var i =1 ;i<2;i++){
-			var p = "p"+i;
-			if(data[p]){
-				var $li = $("<li class='enclosureItem'><a target='_blank' href='" + $clientURL + "getImage/" + data[p] + "/'><img style='background-image:url(" + $clientURL + "getImage/" + data[p] +
-						"/)' /></a><br><a class='del' href='javascript:;'>删除</a>"+
-						"<input type='hidden' value="+data[p]+" class='fileName'>"+
-						"</li>");
-				$li.appendTo($(this.element).next('.enclosureList'));
-				$('.enclosure').find('.dz-success').remove();
-				$li.find('.del').click(function() {
-					$(this).parents('.enclosureItem').remove();
-				});
-				if(!$("#u"+i).html()){
-					$("#u"+i).append($li);
-				}
-
-			}
-		}
-
-
-
-
-
+		data.actVol && $('#actVol').text(data.actVol);
 		if(callback) callback();
 	});
 }
@@ -612,7 +421,6 @@ restoreForm(function(){
 	initUploader();
 	$('button[type=submit]').on('click',saveForm);
 });
-
 $( document ).on("keyup",'.zeroup',function(){
 	var val = $(this).val();
 	if (!/^[0-9][0-9.]*(\.[0-9]+)?$/.test(val)) {
@@ -624,54 +432,7 @@ $( document ).on("keyup",'.zeroup',function(){
 						$(this).val(val)
 					}
 				}	
-});
-
-
-$("#start_sign").on('click',function(){
-	saveForm();
-  $.startSign2(projId,jmstoken,function(data){
-		if(data.valid){
-			alert("签字成功！");
-			window.location.reload();
-			//window.location.hash="#/?groupId=P_ProjectManagement&viewId=form1&projId="+projId
-		}else{
-			// alert("签字失败！");
-			window.location.reload();
-		}
-	});
-});
-
-
-
-
-var btn = _.template($('#btn-items').html());
-
-function getSteps(){
-		if(!parseInt(projId)){
-			return;
-		}
-		$.getStepBtns(projId,jmstoken,function(data){
-			$(".steps").empty();
-			if(data.length){
-				data.splice(8,12).map(function(item){
-					$(".steps").append(btn(item))
-				})
-			}
-		})
-	}
-	getSteps();
-	$('.steps').on('click','button',function(){
-		$.finishStep($(this).data('step'),jmstoken,function(data){
-			if(data.valid){
-				getSteps()
-			}else {
-				alert('执行步骤出错！')
-			}
-		})
-	});
-
-
-
+})
 </script>
 
 	</body>
