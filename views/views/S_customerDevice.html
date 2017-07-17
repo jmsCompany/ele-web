@@ -1,0 +1,200 @@
+<div class="cont">
+	<div class="r-header-body">
+		<h2>设备列表</h2>
+		<button id="add" class="button-sytle1" data-action="new" style="float:right">新建</button>
+	</div>
+	<table id="table" class="display" cellspacing="0" width="100%">
+		<thead>
+			<tr>
+				<th>采集器序列号</th>
+				<th>网关品牌</th>
+				<th>逆变器序列号</th>
+				<th>逆变器品牌</th>
+				<th>状态</th>
+				<th>更新时间</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody class="customer">
+
+		</tbody>
+	</table>
+</div>
+
+<!-- 弹窗-PWD start -->
+<div class="tcbox tcbox-pwd container-fluid" id="draggable1">
+	<div class="tcbox_cont row">
+		<div class="body-head-title">
+			<span class="h-title">新建设备</span>
+		</div>
+		<input type="button" class="tc_close">
+		<form id="pwdForm" class="form-inline">
+			<div class="col-xs-12 mar-top-20px">
+				<div class="form-group">
+					<label style="text-align:center;width:100px;">采集器序列号</label>
+					<input type="text" class="form-control input-w-3 password" name="dataloggerSn" id="dataloggerSn"/>
+				</div>
+			</div>
+			<div class="col-xs-12 mar-top-20px">
+				<div class="form-group">
+					<label style="text-align:center;width:100px;">网关品牌</label>
+					<input type="text" class="form-control input-w-3 password" name="dataloggerAlias" id="dataloggerAlias"/>
+				</div>
+			</div>
+			<div class="col-xs-12 mar-top-20px">
+				<div class="form-group">
+					<label style="text-align:center;width:100px;">逆变器序列号</label>
+					<input type="text" class="form-control input-w-3 password" name="inverterSn" id="inverterSn"/>
+				</div>
+			</div>
+			<div class="col-xs-12 mar-top-20px">
+				<div class="form-group">
+					<label style="text-align:center;width:100px;">逆变器品牌</label>
+					<input type="text" class="form-control input-w-3 password" name="inverterAlias" id="inverterAlias"/>
+				</div>
+			</div>
+			<div class="col-xs-12 mar-top-20px">
+				<div class="form-group">
+					<label style="text-align:center;width:100px;">状态</label>
+					<select class="" name="status" id="status">
+						<option value="1">在线</option>
+						<option value="0">离线</option>
+					</select>
+				</div>
+			</div>
+			<div class="aligncenter">
+				<div class="form-group">
+					<button type="button" class="btn btn-primary submit">保存</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+<script type="text/javascript">
+	var hash = location.hash;
+	var id = hash.slice(hash.indexOf('&id=') + 4);
+	var fag = 1;
+  var app = {
+		table:null,
+		id:null,
+		init:function(){
+			var top = $('#body').scrollTop();
+			var left = $('#body').scrollLeft();
+			$('.tcbox-pwd').css({
+				top: $(window).height() * 0.2 + top,
+				left: $(window).height() * 0.5 + left
+			}).draggable();
+			this.loadTable()
+		},
+		loadTable:function(){
+			var _this = this
+			this.table = $('#table').DataTable({
+				"ordering": false,
+				"bDestroy": true,
+				"processing": true,
+				"serverSide": true,
+				"stateSave": true,
+				"stateDuration": -1,
+				"ajax": {
+					"type": 'POST',
+					"url": $clientURL + "project/getCustomerDevices",
+					"dataType": "json",
+					"headers": {
+						'JMS-TOKEN': jmstoken
+					},
+					data:{
+						projectId:id
+					}
+				},
+				"columnDefs": [{
+					"targets": -1,
+					"data": null,
+					"defaultContent": '<button class="button-edit">编辑</button> <button class="button-delete">删除</button>'
+				}],
+				"language": {
+					"url": "js/datatable/chinese.json"
+				},
+				dom: "tip",
+				pageLength: "50",
+				initComplete:function(){
+					_this.bindEvent()
+				}
+			});
+		},
+		bindEvent(){
+			var _this = this
+			$('#table').on('click','.button-delete',function(){
+				var rowData = _this.table.row($(this).parents('tr')).data()
+				$.deleteCustomerDevice(rowData[rowData.length-1],jmstoken,function(data){
+					if (data.valid) {
+						_this.loadTable()
+					}else {
+						alert(data.msg)
+					}
+				})
+			})
+			$('#add').on('click',function(){
+				$('.tcbox-pwd').show()
+				fag = 1
+			})
+			$('#table').on('click','.button-edit',function(){
+					var rowData = _this.table.row($(this).parents('tr')).data()
+					$("#inverterSn").val(rowData[2])
+					$("#dataloggerSn").val(rowData[0])
+					$("#inverterAlias").val(rowData[3])
+					$("#dataloggerAlias").val(rowData[1])
+					$("#status").val(rowData[4])
+					fag==0
+				$('.tcbox-pwd').show()
+			})
+			$('.submit').on('click',function(){
+				var data = {
+					idCustomer:id,
+					inverterSn:$("#inverterSn").val(),
+					dataloggerSn:$("#dataloggerSn").val(),
+					inverterAlias:$("#inverterAlias").val(),
+					dataloggerAlias:$("#dataloggerAlias").val(),
+					status:$("#status").val(),
+				}
+				if(fag==1){
+					$.saveDevice(JSON.stringify(data),jmstoken,function(data){
+						$('.tcbox-pwd').hide()
+						if (data.valid) {
+							$("#pwdForm")[0].reset()
+						}else {
+							alert(data.msg)
+						}
+						_this.loadTable()
+					})
+				}else {
+					$.saveDevice(JSON.stringify(data),jmstoken,function(data){
+						$('.tcbox-pwd').hide()
+						if (data.valid) {
+							$("#pwdForm")[0].reset()
+						}else {
+							alert(data.msg)
+						}
+						_this.loadTable()
+					})
+				}
+			})
+		}
+	}
+	$(function(){
+		app.init()
+		$('.account').on('click',function(){
+				location.hash="#/?groupId=S_customerSetting&viewId=S_customerSetting"
+				window.location.reload();
+		});
+		$('.device').on('click',function(){
+				location.hash="#/?groupId=S_customerSetting&viewId=S_customerDevice"
+				window.location.reload();
+		});
+		//关闭
+		$('.tcbox').on('click', '.tc_close', function() {
+			$('.tcbox').hide();
+			$("#pwdForm")[0].reset()
+		});
+	})
+</script>

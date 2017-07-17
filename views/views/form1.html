@@ -1,0 +1,976 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<link rel="stylesheet" type="text/css" href="form/css/pages.css">
+	<style>
+		.container {
+			float: left;
+			margin-left: 10px;
+		}
+		.steps {
+			margin-top: 115px;
+			margin-left: 10px;
+			width: 60px;
+			height: 400px;
+			float: left;
+		}
+		.steps button {
+			margin-bottom: 140px;
+		}
+		.status{
+			height:30px;
+			line-height: 30px;
+			width: 216px;
+			margin-bottom: 10px;
+			float: right;
+			text-indent: 10px;
+			text-align: center;
+			display: inline-block;
+		}
+		.num{
+			display: inline-block;
+		}
+		.attent{
+			display: block;
+   			clear: both;
+		}
+		.margintop0{
+			margin-top: 0px;
+			position: relative;
+			top:-20px;
+		}
+	</style>
+	<!--上传文件模块-->
+	<script type="text/javascript" charset="UTF-8" src="js/lib/dropzone.js"></script>
+</head>
+<main>
+	<div class="form-inline clearfix">
+		<div class="container">
+			<div class="ht30"></div>
+			<div class="ui-tablehead">
+				<table>
+					<tr>
+						<td colspan="2">
+							<h3>家庭分布式光伏发电项目信息采集表</h3>
+						</td>
+					</tr>
+				</table>
+				<p class="num">编号：<span id="clientId"></span></p>
+				<p class="status">状态: <span id="status"></span></p>
+			</div>
+			<div class="ui-tablemain">
+				<table>
+					<tr>
+						<td align="center"><b>SN</b></td>
+						<td align="center" colspan="2"><b>所需条件</b></td>
+						<td align="center"><b>基本情况</b></td>
+						<td align="center"><b>备注</b></td>
+					</tr>
+					<tr>
+						<td align="center" rowspan="5">1</td>
+						<td align="center" rowspan="5">屋顶业主</td>
+						<td data-toggle="userinfo">★用户姓名</td>
+						<td>
+							姓名<input type="text" name="name" data="userinfo" class="step1 require" id="name">
+							<!--<span id="c3"></span>-->
+							电话<input type="text" name="mobile" id="mobile" data="userinfo" class="step1 require" style="width:200px">
+						</td>
+						<td><input type="text" style="width:150px" name="c1" id="c1"></td>
+					</tr>
+					<tr>
+						<td data-toggle="location">★建筑地址</td>
+						<td>
+							区域<select class="input-w-3 form-control step1 require" name="location" data="location" id="location"></select>
+							<input type="text" class="step1" style="width:200px" name="address" data="location" id="address">
+							<!--<span id="c1"></span>-->
+						</td>
+						<td><input type="text" style="width:150px"  name="c2" id="c2"></td>
+					</tr>
+					<tr>
+						<td data-toggle="projectname">★项目名称</td>
+						<td>
+							<input type="text" name="project" id="project"  data="project" class="step1 require" style="width:200px">
+							<!--<span id="c2"></span>-->
+						</td>
+						<td>户名+千瓦数<input type="text" name="c3" id="c3"></td>
+					</tr>
+					<tr>
+						<td>项目并网方式</td>
+						<td>
+							<label>
+							<input type="radio" name="intent" id="intent1" value="intent1"> 全额上网
+							<input type="radio" name="intent" id="intent2" value="intent2"> 自发自用
+							<input type="radio" name="intent" id="intent3" value="intent3"> 余电上网
+							<input type="radio" name="intent" id="intent4" value="intent4"> 其他：
+							<input type="text"  name="c4" id="c4">
+							</label>
+						</td>
+						<td><input type="text" style="width:150px"  name="c5" id="c5"></td>
+					</tr>
+					<tr>
+						<td data-toggle="saleMan">★对接联系人</td>
+						<td>
+							姓名<select class="input-w-3 form-control step1 require" name="saleMan" id="saleMan" data="saleMan"></select> 电话
+							<input type="text" name="tele" id="tele" data="saleMan" class="step1 require" style="width:200px">
+						</td>
+						<td><input type="text" style="width:150px" name="c6" id="c6"></td>
+					</tr>
+					<tr>
+						<td align="center" rowspan="3">2</td>
+						<td align="center" rowspan="3">电价、补贴及光照资源</td>
+						<td>★用户电价</td>
+						<td>
+							峰<input type="text" name="feng" id="c62" class="form-control require" class="zeroup"> 平
+							<input type="text" name="ping" id="c63" class="form-control require" class="zeroup"> 谷
+							<input type="text" name="gu" id="c64" class="form-control require" class="zeroup">
+						</td>
+						<td><input type="text" style="width:150px" name="c7" id="c7"></td>
+					</tr>
+					<tr>
+						<td>地方补贴</td>
+						<td>
+							<input type="text" class="zeroup" name="c8" id="c8">
+						</td>
+						<td><input type="text" style="width:150px"  name="c9" id="c9"></td>
+					</tr>
+					<tr>
+						<td>经纬度坐标</td>
+						<td>
+							经度<input type="text" name="lng" class="zeroup" id="lng">纬度<input type="text" name="lat" class="zeroup" id="lat">
+						</td>
+						<td>手机指南针定位取得</td>
+					</tr>
+					<tr>
+						<td align="center" rowspan="5">3</td>
+						<td align="center" rowspan="5">屋面条件</td>
+						<td>★屋顶面积与数量</td>
+						<td>
+							
+							<input type="text" name="num" class="zeroup ralign require" name="c10" id="c10">个屋顶，
+							<input type="text" name="mi" class="zeroup ralign require" name="c11" id="c11">平方
+							
+						</td>
+						<td><input type="text" style="width:150px" name="c12" id="c12"></td>
+					</tr>
+					<tr>
+						<td>★建筑结构</td>
+						<td>
+							<p>
+							<input type="radio" name="type" id="type1" value="type1">混凝土框架
+							<input type="radio" name="type" id="type2" value="type2">琉璃瓦
+							<input type="radio" name="type" id="type3" value="type3">钢结构
+							<input type="radio" name="type" id="type4" value="type4">其他：
+							<input type="text" name="type" name="c13" id="c13">
+							</p>
+						</td>
+						<td><input type="text" style="width:150px"  name="c14" id="c14"></td>
+					</tr>
+					<tr>
+						<td>建筑建成年份</td>
+						<td><input type="text" class="zeroup"   name="c15" id="c15"></td>
+						<td><input type="text" style="width:150px"  name="c16" id="c16"></td>
+					</tr>
+					<tr>
+						<td>★屋顶形式</td>
+						<td>
+							<p>
+							<br>
+							<input type="radio" name="kind" id="kind1" value="kind1">平面（混凝土结构）<br>
+							
+								<input type="radio" name="kind" id="kind2" value="kind2">人字形（琉璃瓦）<br>
+							
+								<input type="radio" name="kind" id="kind3" value="kind3">异型结构<br>
+							
+								<input type="radio" name="kind" id="kind4" value="kind4">钢结构（彩钢瓦）<br>
+							
+								<input type="radio" name="kind" value="5" id="kind5" value="kind5">其他：<input type="text"  name="c17" id="c17"><br>
+							</p>
+						</td>
+						<td>
+							<p class="text-center">建筑数据</p>
+							<p>
+								<p><span style="width: 62px;display: inline-block;text-align: right;">长</span><input type="text" class="ralign"   name="c18" id="c18">米</p>
+								<p><span style="width: 62px;display: inline-block;text-align: right;">宽</span><input type="text" class="ralign"   name="c19" id="c19">米</p>
+								<p><span style="width: 62px;display: inline-block;text-align: right;">屋面角度</span><input type="text" class="ralign"   name="c20" id="c20">度</p>
+								<p><span style="width: 62px;display: inline-block;text-align: right;">女儿墙高</span><input type="text" class="ralign" name="c21" id="c21">米</p>
+								<p><span style="width: 62px;display: inline-block;text-align: right;">其它</span><input type="text" class="ralign" name="c22" id="c22"></p>
+								<button class="btn enclosure" style="padding:5px 10px">上传图片 </button>
+								<ul class="enclosureList" id="u1"></ul>
+								<input type="hidden" class="ralign" name="c23" id="c23"></p>
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<td>意向容量</td>
+						<td>
+							<input type="radio" name="how" id="how1" value="how1">2kW
+							<input type="radio" name="how" id="how2" value="how2">3kW
+							<input type="radio" name="how" id="how3" value="how3">5kW
+							<input type="radio" name="how" id="how4" value="how4">8kW
+							<input type="radio" name="how" id="how5" value="how5">
+							<input type="number" name= name="c24" id="c24" class="ralign">kW
+						</td>
+						<td><input type="text" style="width:150px" name="c25" id="c25"></td>
+					</tr>
+					<tr>
+						<td align="center" rowspan="3">4</td>
+						<td align="center" rowspan="3">并网接入条件</td>
+						<td>用电量及电费单</td>
+						<td>
+							月均<input type="text" name="c26" id="c26">年均<input type="text"  name="c27" id="c27">
+						</td>
+						<td><input type="text" style="width:150px"  name="c28" id="c28"></td>
+					</tr>
+					<tr>
+						<td>★用户进线电压</td>
+						<td>
+							<p>
+							<input type="radio" name="inn" id="in1" value="in1">AC220V
+							<input type="radio" name="inn" id="in2" value="in2">AC380V
+							<input type="radio" name="inn" value="3" id="in3" value="in3">其它<input type="text"  name="c29" id="c29">
+							</p>
+						</td>
+						<td><input type="text" style="width:150px"  name="c30" id="c30"></td>
+					</tr>
+					<tr>
+						<td>★用户进线线径</td>
+						<td>
+							<p>
+							<input type="radio" name="inkind" id="inkind1"  value="inkind1">4㎡
+							<input type="radio" name="inkind" id="inkind2" value="inkind2">6㎡
+							<input type="radio" name="inkind" id="inkind3" value="inkind3">10㎡
+							<input type="radio" name="inkind" id="inkind4" value="inkind4">12㎡
+							<input type="radio" name="inkind" id="inkind5" value="inkind5"><input type="number"  name="c31" id="c31" class=" ralign">㎡
+							</p>
+						</td>
+						<td><input type="text" style="width:150px"  name="c32" id="c32"></td>
+					</tr>
+					<tr>
+						<td align="center" rowspan="3">5</td>
+						<td align="center" rowspan="3">材料指定</td>
+						<td>★组件</td>
+						<td>
+							<p>
+							<input type="radio" name="item" id="item1" value="item1">265w
+							<input type="radio" name="item" id="item2" value="item2">320w
+							<input type="radio" name="item" value="3" id="item3"  value="item3"><input type="number"  name="c33" id="c33" class=" ralign">w&nbsp;&nbsp;|&nbsp;&nbsp; 品牌：
+							<input type="text" name="pinpai" id="pinpai">
+							<input type="radio" name="item1" id="item11"  value="item11"> M
+							<input type="radio" name="item1" id="item12"  value="item12"> P
+							</p>
+						</td>
+						<td><input type="text" style="width:150px"  name="c34" id="c34"></td>
+					</tr>
+					<tr>
+						<td>★逆变器</td>
+						<td>
+							<p>
+							<input type="radio" name="ni" id="ni1"  value="ni1">品牌<input type="text" style="width: 170px" name="c35" id="c35">
+							<input type="radio" name="ni" id="ni2"  value="ni2">GPRS监控<input type="text"  name="c36" id="c36" style="width: 170px">
+							</p>
+						</td>
+						<td><input type="text" style="width:150px" name="c37" id="c37"></td>
+					</tr>
+					<tr>
+						<td>其它要求</td>
+						<td>
+							<input type="text" style="width:450px" name="c38" id="c38">
+						</td>
+						<td><input type="text" style="width:150px" name="c39" id="c39"></td>
+					</tr>
+					<tr>
+						<td colspan="5">1.屋顶现场照片★<br></td>
+					</tr>
+					<tr class="pic">
+						<td colspan="5">
+							<ul class="upload-images">
+								<li>
+									a）现场手机GPS定位截图
+									<br>
+									<button class="btn enclosure" style="padding:5px 10px">上传图片 </button>
+									<ul class="enclosureList" id="u2"></ul>
+									<input type="hidden" class="ralign" name="c40" id="c40"></p>
+								</li>
+								<li>
+									b）南<br>
+									<button class="btn enclosure" style="padding:5px 10px">上传图片 </button>
+									<ul class="enclosureList" id="u3"></ul>
+									<input type="hidden" class="ralign" name="c41" id="c41"></p>
+								</li>
+								<li>
+									c）东<br>
+									<button class="btn enclosure" style="padding:5px 10px">上传图片 </button>
+									<ul class="enclosureList" id="u4"></ul>
+									<input type="hidden" class="ralign" name="c42" id="c42"></p>
+								</li>
+								<li>
+									d）西<br>
+									<button class="btn enclosure" style="padding:5px 10px">上传图片 </button>
+									<ul class="enclosureList" id="u5"></ul>
+									<input type="hidden" class="ralign" name="c43" id="c43"></p>
+								</li>
+								<li>
+									e）北<br>
+									<button class="btn enclosure" style="padding:5px 10px">上传图片 </button>
+									<ul class="enclosureList" id="u6"></ul>
+									<input type="hidden" class="ralign" name="c44" id="c44"></p>
+								</li>
+								<li>
+									f）屋面1<br>
+									<button class="btn enclosure" style="padding:5px 10px">上传图片 </button>
+									<ul class="enclosureList" id="u7"></ul>
+									<input type="hidden" class="ralign" name="c45" id="c45"></p>
+								</li>
+								<li>
+									g）屋面2<br>
+									<button class="btn enclosure" style="padding:5px 10px">上传图片 </button>
+									<ul class="enclosureList" id="u8"></ul>
+									<input type="hidden" class="ralign" name="c46" id="c46"></p>
+								</li>
+								<li>
+									h）瓦面特写3<br>
+									<button class="btn enclosure" style="padding:5px 10px">上传图片 </button>
+									<ul class="enclosureList" id="u9"></ul>
+									<input type="hidden" class="ralign" name="c47" id="c47"></p>
+								</li>
+							</ul>
+							<p class="attent">注：手机拍照，保存传递给工程部，工程部电子存档编号分类;</p>
+						</td>
+					</tr>
+					<tr class="pic2">
+						<td colspan="5">
+							2.接入照片★（以附件的形式附在表单后面）
+							<br>
+							<div>
+								<span>a）电表点全局、进户总线近照</span> <button class="btn enclosure" style="padding:5px 10px">上传图片 </button>
+								<ul class="enclosureList" id="u10"></ul>
+								<input type="hidden" class="ralign" name="c48" id="c48"></p>
+							</div>
+							<div>
+								<span>b）电表箱近照、配电箱开箱近照（如有）</span><button class="btn enclosure" style="padding:5px 10px">上传图片 </button>
+								<ul class="enclosureList" id="u11"></ul>
+								<input type="hidden" class="ralign" name="c49" id="c49"></p>
+							</div>
+							<div>
+								<span>c）客户所在地就近下杆线照片（如有）</span>
+								<button class="btn enclosure" style="padding:5px 10px">上传图片 </button>
+								<ul class="enclosureList" id="u12"></ul>
+								<input type="hidden" class="ralign" name="c50" id="c50"></p>
+							</div>
+							<span class="note">注：本节内容由市场部、工程部签字。</span>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="5">
+							客户资料搜集★<br>
+							<p>1、 身份证
+								<input type="checkbox" name="c51" id="c51" class="checked">、 户口簿复印件
+								<input type="checkbox" name="c52" id="c52" class="checked">、 电本（卡）复印件（银行卡复印件）
+								<input type="checkbox" name="c53" id="c53" class="checked">、 电表照片
+								<input type="checkbox" name="c54" id="c54" class="checked">、 客户所在地就近下杆线照片
+								<input type="checkbox" name="c55" id="c55" class="checked">
+							</p>
+							<p>2、 房产证
+								<input type="checkbox" name="c56" id="c56" class="checked2">、 土地证复印件
+								<input type="checkbox" name="c57" id="c57" class="checked2">、 （如若无，至所在社区村委会出具相关证明文件）
+							</p>
+							<p>3、 贷款协议签订
+								<input type="checkbox" name="c58" id="c58">
+							</p>
+							<p>
+								备注：以上所有资料为市场部搜集；<br><span class="note">注：本节内容由市场部、工程部签字。</span>
+							</p>
+							<br>
+							<p>4、供电局用户项目申请表、项目实施方案；<input type="checkbox" name="c65" id="c65" value="item1"> 是 <br>
+							<span class="note">注：此两项内容由工程部完成，工贷部提交供电局。</span> </p>
+							<br>
+							<p>5、 银行征信调查★；
+								<span class="wh50"></span> 征信是否已过
+								<input type="checkbox" name="c60" id="c60" value="bank">
+								<br><span class="note">注：此内容由工贷部完成。</span>
+							</p>
+							<br>
+							<p>6、 农户签约及预付款调查；
+								<span class="wh10"></span> 预付款
+								<input type="checkbox" name="c59" id="c59"> 金额
+								<input type="number" class="text" style="border-bottom: 1px solid #000;"  name="c61" id="c61"> （如有）；
+								<br><span class="note">注：此内容由市场部完成。</span>
+
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="5" style="padding:0">
+							<table id="tableFormSign" class="tabletxt" cellspacing="0" width="100%" height="100%" style="float:left">
+								<thead>
+									<tr>
+										<th>顺序</th>
+										<th>签字层级</th>
+										<th>签字步骤ID</th>
+										<th>签字内容</th>
+										<th>应签字部门</th>
+										<th>应签字人/职位</th>
+										<th>签字时间</th>
+										<th>签字状态</th>
+										<th>签字备注</th>
+										<th>签字</th>
+									</tr>
+								</thead>
+								<tbody></tbody>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="ht30"></div>
+		</div>
+		<div class="steps">
+		</div>
+	</div>
+	<center class="margintop0">
+		<button type="button" class="btn btn-primary" style="padding:5px 10px;margin:20px" id="sure">保 存</button>
+		<button type="button" id="start_sign" class="btn btn-primary" name="button">发起签字</button>
+		<button type="button" class="btn" style="padding:5px 10px;margin:20px" onclick="history.back()">返 回</button>
+	</center>
+	<script id="btn-items" type="text/template">
+		<% if(status==0) %>
+			<button type="button" data-step="<%= proStepId %>" class="btn btn-primary btn-sm" disabled><%= stepName %></button>
+		<% else %>
+			<button type="button" data-step="<%= proStepId %>" class="btn btn-primary btn-sm"><%= stepName %></button>
+	</script>
+</main>
+<style>
+	#tableFormSign th {
+		background: #fff;
+		/*border-color:#000;*/
+	}
+
+	.upload-images>li {
+		float: left;
+		margin: 10px;
+	}
+	/*.upload-images li:nth-child(2){
+	clear:both;
+}*/
+
+	input.ralign {
+		text-align: right;
+	}
+
+	.enclosureItem {
+		margin-top: 15px;
+		margin-left: -8px;
+	}
+
+	.enclosureItem img {
+		width: 100px;
+		height: 100px;
+		background: #ccc url() no-repeat center;
+		background-size: contain;
+	}
+
+	.enclosureItem .del {
+		margin-left: 8px;
+	}
+	.margintop0 button{
+		width: 100px;
+	}
+</style>
+<script type="text/javascript">
+	var formId = 1;
+	var hash = location.hash;
+	var projId = hash.slice(hash.indexOf('&projId=') + 8);
+	var dataId = "";
+	var btn = _.template($('#btn-items').html());
+
+	//发起签字
+	$(".require").blur(function(){ 
+			if($(this).val()){
+				$(this).css({"border":"1px solid #ccc"});
+			}
+	})
+	$("#start_sign").on('click',function(){
+
+		var signable = true;
+		$.each($(".require"), function(key, value) {
+		//	alert(this.value);
+				if (!this.value) {
+					//alert("is null");
+					$(this).focus();
+					$(this).css({"border":"1px solid pink"});
+					//alert("1:");
+					signable=false;
+					return false;
+				}
+			});
+		
+		var checkedRequire = [
+		$('input[type=radio][name=type]:checked'),
+		$('input[type=radio][name=kind]:checked'),
+
+		$('input[type=radio][name=inn]:checked'),
+		$('input[type=radio][name=inkind]:checked'),
+		$('input[type=radio][name=item]:checked'),
+		$('input[type=radio][name=item1]:checked'),
+		$('input[type=radio][name=ni]:checked'),
+		$('input[type=checkbox][name=c65]:checked'),
+		$('.checked:checked'),
+		$('.checked2:checked'),
+		$("#c58:checked"),
+		$("#c60:checked")]
+
+
+
+		var checkedRequire2 = [
+		$('input[type=radio][name=type]'),
+		$('input[type=radio][name=kind]'),
+
+		$('input[type=radio][name=inn]'),
+		$('input[type=radio][name=inkind]'),
+		$('input[type=radio][name=item]'),
+		$('input[type=radio][name=item1]'),
+		$('input[type=radio][name=ni]'),
+		$('input[type=checkbox][name=c65]'),
+		$('.checked'),
+		$('.checked2'),
+		$("#c58"),
+		$("#c60")]
+
+		$.each(checkedRequire, function(key, value) {
+
+					if (!$(this).val()) {
+						checkedRequire2[key].parents('p').css({"background":"pink"});
+						signable=false;
+
+						return false;
+					}else{
+						checkedRequire2[key].parents('p').css({"background":"inherit"});
+					//	signable=false;
+					//	return  false;
+					}
+			});
+		for(var i=0;i<checkedRequire2.length;i++){
+			checkedRequire2[i].click(function(){
+						if($(this).val()){
+							$(this).parents('p').css({"background":"inherit"});
+						}
+					})
+		}
+		for(var i=0;i<checkedRequire2.length;i++){
+			console.log(3)
+			if(checkedRequire2[i].parents('p').css('background')=="pink"){
+				console.log(checkedRequire2[i].parents('p'))
+				return false
+			}
+			
+			}
+		var piclen = $('.pic .enclosureItem').length+$('.pic2 .enclosureItem').length;
+		if(piclen < 3){
+			alert("屋顶现场照片和接入照片要至少3张");
+			signable = false;
+
+			return false;
+		}
+
+  if(signable==true)
+  {
+  		saveForm();
+	  $.startSign(dataId,jmstoken,function(data){
+			if(data.valid){
+				alert("签字成功！");
+				window.location.reload();
+				//window.location.hash="#/?groupId=P_ProjectManagement&viewId=form1&projId="+projId
+			}
+		});
+
+  }
+  else
+  alert("未完成表单，不能签字");
+
+		// saveForm();
+
+
+
+//
+
+	});
+
+	$("#sure").on('click',function(){
+		saveForm();
+	});
+
+
+
+	$('[name=location]').selectautofill('sys/location/locationSelects', {
+		headers: {
+			'JMS-TOKEN': jmstoken
+		}
+	});
+	$('[name=saleMan]').selectautofill('sys/user/userSelects', {
+		headers: {
+			'JMS-TOKEN': jmstoken
+		}
+	});
+	function getSteps(){
+		if(!parseInt(projId)){
+			return;
+		}
+		$.getStepBtns(projId,jmstoken,function(data){
+			$(".steps").empty();
+			if(data.length){
+				data.splice(0,8).map(function(item){
+					$(".steps").append(btn(item))
+				})
+			}
+		})
+	}
+	getSteps();
+	$('.steps').on('click','button',function(){
+		$.finishStep($(this).data('step'),jmstoken,function(data){
+			if(data.valid){
+				getSteps()
+			}else {
+				alert('执行步骤出错！')
+			}
+		})
+	});
+	function loadSignTable() {
+		$('#tableFormSign').DataTable({
+			"ordering": false,
+			"bDestroy": true,
+			"processing": true,
+			"serverSide": true,
+			"stateSave": true,
+			"stateDuration": -1,
+			"ajax": {
+				"type": 'POST',
+				"url": $clientURL + "sys/sign/signTable",
+				"dataType": "json",
+				"headers": {
+					'JMS-TOKEN': jmstoken
+				},
+				"data": {
+					eventId: dataId,
+					signWorkflowId: formId
+				}
+			},
+			// "columnDefs": [
+			// 	{
+			// 		"targets": -2,
+			// 		"data": null,
+			// 		"defaultContent": '<input type="text" value="" />	'
+			// 	}
+			// ],
+			"language": {
+				"url": "js/datatable/chinese.json"
+			},
+
+			dom: "t",
+			pageLength: "50",
+			initComplete: function() {
+				$('#tableFormSign tr[role=row] td:nth-child(9)').each(function(i, k) {
+
+
+				});
+
+				$('#tableFormSign tr[role=row] td:nth-child(10)').each(function(i, k) {
+					var formId = $(k).text();
+					if (formId == 1) {
+						$(k).html('<button class="button-edit submitbtn" data-status="1"> 同意</button> <button class="button-edit submitbtn" data-status="0"> 拒绝</button>');
+						$(this).prev().html('<input type="text" value="' + $(this).prev().text() + '" />')
+					} else {
+						$(k).text("");
+					}
+					var prevstr = $(this).prev().prev();
+					if (prevstr.html() == 1) {
+						prevstr.html("已签");
+					} else if (prevstr.html() == 0) {
+						prevstr.html("拒绝");
+					} else {
+						prevstr.html("");
+					}
+				});
+				$(".submitbtn").on("click", function() {
+					if ($(this).data('status') == 0 && !$(this).parent().prev().find('input').val()) {
+						alert('请填写拒绝理由！');
+						return
+					}
+					var objectdata = JSON.stringify({
+						remark: $(this).parent().prev().find('input').val(),
+						idSignWorkflowSteps: $(this).parent().siblings().eq(2).html(),
+						idEvent: dataId,
+						status: $(this).data('status')
+					})
+
+					$.signsubmit(objectdata, jmstoken, function(data) {
+						if (data.valid) {
+							alert("确认成功");
+							window.location.reload();
+						} else {
+							alert(data.msg);
+						}
+					})
+				})
+			}
+		})
+	}
+
+	function initUploader() {
+		var uploadEnclosureUrl = 'uploadFile';
+		var $enclosure = $('.enclosure');
+		var inited = $enclosure.data('init');
+		if (inited) {
+			return;
+		}
+
+		$enclosure.data('init', true);
+
+		$enclosure.dropzone({
+			url: $clientURL + uploadEnclosureUrl,
+			headers: {
+				'JMS-TOKEN': jmstoken
+			},
+			addRemoveLinks: true,
+			dictRemoveLinks: "x",
+			dictCancelUpload: "x",
+			// maxFiles: 1,
+			maxFilesize: 10,
+			dictDefaultMessage: "",
+			init: function() {
+				var that = this;
+				//发送请求时，挂载数据
+				this.on("sending", function(file, xhr, formData) {
+					//var idRoutineD = $('#idRoutineD').val();
+					//formData.append("routineDId", (idRoutineD ? idRoutineD : 0));
+					// formData.append("routineDId",$('.routineDId').val()?$('.routineDId').val():0);
+				});
+
+				this.on('success', function(file, res) {
+					var $li = $("<li class='enclosureItem'><a target='_blank' href='" + $clientURL + "getImage/" + res.fileName + "/'><img src="+$clientURL + "getImage/" + res.fileName +
+						"/ /></a><br><a class='del' href='javascript:;'>删除</a>"+
+						"<input type='hidden' value="+res.fileName+" class='fileName'>"+
+						"<input type='hidden' value="+res.orgName+" class='orgName'>"+
+						"</li>");
+					$(this.element).next('.enclosureList').empty();
+					$li.appendTo($(this.element).next('.enclosureList'));
+					$('.enclosure').find('.dz-success').remove();
+					$li.find('.del').click(function() {
+						$(this).parents('.enclosureItem').remove();
+					});
+				});
+
+			}
+		});
+	}
+	function saveForm() {
+	//	alert($('input[type=radio][name=kind]:checked').val())
+		// $('input[type=text]').each(function(i, k) {
+		// 	$(k).attr('value', k.value);
+		// });
+		$('input[type=checkbox]').each(function(i, k) {
+			k.checked ? $(k).attr('checked', '') : $(k).removeAttr('checked');
+		});
+		// $('select').each(function(i, k) {
+		// 	if (k.value) {
+		// 		$(this).find("option[value='" + k.value + "']").attr("selected", "selected");
+		// 	}
+		// });
+		// $('textarea').each(function(i, k) {
+		// 	$(k).text(k.value);
+		// });
+		var tableData = $('#tableFormSign tbody').clone();
+		var data2 = {
+			id: !isNaN(projId) ? projId : 0,
+			code: $('#code').val(),
+			process: $('#process').val(),
+			address: $("#address").val(),
+			saleMan: $("#saleMan").val(),
+			mobile: $('#mobile').val(),
+			lng: $('#lng').val(),
+			lat: $('#lat').val(),
+			tele:$('#tele').val(),
+			commit: 0,
+			currStep: 1,
+			name: $("#name").val(),
+			project: $("#project").val(),
+			subSubLocation: {
+				id: $("#location").val()
+			},
+			intent:$('input[type=radio][name=intent]:checked').val(),
+			type:$('input[type=radio][name=type]:checked').val(),
+			kind:$('input[type=radio][name=kind]:checked').val(),
+			how:$('input[type=radio][name=how]:checked').val(),
+			inn:$('input[type=radio][name=inn]:checked').val(),
+			inkind:$('input[type=radio][name=inkind]:checked').val(),
+			item:$('input[type=radio][name=item]:checked').val(),
+			item1:$('input[type=radio][name=item1]:checked').val(),
+			ni:$('input[type=radio][name=ni]:checked').val(),
+			c65:$('input[type=checkbox][name=c65]:checked').val()	
+		};
+		for(var i =1 ;i<13;i++){
+			var p = "p"+i;
+			data2[p]= $("#u"+i).find(".fileName").val()
+		}
+		for(var i =1 ;i<65;i++){
+			var c = "c"+i;
+			if(i>=51 && i<=60){
+				data2[c]= $("#c"+i).attr("checked")
+			}else{
+				data2[c]= $("#c"+i).val()
+			};
+			
+		}
+		console.log(data2,0)
+		var data = JSON.stringify(data2)
+		$('#tableFormSign tbody').remove();
+		$.saveProj(data, function(e) {
+			//console.log(e)
+			if (e.valid) {
+				alert("保存成功！");
+				alert(dataId)
+				if(!dataId){
+					location.hash = "#/?groupId=P_ProjectManagement&viewId=P_ProjectManagement";
+					window.location.reload();
+				}
+				//$('#sure').attr("disabled",true).css({"background":"#ccc","border":"1px solid #ccc"});
+				
+			} else {
+				alert("保存失败");
+			}
+		});
+
+		$('#tableFormSign').append(tableData);
+	}
+	function restoreForm(callback) {
+		if(!parseInt(projId)){
+
+			$('#start_sign').attr("disabled",true).css({"background":"#ccc","border":"1px solid #ccc"});
+
+			return;
+		}
+		$.readForm(formId, projId, function(data) {
+			dataId = data.id;
+			console.log(dataId,data,9)
+			
+			var clientId = data.code;
+			clientId && $('#clientId').text(clientId);
+
+			$('#status').html(data.status);
+			if(data.status=="签字" || data.status=="激活"){
+				$("#start_sign").attr("disabled",true).removeClass("btn-primary");
+				$("#sure").attr("disabled",true).removeClass("btn-primary");
+			}else if(data.status=="编辑"){
+				$("#tableFormSign").hide();
+			}
+			var data = data.content;
+			console.log(data)
+			$("#name").val(data.name);			
+			$("#mobile").val(data.mobile);
+			$("#proress").val(data.project);
+			// $("#location").val(data.id);
+			setTimeout(function(){
+				$("#location").find("option[value='"+data.idSubSubLocation+"']").attr("selected",true);
+			}, 1000)
+			
+			$('#code').val(data.code);
+			$('#tele').val(data.tele),
+			$("#project").val(data.project);
+			$("#address").val(data.address);
+			$("#saleMan").val(data.saleMan);
+			$('input[name=lng]').val(data.lng);
+			$('input[name=lat]').val(data.lat);
+			data[mobile] && $("input:radio[name=mobile][value="+data.mobile+"]").attr('checked',true);
+			data.project && $("input:radio[name=project][value="+data.project+"]").attr('checked',true);
+			data.intent && $("input:radio[name=intent][value="+data.intent+"]").attr('checked',true);
+			data.type && $("input:radio[name=type][value="+data.type+"]").attr('checked',true);
+			data.kind && $("input:radio[name=kind][value="+data.kind+"]").attr('checked',true);
+			data.how && $("input:radio[name=how][value="+data.how+"]").attr('checked',true);
+			data.inn && $("input:radio[name=inn][value="+data.inn+"]").attr('checked',true);
+			data.inkind&& $("input:radio[name=inkind][value="+data.inkind+"]").attr('checked',true);
+			data.item && $("input:radio[name=item][value="+data.item+"]").attr('checked',true);
+			data.item1 && $("input:radio[name=item1][value="+data.item1+"]").attr('checked',true);
+			data.ni && $("input:radio[name=ni][value="+data.ni+"]").attr('checked',true);
+			data.c65 && $("input:checkbox[name=c65][value="+data.c65+"]").attr('checked',true);
+			for(var i =1 ;i<65;i++){
+				var c = "c"+i;
+				if(i>=51 && i<=60){
+					if(data[c] ==="checked"){
+						$("#c"+i).attr("checked",true)
+					}
+				}else{
+					$("#c"+i).val(data[c]);
+				}
+			}
+				
+			
+			for(var i =1 ;i<13;i++){
+			var p = "p"+i;
+				if(data[p]){
+				 var $li = $("<li class='enclosureItem'><a target='_blank' href='" + $clientURL + "getImage/" + data[p] + "/'><img src=" + $clientURL + "getImage/" + data[p] +
+						"//></a><br><a class='del' href='javascript:;'>删除</a>"+
+						"<input type='hidden' value="+data[p]+" class='fileName'>"+
+						"</li>");
+				 $li.appendTo($(this.element).next('.enclosureList'));
+					$('.enclosure').find('.dz-success').remove();
+					$li.find('.del').click(function() {
+						$(this).parents('.enclosureItem').remove();
+					});
+					if(!$("#u"+i).html()){
+						$("#u"+i).append($li);
+					}
+					
+				}
+			}
+			
+			if (callback) callback();
+
+			$('.step1').blur(function() {
+				if (!this.value) {
+					$(this).focus();
+					$("td[data-toggle='" + $(this).attr("data") + "']").css("color", "red");
+				} else {
+					$("td[data-toggle='" + $(this).attr("data") + "']").css("color", "#000");
+				}
+			});
+		});
+	}
+
+	restoreForm(function() {
+		if (dataId) {
+			loadSignTable();
+		}
+		initUploader();
+		$('#sure').off().on('click', function() {
+			var is = 0;
+			$.each($(".step1"), function(key, value) {
+				if (!this.value) {
+					$(this).focus();
+					$("td[data-toggle='" + $(this).attr("data") + "']").css("color", "red");
+					is = 1;
+				}
+			});
+			if (is == 1) {
+				return false;
+			}
+			saveForm();
+		});
+	});
+	$(document).on("keyup", '.zeroup', function() {
+		var val = $(this).val();
+		if (!/^[0-9][0-9.]*(\.[0-9]+)?$/.test(val)) {
+			if (val) {
+				val = val.replace(/\./g, "").replace(/[^\d.]/g, "");
+				if (val.indexOf("0") == 0) {
+					val = val.substring(1, val.length);
+				}
+				$(this).val(val)
+			}
+		}
+	})
+</script>
+
+</body>
+
+</html>

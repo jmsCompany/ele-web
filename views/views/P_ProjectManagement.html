@@ -1,0 +1,384 @@
+<div class="project">
+	<div class="cont">
+        <div class="r-header-body">
+            <div class="right-list">
+								<select class="form-inline" id="status" name="">
+									<option value="7">开放</option>
+									<option value="8">结束</option>
+								</select>
+                <input type="text" id='q' placeholder="">
+                <button id="search" class="button-sytle1">查询</button>
+                <button id="add" class="button-sytle1"  data-action="view-form" data-form="form1">新建</button>
+            </div>
+        </div>
+        <table id="tableProj" class="display" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>客户编码</th>
+                    <th>客户名称</th>
+                    <th>地址</th>
+                    <th>项目名称</th>
+                    <th>区域</th>
+                    <th>状态</th>
+                    <th>销售</th>
+                    <th>进度</th>
+                    <th>采集表</th>
+                    <th>施工单</th>
+                    <th>货款单</th>
+                    <th>销售跟踪单</th>
+                    <th>作废</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <!-- 弹窗 start -->
+    <div class="tcbox container-fluid" id="draggable1">
+        <div class="tcbox_cont row">
+            <div class="body-head-title">
+                <span class="h-title">新建/编辑</span>
+            </div>
+            <input type="button" class="tc_close">
+            <input type="hidden" name="id" value="0">
+            <form id="poForm" class="form-inline">
+                <div class="col-xs-12 mar-top-20px" id="clientId">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">客户编码</label>
+                        <span id="code"></span>
+                    </div>
+                </div>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">客户名称</label>
+                        <input type="text" class="form-control input-w-3" name="name" data-bv-notempty/>
+                    </div>
+                </div>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">项目名称</label>
+                        <input type="text" class="form-control input-w-3" name="project" data-bv-notempty/>
+                    </div>
+                </div>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">区域</label>
+                        <select class="input-w-3 form-control" name="location"></select>
+                    </div>
+                </div>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">地址</label>
+                        <input type="text" class="form-control input-w-3" name="address" data-bv-notempty/>
+                    </div>
+                </div>
+                <!-- <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">状态</label>
+                        <select readonly class="input-w-3 form-control" name="status"></select>
+                    </div>
+                </div> --t
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">销售</label>
+                        <select class="input-w-3 form-control" name="saleMan"></select>
+                    </div>
+                </div>
+
+                <div class="aligncenter">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary submit">保存</button>
+                        <!--<button id="return" type="reset" class="btn  btn-info">返回</button>-->
+                    </div>
+                </div>
+                <input type="hidden" id="idPo" name="idPo:number" />
+            </form>
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript">
+init();
+function init(){
+$('#tableProj').DataTable( {
+            "ordering": false,
+            "bDestroy": true,
+            "processing": true,
+            "serverSide": true,
+            "stateSave": true,
+            "stateDuration": -1,
+            "ajax": {
+           "type": 'POST',
+                    "url": $clientURL+"project/projectTable",
+                    "dataType": "json",
+           "headers":{'JMS-TOKEN':jmstoken},
+           "data": {'q':$('#q').val(),'status':$('#status').val()}
+                },
+                "columnDefs": [
+                {
+                    "targets": -1,
+                    "data": null,
+                    "defaultContent": '<button class="button-bin" data-action="del">作废</button>'
+                },
+                {
+                    "targets": -2,
+                    "data": null,
+                    "defaultContent": '<button class="button-edit" data-action="view-sales">查看</button>'
+                },
+                {
+                    "targets": -3,
+                    "data": null,
+                    "defaultContent": '<button class="button-edit" data-action="view-payment">查看</button>'
+                },
+                {
+                    "targets": -4,
+                    "data": null,
+                    "defaultContent": '<button class="button-edit" data-action="view-construction">查看</button>'
+                },
+                {
+                    "targets": -5,
+                    "data": null,
+                    "defaultContent": '<button class="button-edit" data-action="view-collection">查看</button>'
+                },
+                {
+                    "targets": -6,
+                    "data": null,
+                    "defaultContent": '<button class="button-edit" data-action="view-progress">查看</button>'
+                } ],
+           "language": {
+                            "url": "js/datatable/chinese.json"
+                       },
+
+            dom: "tip",
+        pageLength:"50",
+        initComplete: function(){
+
+            //弹出框-编辑
+            $('.button-edit').on('click', function () {
+                if(!flag){
+                    flag=1;
+                    var action =$(this).data('action');
+                    var actions={
+                        'edit':function(){
+                        var top = $('#body').scrollTop();
+                        var left = $('#body').scrollLeft();
+                        var _this = this;
+
+                        $('[name=id]').val($(this).parents('td').siblings().eq(0).text());
+                        $('#clientId').show();
+                        $('#code').text($(this).parents('td').siblings().eq(1).text());
+                        $('[name=name]').val($(this).parents('td').siblings().eq(2).text());
+                        $('[name=address]').val($(this).parents('td').siblings().eq(3).text());
+                        $('[name=project]').val($(this).parents('td').siblings().eq(4).text());
+
+                            $('.tcbox').css({
+                                top: $(window).height() * 0.2 + top,
+                                left:$(window).height() * 0.5 + left
+                            }).draggable().show();
+
+                            $('[name=location]').selectautofill('sys/location/locationSelects',{headers:{'JMS-TOKEN':jmstoken}},function(){
+                                $('[name=location] option').each(function(i,k){
+                                    if(k.innerHTML == $(_this).parents('td').siblings().eq(5).text())
+                                        k.selected = true;
+
+                                });
+
+
+                           });
+
+                            // $('[name=status]').selectautofill('sys/dic/dicSelects',{headers:{'JMS-TOKEN':jmstoken},data:{dicDicName:'Status'}},function(){
+                            // $('[name=status] option').each(function(i,k){
+                            //     if(k.innerHTML == $(_this).parents('td').siblings().eq(6).text())
+                            //         k.selected = true;
+                            // });
+                       // });
+
+                            $('[name=saleMan]').selectautofill('sys/user/userSelects',{headers:{'JMS-TOKEN':jmstoken}},function(){
+                                $('[name=saleMan] option').each(function(i,k){
+                                    if(k.innerHTML == $(_this).parents('td').siblings().eq(7).text())
+                                        k.selected = true;
+                                });
+                           });
+
+                            $('[name=process]').selectautofill('sys/dic/dicSelects',{headers:{'JMS-TOKEN':jmstoken},data:{dicDicName:'Progress'}},function(){
+                                    $('[name=process] option').each(function(i,k){
+                                        console.log(i,k)
+                                        console.log($(_this).parents('td').siblings().eq(9).data())
+                                        if(k.innerHTML == $(_this).parents('td').siblings().eq(9).html('action'))
+                                            k.selected = true;
+                               });
+                            });
+
+                        },
+
+                        'view-sales':function(){
+
+                            location.hash="#/?groupId=P_ProjectManagement&viewId=P_ProjectManagement_SalesTrailer&projId=" + $(this).parents('td').siblings().eq(0).text();
+                            window.location.reload();
+                        },
+                        'view-payment':function () {
+                            location.hash="#/?groupId=P_ProjectManagement&viewId=form3&projId=" + $(this).parents('td').siblings().eq(0).text();
+                            window.location.reload();
+                        },
+                        'view-construction':function () {
+                            location.hash="#/?groupId=P_ProjectManagement&viewId=form2&projId=" + $(this).parents('td').siblings().eq(0).text();
+                            window.location.reload();
+                        },
+                        'view-collection':function () {
+                            location.hash="#/?groupId=P_ProjectManagement&viewId=form1&projId=" + $(this).parents('td').siblings().eq(0).text();
+                            window.location.reload();
+                        },
+                        'view-progress':function(){
+                            location.hash="#/?groupId=P_ProjectManagement&viewId=P_ProjectManagement_Progress&projId=" + $(this).parents('td').siblings().eq(0).text();
+                            window.location.reload();
+                        }
+
+                    };
+                   actions[action].call(this);
+                }
+                else{
+                    return false;
+                }
+            });
+
+            //弹出框-编辑
+            $('.button-bin').on('click', function () {
+                if(confirm('确认删除？')){
+                    $.delProj($(this).parents('td').siblings().eq(0).text(), init);
+                }
+            });
+}
+});
+
+}
+
+
+$('#search').on('click',init);
+
+//弹出框
+var flag=0;
+
+//新建
+$('button#add').on( 'click', function () {
+//    if(!flag){
+//        flag=1;
+//        var action =$(this).data('action');
+//        var actions={
+//            'new':function(){
+//            var top = $('#body').scrollTop();
+//                var left = $('#body').scrollLeft();
+//                $('.tcbox').css({
+//                    top: $(window).height() * 0.2 + top,
+//                    left:$(window).height() * 0.5 + left
+//                }).draggable().show();
+//
+//                $('#clientId').hide();
+//                $('[name=location]').selectautofill('sys/location/locationSelects',{headers:{'JMS-TOKEN':jmstoken}});
+//                $('[name=process]').selectautofill('sys/dic/dicSelects',{headers:{'JMS-TOKEN':jmstoken},data:{dicDicName:'Status'}});
+//                // $('[name=status]').selectautofill('sys/dic/dicSelects',{headers:{'JMS-TOKEN':jmstoken},data:{dicDicName:'Progress'}});
+//                $('[name=saleMan]').selectautofill('sys/user/userSelects',{headers:{'JMS-TOKEN':jmstoken}});
+//            }
+//        };
+//        actions[action]();
+//    }
+//    else{
+//        return false;
+//    }
+
+    if(!flag){
+        flag=1;
+        debugger;
+        var action =$(this).data('action');
+        var actions={
+            'edit':function(){
+                var top = $('#body').scrollTop();
+                var left = $('#body').scrollLeft();
+                var _this = this;
+
+//                $('[name=customerId]').val(projId);
+//                $('[name=id]').val($(this).parents('td').siblings().eq(0).text());
+//                $('[name=stepId]').val($(this).parents('td').siblings().eq(1).text());
+//                $('#name').text($(this).parents('td').siblings().eq(2).text());
+//                $('#forcastDays').text($(this).parents('td').siblings().eq(3).text());
+//                $('#lastedDays').text($(this).parents('td').siblings().eq(4).text());
+//                $('[name=start]').val($(this).parents('td').siblings().eq(5).text());
+//                $('[name=end]').val($(this).parents('td').siblings().eq(6).text());
+//                $('[name=remark]').val($(this).parents('td').siblings().eq(10).text());
+//                $('[name=userId]').val($(this).parents('td').siblings().eq(12).text());
+//                $('[name=form]').val($(this).parents('td').siblings().eq(13).text());
+//
+//                $('.tcbox').css({
+//                    top: $(window).height() * 0.2 + top,
+//                    left:$(window).height() * 0.5 + left
+//                }).draggable().show();
+//
+//                $('[name=statusId]').selectautofill('sys/dic/dicSelects',{headers:{'JMS-TOKEN':jmstoken},data:{dicDicName:'ps_status'}},function(){
+//                    $('[name=statusId] option').each(function(i,k){
+//                        if(k.innerHTML == $(_this).parents('td').siblings().eq(9).text())
+//                            k.selected = true;
+//                    });
+//                });
+//
+//                $('[name=idProgress]').selectautofill('sys/dic/dicSelects',{headers:{'JMS-TOKEN':jmstoken},data:{dicDicName:'Progress'}},function(){
+//                    $('[name=idProgress] option').each(function(i,k){
+//                        if(k.innerHTML == $(_this).parents('td').siblings().eq(8).text())
+//                            k.selected = true;
+//                    });
+//                });
+//
+//                $('[name=userId]').selectautofill('sys/user/userSelects',{headers:{'JMS-TOKEN':jmstoken},data:{dicDicName:'Progress'}},function(){
+//                    $('[name=userId] option').each(function(i,k){
+//                        if(k.innerHTML == $(_this).parents('td').siblings().eq(12).text())
+//                            k.selected = true;
+//                    });
+//                });
+
+            },
+            'view-form':function(){
+                location.hash="#/?groupId=P_ProjectManagement&viewId=" + $(this).data('form');
+                window.location.reload();
+
+            }
+
+        };
+        actions[action].call(this);
+    }else{
+        return false;
+    }
+});
+
+//关闭
+$('.tcbox').on('click','.tc_close',function(){
+    $('.tcbox').hide();
+    $('#poForm')[0].reset();
+    flag=0;
+});
+
+//保存
+$('.tcbox').on('click','.submit',function(){
+    if(!validateForm($(this).parents('form'))/* || !$('[name=status]').val()*/) return;
+
+    $.saveProj(JSON.stringify({
+        id : $('[name=id]').val()
+    ,   subSubLocation : {id: $('[name=location]').val()}
+    ,   name : $('[name=name]').val()
+    ,   address : $('[name=address]').val()
+    ,   code : $('[name=code]').val()
+    ,   project : $('[name=project]').val()
+    ,   process : $('[name=process]').val()
+    ,   saleMan : $('[name=saleMan]').val()
+    ,   dic : {id: $('[name=status]').val()/1}
+    }), init);
+    $('.tcbox .tc_close').trigger('click');
+});
+
+//表单验证
+$("form").each(function(i,k) {
+    $(k).bootstrapValidator();
+});
+function validateForm(elForm){
+    debugger;
+    var data = $(elForm).data('bootstrapValidator');
+    data.validate();
+    return data.isValid();
+}
+</script>

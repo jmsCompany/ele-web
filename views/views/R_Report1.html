@@ -1,0 +1,59 @@
+<div class="cont">
+    <div class="r-header-body">
+        <!--<div class="right-list">-->
+        	<label>客户状态：</label>
+            <select  name="dicCode">
+            </select>
+            <button id="search" class="button-sytle1">查询</button>
+        <!--</div>-->
+    </div>
+    
+    <table id="tablePo" class="tabletxt" cellspacing="0">
+        <thead>
+            <tr>
+                <th>编号</th>
+                <th>用户姓名</th>
+                <th style="min-width:200px;">状态</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+<script>
+    init("");
+    $('[name=dicCode]').selectautofill('sys/dic/dicSelects',{headers:{'JMS-TOKEN':jmstoken},data:{dicDicName:'Status'}});
+
+    $('#search').on('click', function () {
+        var code =  $('[name=dicCode]').val();
+        init(code)
+    })
+
+    function init(code){
+        $('#tablePo').DataTable( {
+            "ordering": false,
+            "bDestroy": true,
+            "processing": true,
+            "serverSide": true,
+            "stateSave": true,
+            "stateDuration": -1,
+            "ajax": {
+                "type": 'POST',
+                "url": $clientURL+"/report/report1Table",
+                "dataType": "json",
+                "headers":{'JMS-TOKEN':jmstoken},
+                "data": {'statusId':code}
+            },
+            "language": {
+                "url": "js/datatable/chinese.json"
+            },
+
+            dom: "tip",
+            pageLength:"50",
+
+
+        });
+    }
+
+
+</script>
