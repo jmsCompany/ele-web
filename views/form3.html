@@ -80,7 +80,7 @@
 			</div>
 			<center>
 				<button type="submit" class="btn btn-primary" style="padding:5px 10px;margin:20px">保 存</button>
-    			<button type="button" class="btn" style="padding:5px 10px;margin:20px" onclick="history.back()">返 回</button>			
+    			<button type="button" class="btn goback" style="padding:5px 10px;margin:20px">返 回</button>			
     		</center>
 		</main>
 
@@ -224,6 +224,10 @@ function summer(){
 		$('input[name=risk]').val(Number(f)+6*Number(month)-6*Number(g)) //预计未来6个月贷款风险
 	}
 }
+$(".goback").click(function(){
+    history.back();
+    window.location.reload();
+  })
 $( document ).on("keyup",'.zeroup',function(){
 
 	var val = $(this).val();

@@ -111,7 +111,7 @@
         </table>
 	</div>
     <button type="submit" class="btn btn-primary" style="padding:5px 10px;margin:20px">保 存</button>
-    <button type="button" class="btn" style="padding:5px 10px;margin:20px" onclick="history.back()">返 回</button>
+    <button type="button" class="btn goback" style="padding:5px 10px;margin:20px">返 回</button>
     <div class="selecebox">
         <select class="form-inline" id="status" name="">
             <option value="7">开放</option>
@@ -131,6 +131,10 @@ $(".showactProfit").keyup(function(){
     var realitymoney = $(this).val() * $("#netProfit").html();
     $("#actProfit").html(realitymoney);
 })
+$(".goback").click(function(){
+    history.back();
+    window.location.reload();
+  })
 $("#search").click(function(){
     var statusId =  $("#status").val();
     $.saleTracking({projId:projId,statusId:statusId},jmstoken,function(data){

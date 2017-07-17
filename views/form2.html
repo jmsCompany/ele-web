@@ -296,7 +296,7 @@
 			<center style="clear:both;margin-bottom: 99px;">	
 				<button type="submit" class="btn btn-primary" style="padding:5px 10px;margin:20px">保 存</button>
 				<button type="button" id="start_sign" class="btn btn-primary btn-sm" name="button">发起签字</button>
-    			<button type="button" class="btn" style="padding:5px 10px;margin:20px" onclick="history.back()">返 回</button>			</center>
+    			<button type="button" class="btn goback" style="padding:5px 10px;margin:20px">返 回</button>			</center>
 		</main>
 
 <style>
@@ -427,8 +427,10 @@ $('#tableFormSign').DataTable( {
 					console.log(data)
 					if(data.valid){
 						alert("确认成功");
+						window.location.reload();
 					}else{
 						alert(data.msg);
+						window.location.reload();
 					}
 				})
 			})
@@ -483,7 +485,10 @@ function initUploader() {
 		}
 	});
 }
-
+$(".goback").click(function(){
+    history.back();
+    window.location.reload();
+  })
 $(document).on("click",'.close',function(){
 	$(this).parent('li').remove();
 });
@@ -635,7 +640,7 @@ $("#start_sign").on('click',function(){
 			window.location.reload();
 			//window.location.hash="#/?groupId=P_ProjectManagement&viewId=form1&projId="+projId
 		}else{
-			// alert("签字失败！");
+			alert("签字失败！");
 			window.location.reload();
 		}
 	});

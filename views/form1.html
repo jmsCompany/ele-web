@@ -432,7 +432,7 @@
 	<center class="margintop0">
 		<button type="button" class="btn btn-primary" style="padding:5px 10px;margin:20px" id="sure">保 存</button>
 		<button type="button" id="start_sign" class="btn btn-primary" name="button">发起签字</button>
-		<button type="button" class="btn" style="padding:5px 10px;margin:20px" onclick="history.back()">返 回</button>
+		<button type="button" class="btn goback" style="padding:5px 10px;margin:20px" >返 回</button>
 	</center>
 	<script id="btn-items" type="text/template">
 		<% if(status==0) %>
@@ -627,6 +627,10 @@
 		})
 	}
 	getSteps();
+	$(".goback").click(function(){
+    history.back();
+    window.location.reload();
+  })
 	$('.steps').on('click','button',function(){
 		$.finishStep($(this).data('step'),jmstoken,function(data){
 			if(data.valid){
@@ -749,7 +753,7 @@
 
 				this.on('success', function(file, res) {
 					var $li = $("<li class='enclosureItem'><a target='_blank' href='" + $clientURL + "getImage/" + res.fileName + "/'><img src="+$clientURL + "getImage/" + res.fileName +
-						"/ /></a><br><a class='del' href='javascript:;'>删除</a>"+
+						"/></a><br><a class='del' href='javascript:;'>删除</a>"+
 						"<input type='hidden' value="+res.fileName+" class='fileName'>"+
 						"<input type='hidden' value="+res.orgName+" class='orgName'>"+
 						"</li>");
@@ -909,7 +913,7 @@
 			var p = "p"+i;
 				if(data[p]){
 				 var $li = $("<li class='enclosureItem'><a target='_blank' href='" + $clientURL + "getImage/" + data[p] + "/'><img src=" + $clientURL + "getImage/" + data[p] +
-						"//></a><br><a class='del' href='javascript:;'>删除</a>"+
+						"/></a><br><a class='del' href='javascript:;'>删除</a>"+
 						"<input type='hidden' value="+data[p]+" class='fileName'>"+
 						"</li>");
 				 $li.appendTo($(this.element).next('.enclosureList'));
