@@ -38,7 +38,7 @@
 	<script type="text/javascript" charset="UTF-8" src="js/lib/underscore.js"></script>
     <script type="text/javascript" charset="UTF-8" src="js/store/store.js"></script>
     <script type="text/javascript" charset="UTF-8" src="js/jquery.dateFormat.js"></script>
-    <script src="https://cdn.bootcss.com/echarts/3.6.1/echarts.common.js"></script>
+
 	<!-- poshytip -->
     <link rel="stylesheet" href="js/jquery/tip-yellow/tip-yellow.css" type="text/css" />
     <script type="text/javascript" charset="UTF-8" src="js/jquery/jquery.poshytip.min.js"></script>
@@ -56,9 +56,7 @@
 	<link rel="stylesheet" type="text/css" href="css/dailyMain.css">
 	<link rel="stylesheet" type="text/css" href="css/preMain.css">
 
-	<!-- 折线图 -->
-	<script type="text/javascript" charset="UTF-8" src="js/chart/highcharts.src.js"></script>
-	<script type="text/javascript" charset="UTF-8" src="js/chart/modules/data.js"></script>
+
 
 
 	<!-- 打印 -->
@@ -142,13 +140,53 @@
 	        $("#menu").html(data);
 	   	}); 
  	});
+
+
+
+
+
+
+
+
  	
 	</script>
 	<!--上传文件模块-->
 	<script type="text/javascript" charset="UTF-8" src="js/lib/dropzone.js"></script>
 	<!--路由及历史记录管理模块-->
 	<script type="text/javascript" charset="UTF-8" src="js/RouteManager.js"></script>
-	<script type="text/javascript" charset="UTF-8" src="js/RefreshManager.js"></script>
+
+	<!--<script type="text/javascript" charset="UTF-8" src="js/RefreshManager.js"></script>-->
+
+
+	<script>
+
+		var params = RouterManager.getParams();
+		var viewId='';
+		if(params['groupId']){
+			//groupId也可以标示页面
+			viewId=params['viewId']||params['groupId'];
+		}else{
+			viewId='welcome'
+		}
+		var renderUrl = "views/"+viewId+".html?_=" + Math.random();
+		$.get(renderUrl,function(data){
+			$("#body").html(data);
+			var groupId = params['groupId'] || viewId;
+			setTimeout(function(){
+				$(".menu_left li").each(function(e){
+					if($(this).attr("page-name")==groupId){
+						$(".child").hide();
+						$(this).parent("ul").show();
+						$(this).addClass("active").siblings().removeClass("active");
+					}
+				});
+			},0);
+		});
+
+
+
+
+	</script>
 
 </head>
 <body style="min-width:980px;">

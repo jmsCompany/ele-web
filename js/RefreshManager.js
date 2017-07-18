@@ -2,9 +2,9 @@
  * Created by slashhuang on 16/4/20.
  */
 
-
 (function(){
     var refreshFunc=function(){
+       alert("refresh");
         var params = RouterManager.getParams();
         var viewId='';
         if(params['groupId']){
@@ -30,5 +30,6 @@
     };
     //刷新立即执行
      refreshFunc();
-     window['RefreshManager'] = refreshFunc;
+    // alert("load");
+    // window['RefreshManager'] = refreshFunc;
 }());
