@@ -294,7 +294,7 @@
 				
 			</div>
 			<center style="clear:both;margin-bottom: 99px;">	
-				<button type="submit" class="btn btn-primary" style="padding:5px 10px;margin:20px">保 存</button>
+				<button type="submit" id="sure" class="btn btn-primary" style="padding:5px 10px;margin:20px">保 存</button>
 				<button type="button" id="start_sign" class="btn btn-primary btn-sm" name="button">发起签字</button>
     			<button type="button" class="btn goback" style="padding:5px 10px;margin:20px">返 回</button>			</center>
 		</main>
@@ -363,80 +363,92 @@ var formId = 2;
 var hash = location.hash;
 var projId = hash.slice(hash.indexOf('&projId=') + 8);
 var dataId = "";
-function loadSignTable(){
-$('#tableFormSign').DataTable( {
-            "ordering": false,
-            "bDestroy": true,
-            "processing": true,
-            "serverSide": true,
-            "stateSave": true,
-            "stateDuration": -1,
-            "ajax": {
-           "type": 'POST',
-                    "url": $clientURL+"sys/sign/signTable",
-                    "dataType": "json",
-           "headers":{'JMS-TOKEN':jmstoken},
-           "data":{
-           		eventId:dataId
-           	,	signWorkflowId:formId
-           	}
-           },
-           "columnDefs": [
-			{
-				"targets": -2,
-//				"data": null,
-				"defaultContent": '<input type="text" value="" />	'
+
+
+
+function loadSignTable() {
+	$('#tableFormSign').DataTable({
+		"ordering": false,
+		"bDestroy": true,
+		"processing": true,
+		"serverSide": true,
+		"stateSave": true,
+		"stateDuration": -1,
+		"ajax": {
+			"type": 'POST',
+			"url": $clientURL + "sys/sign/signTable",
+			"dataType": "json",
+			"headers": {
+				'JMS-TOKEN': jmstoken
+			},
+			"data": {
+				eventId: dataId,
+				signWorkflowId: formId
 			}
-		],
-           "language": {
-                            "url": "js/datatable/chinese.json"
-                       },
-          
-            dom: "t",
-        pageLength:"50",
-        initComplete: function () {
-			$('#tableFormSign tr[role=row] td:nth-child(10)').each(function (i, k) {
+		},
+		// "columnDefs": [
+		// 	{
+		// 		"targets": -2,
+		// 		"data": null,
+		// 		"defaultContent": '<input type="text" value="" />	'
+		// 	}
+		// ],
+		"language": {
+			"url": "js/datatable/chinese.json"
+		},
+
+		dom: "t",
+		pageLength: "50",
+		initComplete: function() {
+			$('#tableFormSign tr[role=row] td:nth-child(9)').each(function(i, k) {
+
+
+			});
+
+			$('#tableFormSign tr[role=row] td:nth-child(10)').each(function(i, k) {
 				var formId = $(k).text();
-				formId==1 && $(k).html('<button class="button-edit submitbtn" data-status="1"> 同意</button> <button class="button-edit submitbtn" data-status="0"> 拒绝</button>');
-				if(formId==0){
+				if (formId == 1) {
+					$(k).html('<button class="button-edit submitbtn" data-status="1"> 同意</button> <button class="button-edit submitbtn" data-status="0"> 拒绝</button>');
+					$(this).prev().html('<input type="text" value="' + $(this).prev().text() + '" />')
+				} else {
 					$(k).text("");
-					$(this).prev().html("")
 				}
 				var prevstr = $(this).prev().prev();
-				if(prevstr.html()==1){
+				if (prevstr.html() == 1) {
 					prevstr.html("已签");
-				}else if(prevstr.html()==0){
+				} else if (prevstr.html() == 0) {
 					prevstr.html("拒绝");
-				}else{
+				} else {
 					prevstr.html("");
 				}
 			});
-			$(".submitbtn").on("click",function(){
-				if($(this).data('status')==0 && !$(this).parent().prev().find('input').val()){
+			$(".submitbtn").on("click", function() {
+				if ($(this).data('status') == 0 && !$(this).parent().prev().find('input').val()) {
 					alert('请填写拒绝理由！');
 					return
 				}
-				var objectdata=JSON.stringify({
-					remark:$(this).parent().prev().find('input').val(),
-					idSignWorkflowSteps:$(this).parent().siblings().eq(2).html(),
-					idEvent:dataId,
-					status:$(this).data('status')
+				var objectdata = JSON.stringify({
+					remark: $(this).parent().prev().find('input').val(),
+					idSignWorkflowSteps: $(this).parent().siblings().eq(2).html(),
+					idEvent: dataId,
+					status: $(this).data('status')
 				})
 
-				$.signsubmit(objectdata,jmstoken,function(data){
-					console.log(data)
-					if(data.valid){
+				$.signsubmit(objectdata, jmstoken, function(data) {
+					if (data.valid) {
 						alert("确认成功");
 						window.location.reload();
-					}else{
+					} else {
 						alert(data.msg);
-						window.location.reload();
 					}
 				})
 			})
 		}
-        });
+	})
 }
+
+
+
 
 function initUploader() {
 	var uploadEnclosureUrl = 'uploadFile';
@@ -539,11 +551,11 @@ function saveForm(commit){
 			}
 			else{
 				alert("保存成功！");
-				window.location.reload();
+				//window.location.reload();
 			}
-			$('#sure').attr("disabled",true).css({"background":"#ccc","border":"1px solid #ccc"});
+			//$('#sure').attr("disabled",true).css({"background":"#ccc","border":"1px solid #ccc"});
 			// location.hash = "#/?groupId=P_ProjectManagement&viewId=P_ProjectManagement";
-			window.location.reload();
+			//window.location.reload();
 		}
 
 	});
@@ -623,7 +635,7 @@ function restoreForm(callback){
 restoreForm(function(){
 	loadSignTable();
 	initUploader();
-	$('button[type=submit]').on('click',saveForm(0));
+	//$('button[type=submit]').on('click',saveForm(0));
 });
 
 $( document ).on("keyup",'.zeroup',function(){
@@ -655,7 +667,9 @@ $("#start_sign").on('click',function(){
 });
 
 
-
+$("#sure").on('click',function(){
+              saveForm(0);
+              });
 
 var btn = _.template($('#btn-items').html());
 
