@@ -4,7 +4,7 @@
 
 (function(){
     var refreshFunc=function(){
-       alert("refresh");
+      // alert("refresh");
         var params = RouterManager.getParams();
         var viewId='';
         if(params['groupId']){
@@ -29,7 +29,7 @@
         });
     };
     //刷新立即执行
-     refreshFunc();
+     //refreshFunc();
     // alert("load");
-    // window['RefreshManager'] = refreshFunc;
+     window['RefreshManager'] = refreshFunc;
 }());
