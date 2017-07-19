@@ -492,7 +492,7 @@ $(".goback").click(function(){
 $(document).on("click",'.close',function(){
 	$(this).parent('li').remove();
 });
-function saveForm(){
+function saveForm(commit){
 
 	$('input[type=text]').each(function(i,k){
 		$(k).attr('value',k.value);
@@ -507,7 +507,7 @@ function saveForm(){
 	var tableData = $('#tableFormSign tbody').clone();
 	var data = {
 		idProject: projId
-	,			commit: 0
+	,			commit: commit
 	,	actVol: $("#actVol").val()
 	};
 
@@ -532,7 +532,15 @@ function saveForm(){
 	$('#tableFormSign tbody').remove();
 	$.saveForm(formId, data, function(e){
 		if (e.valid) {
-			alert("保存成功！");
+			if(commit==1)
+			{
+				alert("签字成功！");
+				window.location.reload();
+			}
+			else{
+				alert("保存成功！");
+				window.location.reload();
+			}
 			$('#sure').attr("disabled",true).css({"background":"#ccc","border":"1px solid #ccc"});
 			// location.hash = "#/?groupId=P_ProjectManagement&viewId=P_ProjectManagement";
 			window.location.reload();
@@ -615,7 +623,7 @@ function restoreForm(callback){
 restoreForm(function(){
 	loadSignTable();
 	initUploader();
-	$('button[type=submit]').on('click',saveForm);
+	$('button[type=submit]').on('click',saveForm(0));
 });
 
 $( document ).on("keyup",'.zeroup',function(){
@@ -633,17 +641,17 @@ $( document ).on("keyup",'.zeroup',function(){
 
 
 $("#start_sign").on('click',function(){
-	saveForm();
-  $.startSign2(projId,jmstoken,function(data){
-		if(data.valid){
-			alert("签字成功！");
-			window.location.reload();
-			//window.location.hash="#/?groupId=P_ProjectManagement&viewId=form1&projId="+projId
-		}else{
-			alert("签字失败！");
-			window.location.reload();
-		}
-	});
+	saveForm(1);
+//  $.startSign2(projId,jmstoken,function(data){
+//		if(data.valid){
+//			alert("签字成功！");
+//			window.location.reload();
+//			//window.location.hash="#/?groupId=P_ProjectManagement&viewId=form1&projId="+projId
+//		}else{
+//			alert("签字失败！");
+//			window.location.reload();
+//		}
+//	});
 });
 
 

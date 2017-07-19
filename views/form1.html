@@ -576,14 +576,14 @@
 
   if(signable==true)
   {
-  		saveForm();
-	  $.startSign(dataId,jmstoken,function(data){
-			if(data.valid){
-				alert("签字成功！");
-				window.location.reload();
-				//window.location.hash="#/?groupId=P_ProjectManagement&viewId=form1&projId="+projId
-			}
-		});
+	  saveForm(1);
+//	  $.startSign(dataId,jmstoken,function(data){
+//			if(data.valid){
+//				alert("签字成功！");
+//				window.location.reload();
+//				//window.location.hash="#/?groupId=P_ProjectManagement&viewId=form1&projId="+projId
+//			}
+//		});
 
   }
   else
@@ -598,7 +598,7 @@
 	});
 
 	$("#sure").on('click',function(){
-		saveForm();
+		saveForm(0);
 	});
 
 
@@ -768,7 +768,7 @@
 			}
 		});
 	}
-	function saveForm() {
+	function saveForm(commit) {
 	//	alert($('input[type=radio][name=kind]:checked').val())
 		// $('input[type=text]').each(function(i, k) {
 		// 	$(k).attr('value', k.value);
@@ -795,7 +795,7 @@
 			lng: $('#lng').val(),
 			lat: $('#lat').val(),
 			tele:$('#tele').val(),
-			commit: 0,
+			commit: commit,
 			currStep: 1,
 			name: $("#name").val(),
 			project: $("#project").val(),
@@ -811,8 +811,11 @@
 			item:$('input[type=radio][name=item]:checked').val(),
 			item1:$('input[type=radio][name=item1]:checked').val(),
 			ni:$('input[type=radio][name=ni]:checked').val(),
-			c65:$('input[type=checkbox][name=c65]:checked').val()	
+			c65:$('input[type=checkbox][name=c65]:checked').val(),
+
+
 		};
+
 		for(var i =1 ;i<13;i++){
 			var p = "p"+i;
 			data2[p]= $("#u"+i).find(".fileName").val()
@@ -832,7 +835,16 @@
 		$.saveProj(data, function(e) {
 			//console.log(e)
 			if (e.valid) {
-				alert("保存成功！");
+				if(commit==1)
+				{
+					alert("签字成功！");
+					window.location.reload();
+				}
+				else{
+					alert("保存成功！");
+					window.location.reload();
+				}
+				//alert("保存成功！");
 				//alert(dataId)
 				if(!dataId){
 					location.hash = "#/?groupId=P_ProjectManagement&viewId=P_ProjectManagement";
@@ -958,7 +970,7 @@
 			if (is == 1) {
 				return false;
 			}
-			saveForm();
+			saveForm(0);
 		});
 	});
 	$(document).on("keyup", '.zeroup', function() {
