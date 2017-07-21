@@ -703,7 +703,7 @@
 					}
 					var objectdata = JSON.stringify({
 						remark: $(this).parent().prev().find('input').val(),
-						idSignWorkflowSteps: $(this).parent().siblings().eq(2).html(),
+						id: $(this).parent().siblings().eq(2).html(),
 						idEvent: dataId,
 						status: $(this).data('status')
 					})

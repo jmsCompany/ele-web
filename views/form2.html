@@ -429,7 +429,7 @@ function loadSignTable() {
 				}
 				var objectdata = JSON.stringify({
 					remark: $(this).parent().prev().find('input').val(),
-					idSignWorkflowSteps: $(this).parent().siblings().eq(2).html(),
+					id: $(this).parent().siblings().eq(2).html(),
 					idEvent: dataId,
 					status: $(this).data('status')
 				})
@@ -551,7 +551,7 @@ function saveForm(commit){
 			}
 			else{
 				alert("保存成功！");
-				//window.location.reload();
+				window.location.reload();
 			}
 			//$('#sure').attr("disabled",true).css({"background":"#ccc","border":"1px solid #ccc"});
 			// location.hash = "#/?groupId=P_ProjectManagement&viewId=P_ProjectManagement";
