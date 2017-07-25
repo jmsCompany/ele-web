@@ -267,8 +267,14 @@
 						<td>★逆变器</td>
 						<td>
 							<p>
-							<input type="radio" name="ni" id="ni1"  value="ni1">品牌<input type="text" style="width: 170px" name="c35" id="c35">
-							<input type="radio" name="ni" id="ni2"  value="ni2">GPRS监控<input type="text"  name="c36" id="c36" style="width: 170px">
+							    <!--<input type="radio" name="ni" id="ni1"  value="ni1">品牌<input type="text" style="width: 170px" name="c35" id="c35">-->
+								<!--<input type="radio" name="ni" id="ni2"  value="ni2">GPRS监控<input type="text"  name="c36" id="c36" style="width: 170px">-->
+
+
+								<input type="checkbox" name="c66" id="c66" value="brand">品牌
+								<input type="text" style="width: 170px" name="c35" id="c35">
+								采集器<input type="text"  name="c36" id="c36" style="width: 170px">
+
 							</p>
 						</td>
 						<td><input type="text" style="width:150px" name="c37" id="c37"></td>
@@ -514,8 +520,9 @@
 		$('input[type=radio][name=inkind]:checked'),
 		$('input[type=radio][name=item]:checked'),
 		$('input[type=radio][name=item1]:checked'),
-		$('input[type=radio][name=ni]:checked'),
-		$('input[type=checkbox][name=c65]:checked'),
+		//$('input[type=radio][name=ni]:checked'),
+			$('input[type=checkbox][name=c66]:checked'),
+			$('input[type=checkbox][name=c65]:checked'),
 		$('.checked:checked'),
 		$('.checked2:checked'),
 		$("#c58:checked"),
@@ -531,7 +538,8 @@
 		$('input[type=radio][name=inkind]'),
 		$('input[type=radio][name=item]'),
 		$('input[type=radio][name=item1]'),
-		$('input[type=radio][name=ni]'),
+		//$('input[type=radio][name=ni]'),
+		$('input[type=checkbox][name=c66]'),
 		$('input[type=checkbox][name=c65]'),
 		$('.checked'),
 		$('.checked2'),
@@ -685,6 +693,7 @@
 						$(k).html('<button class="button-edit submitbtn" data-status="1"> 同意</button> <button class="button-edit submitbtn" data-status="0"> 拒绝</button>');
 						$(this).prev().html('<input type="text" value="' + $(this).prev().text() + '" />')
 					} else {
+						//$(this).prev().html('<input type="text" value="' + $(this).prev().text() + '" />')
 						$(k).text("");
 					}
 					var prevstr = $(this).prev().prev();
@@ -812,17 +821,18 @@
 			item1:$('input[type=radio][name=item1]:checked').val(),
 			ni:$('input[type=radio][name=ni]:checked').val(),
 			c65:$('input[type=checkbox][name=c65]:checked').val(),
+			c66:$('input[type=checkbox][name=c66]:checked').val(),
 
-
+          //  alert($('input[type=checkbox][name=c66]:checked').val());
 		};
 
 		for(var i =1 ;i<13;i++){
 			var p = "p"+i;
 			data2[p]= $("#u"+i).find(".fileName").val()
 		}
-		for(var i =1 ;i<65;i++){
+		for(var i =1 ;i<67;i++){
 			var c = "c"+i;
-			if(i>=51 && i<=60){
+			if((i>=51 && i<=60)){
 				data2[c]= $("#c"+i).attr("checked")
 			}else{
 				data2[c]= $("#c"+i).val()
@@ -831,6 +841,7 @@
 		}
 		console.log(data2,0)
 		var data = JSON.stringify(data2)
+		debugger
 		$('#tableFormSign tbody').remove();
 		$.saveProj(data, function(e) {
 			//console.log(e)
@@ -907,8 +918,9 @@
 			data.inkind&& $("input:radio[name=inkind][value="+data.inkind+"]").attr('checked',true);
 			data.item && $("input:radio[name=item][value="+data.item+"]").attr('checked',true);
 			data.item1 && $("input:radio[name=item1][value="+data.item1+"]").attr('checked',true);
-			data.ni && $("input:radio[name=ni][value="+data.ni+"]").attr('checked',true);
+			//data.ni && $("input:radio[name=ni][value="+data.ni+"]").attr('checked',true);
 			data.c65 && $("input:checkbox[name=c65][value="+data.c65+"]").attr('checked',true);
+			data.c66 && $("input:checkbox[name=c66][value="+data.c66+"]").attr('checked',true);
 			for(var i =1 ;i<65;i++){
 				var c = "c"+i;
 				if(i>=51 && i<=60){
