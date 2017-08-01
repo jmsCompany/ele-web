@@ -898,14 +898,18 @@
 			$("#proress").val(data.project);
 			// $("#location").val(data.id);
 			setTimeout(function(){
-				$("#location").find("option[value='"+data.idSubSubLocation+"']").attr("selected",true);
+				//alert(data.idSubSubLocation);
+				//$("#location").find("option[value='"+data.idSubSubLocation+"']").attr("selected",true);
+
+				$("#location").val(data.idSubSubLocation);
+				$("#saleMan").val(data.saleMan);
 			}, 1000)
 			
 			$('#code').val(data.code);
 			$('#tele').val(data.tele),
 			$("#project").val(data.project);
 			$("#address").val(data.address);
-			$("#saleMan").val(data.saleMan);
+
 			$('input[name=lng]').val(data.lng);
 			$('input[name=lat]').val(data.lat);
 			data[mobile] && $("input:radio[name=mobile][value="+data.mobile+"]").attr('checked',true);
