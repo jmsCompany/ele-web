@@ -286,7 +286,7 @@ $('button#add').on( 'click', function () {
 
     if(!flag){
         flag=1;
-        debugger;
+      //  debugger;
         var action =$(this).data('action');
         var actions={
             'edit':function(){
@@ -334,7 +334,10 @@ $('button#add').on( 'click', function () {
 
             },
             'view-form':function(){
+               // alert($(this).data('form'));
                 location.hash="#/?groupId=P_ProjectManagement&viewId=" + $(this).data('form');
+
+
                 window.location.reload();
 
             }
@@ -376,7 +379,7 @@ $("form").each(function(i,k) {
     $(k).bootstrapValidator();
 });
 function validateForm(elForm){
-    debugger;
+   // debugger;
     var data = $(elForm).data('bootstrapValidator');
     data.validate();
     return data.isValid();

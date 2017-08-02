@@ -731,6 +731,7 @@
 	}
 
 	function initUploader() {
+		//alert("initial uploader");
 		var uploadEnclosureUrl = 'uploadFile';
 		var $enclosure = $('.enclosure');
 		var inited = $enclosure.data('init');
@@ -874,6 +875,8 @@
 		if(!parseInt(projId)){
 
 			$('#start_sign').attr("disabled",true).css({"background":"#ccc","border":"1px solid #ccc"});
+			//alert("sssss");
+			initUploader();
 
 			return;
 		}
