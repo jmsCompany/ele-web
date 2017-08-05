@@ -104,7 +104,7 @@ $('#tableProj').DataTable( {
             "bDestroy": true,
             "processing": true,
             "serverSide": true,
-            "stateSave": true,
+            "stateSave": false,
             "stateDuration": -1,
             "ajax": {
            "type": 'POST',
@@ -149,7 +149,7 @@ $('#tableProj').DataTable( {
                        },
 
             dom: "tip",
-        pageLength:"50",
+    "iDisplayLength":"50",
         initComplete: function(){
 
             //弹出框-编辑
