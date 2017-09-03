@@ -30,7 +30,8 @@
             </div>
             <div class="station-map">
                 <span class="title">电站地图</span>
-                <img src="http://img1.cache.netease.com/catchpic/D/DD/DD2BDAA9F531FDFE3B275B93418FEE99.jpg" alt="">
+                <!-- <img src="http://img1.cache.netease.com/catchpic/D/DD/DD2BDAA9F531FDFE3B275B93418FEE99.jpg" alt=""> -->
+                <div id="map" style="width: 100%;height: 200px;"></div>
             </div>
             <div class="station-info">
                 <span class="title">电站信息</span>
@@ -127,8 +128,8 @@
 
                         <div class="r-header-body  ">
                             <div class="topBar" style="border-radius: 5px 5px 0px 0px">
-                                <input name="tt" type="button" id="power1" style="border-radius: 3px 3px 0px 0px" value="Power">
-                                <input name="ff231" type="button" id="energy1" style="border-radius: 3px 3px 0px 0px"  value="Energy">
+                                <input name="tt" type="button" id="power1" style="border-radius: 3px 3px 0px 0px" value="功率">
+                                <input name="ff231" type="button" id="energy1" style="border-radius: 3px 3px 0px 0px"  value="电量">
                             </div>
                         </div>
 
@@ -146,9 +147,9 @@
                                         </div>
 
                                         <div>
-                                            <div class="right-list">
-                                                <button class="button-sytle1">Day</button>
-                                                <button class="button-sytle1">Week</button>
+                                            <div class="right-list" id="dayORWeek">
+                                                <button class="button-sytle1 on" data='day'>日</button>
+                                                <button class="button-sytle1" data='week'>周</button>
                                             </div>
                                         </div>
                                     </div>
@@ -161,10 +162,10 @@
                                         </div>
 
                                         <div>
-                                            <div class="right-list">
-                                                <button class="button-sytle1" id="all1">All</button>
-                                                <button class="button-sytle1" id="year1">Year</button>
-                                                <button class="button-sytle1" id="month1">Month</button>
+                                            <div class="right-list" id="allORYearOrMonth">
+                                                <button class="button-sytle1 on" id="all1" data="all">历年</button>
+                                                <button class="button-sytle1" id="year1" data="year">年</button>
+                                                <button class="button-sytle1" id="month1" data="month">月</button>
                                             </div>
                                         </div>
                                     </div>
@@ -459,19 +460,172 @@
     </div>
 </section>
 </div>
-<script type="text/javascript">
+<!-- <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&amp;ak=ovW97sIaF51o5ADwMGOq4Oza"></script> -->
 
+<!-- <script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script> -->
+<!-- <script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script> -->
+<!-- <script type="text/javascript" src="http://api.map.baidu.com/getscript?v=1.1&ak=&services=true&t=20130716024058"></script> -->
+<!-- <script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak=ovW97sIaF51o5ADwMGOq4Oza&services=&t=20170823191629"></script> -->
+  <!-- <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ovW97sIaF51o5ADwMGOq4Oza"></script> -->
+  <!-- <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ovW97sIaF51o5ADwMGOq4Oza"></script> -->
+  <script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak=ovW97sIaF51o5ADwMGOq4Oza&services=&t=20170823191629"></script>
+<script type="text/javascript">
+    function getMap(x,y){
+        setTimeout(function(){
+            var map = new BMap.Map("map");    // 创建Map实例
+            map.centerAndZoom(new BMap.Point(x, y), 16); 
+
+
+
+            // var myIcon = new BMap.Icon("http://api.map.baidu.com/img/markers.png", new BMap.Size(23, 25), {  
+            //             offset: new BMap.Size(10, 25), // 指定定位位置  
+            //             imageOffset: new BMap.Size(0, 0 - 10 * 25) // 设置图片偏移  
+            //         });  
+        var marker2 = new BMap.Marker(new BMap.Point(x, y));  // 创建标注
+            map.addOverlay(marker2);   
+
+            // var myIcon = new BMap.Icon("http://api.map.baidu.com/img/markers.png", new BMap.Size(50, 50), {
+            //             offset: new BMap.Point(x, y), // 指定定位位置
+            //             imageOffset: new BMap.Size(0, 0) // 设置图片偏移
+            //         });
+            // var marker=new BMap.Marker(e.point,{icon:myIcon});
+            // map.removeOverlay(preMarker);
+            // map.addOverlay(marker);
+            // preMarker=marker;
+        },0);
+        // clearTimeout(time);
+    }
+        
+    
+    // $.JMSClient = function (path,opt,callback) {
+// alert(9);
+// var defaults = {
+//                      'url':        $clientURL+'info/station',
+//                      'type':        'GET',
+//                      'dataType':    'json',
+//                      'contentType': 'application/json; charset=UTF-8',
+//                      'data':         {'proId':1},
+//                      headers:      {},
+//                      processData:   true
+
+//         };
+     // var options = $.extend({}, defaults, opt);
+        //hxg 兼容上传文件操作
+       $.ajax({
+            url:          $clientURL+'info/station',
+            type:         'GET',
+            dataType:     'json',
+            contentType:  'application/json; charset=UTF-8',
+            data:         {'proId':1},
+            headers:      {'JMS-TOKEN':jmstoken},
+            processData:  true,
+            beforeSend:function(XMLHttpRequest){
+                // $('#body-center').block({
+                //     message: '数据加载中。。。',
+                //     css: {
+                //         border: 'none',
+                //         padding: '15px',
+                //         backgroundColor: '#000',
+                //         '-webkit-border-radius': '10px',
+                //         '-moz-border-radius': '10px',
+                //         opacity: .5,
+                //         color: '#fff'
+                //     }
+                // });
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+               // $('#body-center').unblock();
+               //  alert(XMLHttpRequest.status);
+               //  alert(textStatus);
+              //   alert('error');
+            },
+            complete:function(XMLHttpRequest, textStatus){
+                // $('#body-center').unblock();
+            },
+            success: function(data, textStatus){
+                console.log(data);
+                // 报警数
+                $('.smalltip>span>i').html(data.bjs);
+                $('.colorgreen').html(
+                    '<td>'+ data.dqgl +'KW</td>'+
+                    '<td>'+ data.drdl +'KW</td>'+
+                    '<td>'+ data.dydl +'KW</td>'+
+                    '<td>'+ data.dndl +'KW</td>'+
+                    '<td>'+ data.zdl +'KW</td>'
+                    );
+
+                // table基本信息
+                $('.station-photo>img').attr('src',$clientURL + "getImage/" + data.pic +'/');
+
+                // 电站信息
+                $('.station-info>ul>li:nth-of-type(1)>span').html(data.zjrl+'kw');
+                $('.station-info>ul>li:nth-of-type(2)>span').html(data.azs);
+                $('.station-info>ul>li:nth-of-type(3)>span').html(data.fzgl+'kw');
+                $('.station-info>ul>li:nth-of-type(4)>span').html(data.fdxl+'kwh／kw／day');
+                $('.station-info>ul>li:nth-of-type(5)>span').html(data.zcsj);
+                $('.station-info>ul>li:nth-of-type(6)>span').html(data.zhgxsj);
+
+                // 获取天气
+                getWeather(data.city);
+                // 获取地图
+                getMap(data.lat,data.lang);
+            }
+        });
+    // };
+    // 获取天气
+    function getWeather(location){
+        // $.ajax({
+        //     url:          'http://api.map.baidu.com/telematics/v3/weather?location='+
+        //                   location+
+        //                   '&output=json&ak=VBu4kIUlmnMRvVThgmYuadYB',
+        //     type:         'GET',
+        //     dataType:     'json',
+        //     contentType:  'application/json; charset=UTF-8',
+        //     // data:         {'proId':1},
+        //     // headers:      {'JMS-TOKEN':jmstoken},
+        //     processData:  true,
+        //     beforeSend:function(XMLHttpRequest){
+        //     },
+        //     error: function(XMLHttpRequest, textStatus, errorThrown) {
+        //     },
+        //     complete:function(XMLHttpRequest, textStatus){
+        //     },
+        //     success: function(data, textStatus){
+        //         console.log(data);
+        //     }
+        // });
+        $.ajax({
+            url : 'http://api.map.baidu.com/telematics/v3/weather?location='+location+'&output=json&ak=VBu4kIUlmnMRvVThgmYuadYB',
+            dataType : 'jsonp',
+            success : function(json){
+                //your code
+                // console.log(json.results[0].weather_data);
+                var first=json.results[0].weather_data[0];
+                var second=json.results[0].weather_data[1];
+                var third=json.results[0].weather_data[2];
+                $('.smalltip>p:nth-of-type(1)').html(first.date.substring(0,10)+first.weather+" "+first.temperature);
+                $('.smalltip>p:nth-of-type(2)').html(second.date.split(0,10)+" "+second.weather+" "+second.temperature);
+                $('.smalltip>p:nth-of-type(3)').html(third.date.split(0,10)+" "+third.weather+" "+third.temperature);
+            }
+        });
+    }
+        
+
+    // $.get($clientURL+"info/station",1,function(data){
+    //     console.log(data);
+    //     // $("#footer").html(data);
+    // });
 
 
 //        // 基于准备好的dom，初始化echarts实例
 //        var myChart = echarts.init(document.getElementById('main'));
-//// $.echeatsinit(function(data){
-////     console.log(data.data)
-////     console.log(data.date)
-////     // 使用刚指定的配置项和数据显示图表。
-////     initdata(data)
-//// })
-//
+// $.echeatsinit(function(data){
+    // console.log(data.data)
+    // console.log(data.date)
+    // 使用刚指定的配置项和数据显示图表。
+    // initdata(data)
+// })
+
 //function initdata(listdata){
 //   var option = {
 //    title: {
@@ -525,7 +679,7 @@
 //
 // myChart.setOption(option);
 //}
-//var jmstoken= store.get('JMS-TOKEN');
+// var jmstoken= store.get('JMS-TOKEN');
 var eleChartPrint={
     init:function(){
         var self = this;
@@ -536,9 +690,53 @@ var eleChartPrint={
         var dataPickerOpt = {
             format: "YYYY-MM-DD"
         };
-        $('#date1').datetimepicker(dataPickerOpt);
-        $('#date2').datetimepicker({format: "YYYY-MM"});
-
+        var date=new Date();
+        var year=date.getFullYear();
+        var month=date.getMonth()+1;
+        month=month<10?'0'+month:month;
+        var day=date.getDate();
+        day=day<10?'0'+day:day;
+        $('#date1').attr('value',year+'-'+month+'-'+day);
+        $("#date1").jeDate({
+            // hmsSetVal:{hh:00,mm:00,ss:00},
+            // minDate: '2016-06-16',
+            // maxDate: '2025-06-16',
+            format:"YYYY-MM-DD",
+            choosefun:function(elem, val, date) {
+                // console.log(elem);
+                // console.log(val);
+                // console.log(date);
+                elem.attr('value', val);
+                showPowerChart();
+            },
+            zIndex:3000
+        });
+        // var v = $('#date1').datetimepicker({
+        //     format: "YYYY-MM-DD"
+        // });
+        // $('#date1').bind("propertychange input",function(){
+        //     alert(1);
+        // });
+        // .bind('change', function (e) {
+        //     alert(9);
+        // })
+        // console.log($('#date1').attr('value'));
+        $('#date2').attr('value',year+'-'+month);
+        // $('#date2').datetimepicker({format: "YYYY-MM"});
+        $("#date2").jeDate({
+            // hmsSetVal:{hh:00,mm:00,ss:00},
+            // minDate: '2016-06-16',
+            // maxDate: '2025-06-16',
+            format:"YYYY-MM",
+            choosefun:function(elem, val, date) {
+                // console.log(elem);
+                // console.log(val);
+                // console.log(date);
+                elem.attr('value', val);
+                showEnergyChart();
+            },
+            zIndex:3000
+        });
         $('#ulnav li').click(function(){
             var i = $(this).index();
             $(this).addClass('current').siblings().removeClass("current");
@@ -585,217 +783,330 @@ var eleChartPrint={
 //        var x=[1,2,3,4,5,6,7,8,9,10];
 //        var y=[6,7,8,9,10,11,7,9,3,5];
 //        data=[{"y":0.0,"Date":"06/29/2017 05:10:00"},{"y":0.0,"Date":"06/29/2017 05:15:00"},{"y":0.0,"Date":"06/29/2017 05:20:00"},{"y":0.0,"Date":"06/29/2017 05:25:00"},{"y":79.0,"Date":"06/29/2017 05:30:00"},{"y":113.0,"Date":"06/29/2017 05:35:00"},{"y":113.0,"Date":"06/29/2017 05:40:00"},{"y":177.0,"Date":"06/29/2017 05:45:00"},{"y":177.0,"Date":"06/29/2017 05:50:00"},{"y":177.0,"Date":"06/29/2017 05:55:00"},{"y":177.0,"Date":"06/29/2017 06:00:00"},{"y":253.0,"Date":"06/29/2017 06:05:00"},{"y":318.0,"Date":"06/29/2017 06:10:00"},{"y":318.0,"Date":"06/29/2017 06:15:00"},{"y":318.0,"Date":"06/29/2017 06:20:00"},{"y":324.0,"Date":"06/29/2017 06:25:00"},{"y":324.0,"Date":"06/29/2017 06:30:00"},{"y":324.0,"Date":"06/29/2017 06:35:00"},{"y":765.0,"Date":"06/29/2017 06:40:00"},{"y":765.0,"Date":"06/29/2017 06:45:00"},{"y":1321.0,"Date":"06/29/2017 06:50:00"},{"y":1321.0,"Date":"06/29/2017 06:55:00"},{"y":1321.0,"Date":"06/29/2017 07:00:00"},{"y":1078.0,"Date":"06/29/2017 07:10:00"},{"y":1843.0,"Date":"06/29/2017 07:15:00"},{"y":1843.0,"Date":"06/29/2017 07:20:00"},{"y":1843.0,"Date":"06/29/2017 07:25:00"},{"y":1459.0,"Date":"06/29/2017 07:30:00"},{"y":2286.0,"Date":"06/29/2017 07:35:00"},{"y":2515.0,"Date":"06/29/2017 07:40:00"},{"y":2564.0,"Date":"06/29/2017 07:45:00"},{"y":937.0,"Date":"06/29/2017 07:50:00"},{"y":937.0,"Date":"06/29/2017 07:55:00"},{"y":1457.0,"Date":"06/29/2017 08:05:00"},{"y":2564.0,"Date":"06/29/2017 08:10:00"},{"y":1168.0,"Date":"06/29/2017 08:15:00"},{"y":1168.0,"Date":"06/29/2017 08:20:00"},{"y":1168.0,"Date":"06/29/2017 08:25:00"},{"y":3623.0,"Date":"06/29/2017 08:35:00"},{"y":2924.0,"Date":"06/29/2017 08:40:00"},{"y":2001.0,"Date":"06/29/2017 08:45:00"},{"y":2409.0,"Date":"06/29/2017 08:50:00"},{"y":2409.0,"Date":"06/29/2017 08:55:00"},{"y":1480.0,"Date":"06/29/2017 09:00:00"},{"y":1469.0,"Date":"06/29/2017 09:05:00"},{"y":3243.0,"Date":"06/29/2017 09:10:00"},{"y":3243.0,"Date":"06/29/2017 09:15:00"},{"y":3243.0,"Date":"06/29/2017 09:20:00"},{"y":3405.0,"Date":"06/29/2017 09:25:00"},{"y":3405.0,"Date":"06/29/2017 09:30:00"},{"y":3405.0,"Date":"06/29/2017 09:35:00"},{"y":1676.0,"Date":"06/29/2017 10:00:00"},{"y":2625.0,"Date":"06/29/2017 10:05:00"},{"y":2625.0,"Date":"06/29/2017 10:10:00"},{"y":4707.0,"Date":"06/29/2017 10:15:00"},{"y":3758.0,"Date":"06/29/2017 10:20:00"},{"y":3758.0,"Date":"06/29/2017 10:25:00"},{"y":988.0,"Date":"06/29/2017 10:45:00"},{"y":5054.0,"Date":"06/29/2017 10:50:00"},{"y":5054.0,"Date":"06/29/2017 10:55:00"},{"y":3425.0,"Date":"06/29/2017 11:00:00"},{"y":3425.0,"Date":"06/29/2017 11:05:00"},{"y":5527.0,"Date":"06/29/2017 11:10:00"},{"y":2102.0,"Date":"06/29/2017 11:15:00"},{"y":2102.0,"Date":"06/29/2017 11:20:00"},{"y":4116.0,"Date":"06/29/2017 11:30:00"},{"y":4116.0,"Date":"06/29/2017 11:35:00"},{"y":4116.0,"Date":"06/29/2017 11:40:00"}];
-        $.getJSON('https://data.jianshukeji.com/jsonp?filename=json/usdeur.json&callback=?', function (data) {
-            self.columnBasicPower(data);
+        // $.getJSON('https://data.jianshukeji.com/jsonp?filename=json/usdeur.json&callback=?', function (data) {
+        //     self.columnBasicPower(data);
+        // });
+
+        showPowerChart();
+        $("#power1").on('click',function(){
+            showPowerChart();
+            
+                // self.columnBasicPower(123);
+
+
+            // $.getJSON('https://data.jianshukeji.com/jsonp?filename=json/usdeur.json&callback=?', function (data) {
+                // self.columnBasicPower(data);
+            // });
         });
 
-        $("#power1").on('click',function(){
+        $('#dayORWeek>button').on('click',function(){
+            $(this).addClass('on').siblings().removeClass('on');
+            showPowerChart();
+        });
+        function showPowerChart(){
             $('#energy2').hide();
             $('#power2').show();
-            $.getJSON('https://data.jianshukeji.com/jsonp?filename=json/usdeur.json&callback=?', function (data) {
-                self.columnBasicPower(data);
+            $.ajax({
+                url:          $clientURL+'info/getglchart',
+                type:         'POST',
+                dataType:     'json',
+                contentType:  'application/json; charset=UTF-8',
+                data:         JSON.stringify({id:'1001',time:$('#date1').attr('value'),type:$('#dayORWeek>.on').attr('data')
+            }),
+                headers:      {'JMS-TOKEN':jmstoken},
+                processData:  true,
+                beforeSend:function(XMLHttpRequest){
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                },
+                complete:function(XMLHttpRequest, textStatus){
+                },
+                success: function(data, textStatus){
+                    console.log(data);
+                    self.columnBasicPower(data);
+                }
             });
-        });
+        }
 
-        var monthData=[{"y":32.01,"Year":"2017","Mouth":"5","Day":"1","Hour":"1","Min":"0","Sec":"0"},{"y":50.34,"Year":"2017","Mouth":"5","Day":"2","Hour":"1","Min":"0","Sec":"0"},{"y":45.11,"Year":"2017","Mouth":"5","Day":"3","Hour":"1","Min":"0","Sec":"0"},{"y":40.7,"Year":"2017","Mouth":"5","Day":"4","Hour":"1","Min":"0","Sec":"0"},{"y":10.51,"Year":"2017","Mouth":"5","Day":"5","Hour":"1","Min":"0","Sec":"0"},{"y":16.65,"Year":"2017","Mouth":"5","Day":"6","Hour":"1","Min":"0","Sec":"0"},{"y":38.3,"Year":"2017","Mouth":"5","Day":"7","Hour":"1","Min":"0","Sec":"0"},{"y":37.72,"Year":"2017","Mouth":"5","Day":"8","Hour":"1","Min":"0","Sec":"0"},{"y":37.85,"Year":"2017","Mouth":"5","Day":"9","Hour":"1","Min":"0","Sec":"0"},{"y":2.96,"Year":"2017","Mouth":"5","Day":"10","Hour":"1","Min":"0","Sec":"0"},{"y":30.05,"Year":"2017","Mouth":"5","Day":"11","Hour":"1","Min":"0","Sec":"0"},{"y":29.38,"Year":"2017","Mouth":"5","Day":"12","Hour":"1","Min":"0","Sec":"0"},{"y":28.98,"Year":"2017","Mouth":"5","Day":"13","Hour":"1","Min":"0","Sec":"0"},{"y":39.89,"Year":"2017","Mouth":"5","Day":"14","Hour":"1","Min":"0","Sec":"0"},{"y":38.57,"Year":"2017","Mouth":"5","Day":"15","Hour":"1","Min":"0","Sec":"0"},{"y":46.9,"Year":"2017","Mouth":"5","Day":"16","Hour":"1","Min":"0","Sec":"0"},{"y":48.27,"Year":"2017","Mouth":"5","Day":"17","Hour":"1","Min":"0","Sec":"0"},{"y":41.04,"Year":"2017","Mouth":"5","Day":"18","Hour":"1","Min":"0","Sec":"0"},{"y":15.57,"Year":"2017","Mouth":"5","Day":"19","Hour":"1","Min":"0","Sec":"0"},{"y":20.06,"Year":"2017","Mouth":"5","Day":"20","Hour":"1","Min":"0","Sec":"0"},{"y":25.2,"Year":"2017","Mouth":"5","Day":"21","Hour":"1","Min":"0","Sec":"0"},{"y":22.11,"Year":"2017","Mouth":"5","Day":"22","Hour":"1","Min":"0","Sec":"0"},{"y":14.87,"Year":"2017","Mouth":"5","Day":"23","Hour":"1","Min":"0","Sec":"0"},{"y":23.5,"Year":"2017","Mouth":"5","Day":"24","Hour":"1","Min":"0","Sec":"0"},{"y":16.1,"Year":"2017","Mouth":"5","Day":"25","Hour":"1","Min":"0","Sec":"0"},{"y":30.18,"Year":"2017","Mouth":"5","Day":"26","Hour":"1","Min":"0","Sec":"0"},{"y":40.05,"Year":"2017","Mouth":"5","Day":"27","Hour":"1","Min":"0","Sec":"0"},{"y":24.8,"Year":"2017","Mouth":"5","Day":"28","Hour":"1","Min":"0","Sec":"0"},{"y":29.8,"Year":"2017","Mouth":"5","Day":"29","Hour":"1","Min":"0","Sec":"0"},{"y":0,"Year":"2017","Mouth":"5","Day":"30","Hour":"1","Min":"0","Sec":"0"}]
-        var x = new Array();
-        var y = new Array();
-        _(monthData).each(function(item,i) {
-             x[i] = item.Day;
-             y[i] = item.y;
-        });
+        // var monthData=[{"y":32.01,"Year":"2017","Mouth":"5","Day":"1","Hour":"1","Min":"0","Sec":"0"},{"y":50.34,"Year":"2017","Mouth":"5","Day":"2","Hour":"1","Min":"0","Sec":"0"},{"y":45.11,"Year":"2017","Mouth":"5","Day":"3","Hour":"1","Min":"0","Sec":"0"},{"y":40.7,"Year":"2017","Mouth":"5","Day":"4","Hour":"1","Min":"0","Sec":"0"},{"y":10.51,"Year":"2017","Mouth":"5","Day":"5","Hour":"1","Min":"0","Sec":"0"},{"y":16.65,"Year":"2017","Mouth":"5","Day":"6","Hour":"1","Min":"0","Sec":"0"},{"y":38.3,"Year":"2017","Mouth":"5","Day":"7","Hour":"1","Min":"0","Sec":"0"},{"y":37.72,"Year":"2017","Mouth":"5","Day":"8","Hour":"1","Min":"0","Sec":"0"},{"y":37.85,"Year":"2017","Mouth":"5","Day":"9","Hour":"1","Min":"0","Sec":"0"},{"y":2.96,"Year":"2017","Mouth":"5","Day":"10","Hour":"1","Min":"0","Sec":"0"},{"y":30.05,"Year":"2017","Mouth":"5","Day":"11","Hour":"1","Min":"0","Sec":"0"},{"y":29.38,"Year":"2017","Mouth":"5","Day":"12","Hour":"1","Min":"0","Sec":"0"},{"y":28.98,"Year":"2017","Mouth":"5","Day":"13","Hour":"1","Min":"0","Sec":"0"},{"y":39.89,"Year":"2017","Mouth":"5","Day":"14","Hour":"1","Min":"0","Sec":"0"},{"y":38.57,"Year":"2017","Mouth":"5","Day":"15","Hour":"1","Min":"0","Sec":"0"},{"y":46.9,"Year":"2017","Mouth":"5","Day":"16","Hour":"1","Min":"0","Sec":"0"},{"y":48.27,"Year":"2017","Mouth":"5","Day":"17","Hour":"1","Min":"0","Sec":"0"},{"y":41.04,"Year":"2017","Mouth":"5","Day":"18","Hour":"1","Min":"0","Sec":"0"},{"y":15.57,"Year":"2017","Mouth":"5","Day":"19","Hour":"1","Min":"0","Sec":"0"},{"y":20.06,"Year":"2017","Mouth":"5","Day":"20","Hour":"1","Min":"0","Sec":"0"},{"y":25.2,"Year":"2017","Mouth":"5","Day":"21","Hour":"1","Min":"0","Sec":"0"},{"y":22.11,"Year":"2017","Mouth":"5","Day":"22","Hour":"1","Min":"0","Sec":"0"},{"y":14.87,"Year":"2017","Mouth":"5","Day":"23","Hour":"1","Min":"0","Sec":"0"},{"y":23.5,"Year":"2017","Mouth":"5","Day":"24","Hour":"1","Min":"0","Sec":"0"},{"y":16.1,"Year":"2017","Mouth":"5","Day":"25","Hour":"1","Min":"0","Sec":"0"},{"y":30.18,"Year":"2017","Mouth":"5","Day":"26","Hour":"1","Min":"0","Sec":"0"},{"y":40.05,"Year":"2017","Mouth":"5","Day":"27","Hour":"1","Min":"0","Sec":"0"},{"y":24.8,"Year":"2017","Mouth":"5","Day":"28","Hour":"1","Min":"0","Sec":"0"},{"y":29.8,"Year":"2017","Mouth":"5","Day":"29","Hour":"1","Min":"0","Sec":"0"},{"y":0,"Year":"2017","Mouth":"5","Day":"30","Hour":"1","Min":"0","Sec":"0"}]
+        // var x = new Array();
+        // var y = new Array();
+        // _(monthData).each(function(item,i) {
+        //      x[i] = item.Day;
+        //      y[i] = item.y;
+        // });
         $("#energy1").on('click',function(){
+            // $('#energy2').show();
+            // $('#power2').hide();
+            // self.columnBasicEnergy(x, y);
+            showEnergyChart();
+        });
+        function showEnergyChart(){
             $('#energy2').show();
             $('#power2').hide();
-            self.columnBasicEnergy(x, y);
-        });
-        ;
+            // self.columnBasicEnergy(x, y);
+            $.ajax({
+                url:          $clientURL+'info/getdlchart',
+                type:         'POST',
+                dataType:     'json',
+                contentType:  'application/json; charset=UTF-8',
+                data:         JSON.stringify({id:'1001',time:$('#date2').attr('value'),type:$('#allORYearOrMonth>.on').attr('data')
+            }),
+                headers:      {'JMS-TOKEN':jmstoken},
+                processData:  true,
+                beforeSend:function(XMLHttpRequest){
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                },
+                complete:function(XMLHttpRequest, textStatus){
+                },
+                success: function(data, textStatus){
+                    // console.log(data);
+                    self.columnBasicEnergy(data);
+                }
+            });
+        }
         $("#month1").on('click',function(){
-            self.columnBasicEnergy(x, y);
-        });
-
-        var yearData=[{"y":0,"Year":"2017","Mouth":"0","Day":"1","Hour":"0","Min":"0","Sec":"0"},{"y":302.78,"Year":"2017","Mouth":"1","Day":"1","Hour":"0","Min":"0","Sec":"0"},{"y":1017.28,"Year":"2017","Mouth":"2","Day":"1","Hour":"0","Min":"0","Sec":"0"},{"y":954.88,"Year":"2017","Mouth":"3","Day":"1","Hour":"0","Min":"0","Sec":"0"},{"y":961.12,"Year":"2017","Mouth":"4","Day":"1","Hour":"0","Min":"0","Sec":"0"},{"y":877.47,"Year":"2017","Mouth":"5","Day":"1","Hour":"0","Min":"0","Sec":"0"},{"y":0,"Year":"2017","Mouth":"6","Day":"1","Hour":"0","Min":"0","Sec":"0"},{"y":0,"Year":"2017","Mouth":"7","Day":"1","Hour":"0","Min":"0","Sec":"0"},{"y":0,"Year":"2017","Mouth":"8","Day":"1","Hour":"0","Min":"0","Sec":"0"},{"y":0,"Year":"2017","Mouth":"9","Day":"1","Hour":"0","Min":"0","Sec":"0"},{"y":0,"Year":"2017","Mouth":"10","Day":"1","Hour":"0","Min":"0","Sec":"0"},{"y":0,"Year":"2017","Mouth":"11","Day":"1","Hour":"0","Min":"0","Sec":"0"}];
-        var x1 = new Array();
-        var y1 = new Array();
-        _(yearData).each(function(item,i) {
-            x1[i] = item.Mouth;
-            y1[i] = item.y;
+            // self.columnBasicEnergy(x, y);
+            $(this).addClass('on').siblings().removeClass('on');
+            showEnergyChart();
         });
         $("#year1").on('click',function(){
-            self.columnBasicEnergy(x1, y1);
-        });
-
-        var allData=[{"y":4113.53,"Year":"2017","Mouth":"1","Day":"1","Hour":"1","Min":"1","Sec":"0"},{"y":0,"Year":"2018","Mouth":"1","Day":"1","Hour":"1","Min":"1","Sec":"0"},{"y":0,"Year":"2019","Mouth":"1","Day":"1","Hour":"1","Min":"1","Sec":"0"},{"y":0,"Year":"2020","Mouth":"1","Day":"1","Hour":"1","Min":"1","Sec":"0"},{"y":0,"Year":"2021","Mouth":"1","Day":"1","Hour":"1","Min":"1","Sec":"0"},{"y":0,"Year":"2022","Mouth":"1","Day":"1","Hour":"1","Min":"1","Sec":"0"},{"y":0,"Year":"2023","Mouth":"1","Day":"1","Hour":"1","Min":"1","Sec":"0"},{"y":0,"Year":"2024","Mouth":"1","Day":"1","Hour":"1","Min":"1","Sec":"0"}];
-        var x2 = new Array();
-        var y2 = new Array();
-        _(allData).each(function(item,i) {
-            x2[i] = item.Mouth;
-            y2[i] = item.y;
+            // self.columnBasicEnergy(x1, y1);
+            $(this).addClass('on').siblings().removeClass('on');
+            showEnergyChart();
         });
         $("#all1").on('click',function(){
-            self.columnBasicEnergy(x2, y2);
+            // self.columnBasicEnergy(x2, y2);
+            $(this).addClass('on').siblings().removeClass('on');
+            showEnergyChart();
         });
+        // var yearData=[{"y":0,"Year":"2017","Mouth":"0","Day":"1","Hour":"0","Min":"0","Sec":"0"},{"y":302.78,"Year":"2017","Mouth":"1","Day":"1","Hour":"0","Min":"0","Sec":"0"},{"y":1017.28,"Year":"2017","Mouth":"2","Day":"1","Hour":"0","Min":"0","Sec":"0"},{"y":954.88,"Year":"2017","Mouth":"3","Day":"1","Hour":"0","Min":"0","Sec":"0"},{"y":961.12,"Year":"2017","Mouth":"4","Day":"1","Hour":"0","Min":"0","Sec":"0"},{"y":877.47,"Year":"2017","Mouth":"5","Day":"1","Hour":"0","Min":"0","Sec":"0"},{"y":0,"Year":"2017","Mouth":"6","Day":"1","Hour":"0","Min":"0","Sec":"0"},{"y":0,"Year":"2017","Mouth":"7","Day":"1","Hour":"0","Min":"0","Sec":"0"},{"y":0,"Year":"2017","Mouth":"8","Day":"1","Hour":"0","Min":"0","Sec":"0"},{"y":0,"Year":"2017","Mouth":"9","Day":"1","Hour":"0","Min":"0","Sec":"0"},{"y":0,"Year":"2017","Mouth":"10","Day":"1","Hour":"0","Min":"0","Sec":"0"},{"y":0,"Year":"2017","Mouth":"11","Day":"1","Hour":"0","Min":"0","Sec":"0"}];
+        // var x1 = new Array();
+        // var y1 = new Array();
+        // _(yearData).each(function(item,i) {
+        //     x1[i] = item.Mouth;
+        //     y1[i] = item.y;
+        // });
+        
+
+        // var allData=[{"y":4113.53,"Year":"2017","Mouth":"1","Day":"1","Hour":"1","Min":"1","Sec":"0"},{"y":0,"Year":"2018","Mouth":"1","Day":"1","Hour":"1","Min":"1","Sec":"0"},{"y":0,"Year":"2019","Mouth":"1","Day":"1","Hour":"1","Min":"1","Sec":"0"},{"y":0,"Year":"2020","Mouth":"1","Day":"1","Hour":"1","Min":"1","Sec":"0"},{"y":0,"Year":"2021","Mouth":"1","Day":"1","Hour":"1","Min":"1","Sec":"0"},{"y":0,"Year":"2022","Mouth":"1","Day":"1","Hour":"1","Min":"1","Sec":"0"},{"y":0,"Year":"2023","Mouth":"1","Day":"1","Hour":"1","Min":"1","Sec":"0"},{"y":0,"Year":"2024","Mouth":"1","Day":"1","Hour":"1","Min":"1","Sec":"0"}];
+        // var x2 = new Array();
+        // var y2 = new Array();
+        // _(allData).each(function(item,i) {
+        //     x2[i] = item.Mouth;
+        //     y2[i] = item.y;
+        // });
+        
     },
     columnBasicPower:function(data){
-        $('#eleChart').highcharts({
-            chart:{
-                zoomType:'x'
-            },
-            title: {
-                text: 'xxxx'
-            },
-            subtitle: {
-                text: 'sss'
-            },
-//            credits:{
-//                enabled:false
-//            },
-            xAxis: {
-                    tickInterval:   3600 * 1000, // one week
-//                    tickWidth: 0,
-//                    categories: x,
-//                    gridLineWidth: 1,
-//                    labels: {
-//                        align: 'left',
-//                        x: 3,
-//                        y: -3,
-//                        enabled:true
-//                    },
-                    type: 'datetime',
-//                type: '%Y-%m-%d %H:%M:%S',
+        // alert(123)
+        // console.log(data);
+        // data=[216.4, 194.1, 95.6];
+//         $('#eleChart').highcharts({
+//             chart:{
+//                 zoomType:'x'
+//             },
+//             title: {
+//                 text: 'Feenstra Balk'
+//             },
+//             // subtitle: {
+//             //     text: 'sss'
+//             // },
+// //            credits:{
+// //                enabled:false
+// //            },
+//             xAxis: {
+//                     tickInterval:   3600 * 1000, // one week
+// //                    tickWidth: 0,
+// //                    categories: x,
+// //                    gridLineWidth: 1,
+// //                    labels: {
+// //                        align: 'left',
+// //                        x: 3,
+// //                        y: -3,
+// //                        enabled:true
+// //                    },
+//                     type: 'datetime',
+// //                type: '%Y-%m-%d %H:%M:%S',
 
-                    dateTimeLabelFormats: {
-                        hour: '%m-%e %H:%M',
-                        day: '%m-%d',
-                        week: '%m-%d',
-                        month: '%Y-%m',
-                        year: '%Y'
-                    }
+//                     dateTimeLabelFormats: {
+//                         hour: '%m-%e %H:%M',
+//                         day: '%m-%d',
+//                         week: '%m-%d',
+//                         month: '%Y-%m',
+//                         year: '%Y'
+//                     }
+//             },
+//             tooltip: {
+// //                formatter:function(){
+// //                    return''+this.series.name+''+
+// //                            Highcharts.dateFormat('%Y-%m-%d %H:%M ',this.x)+': '+this.y+' w';
+// //
+// //                },
+// //
+//                 dateTimeLabelFormats: {
+//                     hour: '%m-%e %H:%M',
+//                     day: '%m-%e'
+//                 },
+// //                shared: true,
+// //                crosshairs: true
+//             },
+//             yAxis: [{ // left y axis
+//                 title: {
+//                     text: "Power（W）"
+//                 },
+// //                labels: {
+// //                    align: 'left',
+// //                    x: 3,
+// //                    y: 16,
+// //                    format: '{value:.,0f}'
+// //                },
+// //                showFirstLabel: false
+//             }],
+//             legend: {
+//                 align: 'left',
+//                 verticalAlign: 'top',
+//                 y: 20,
+//                 floating: true,
+//                 borderWidth: 0,
+//                 enabled: false
+//             },
+//             plotOptions: {
+//                 area: {
+//                     fillColor: {
+//                         linearGradient: {
+//                             x1: 0,
+//                             y1: 0,
+//                             x2: 0,
+//                             y2: 1
+//                         },
+//                         stops: [
+//                             [0, Highcharts.getOptions().colors[0]],
+//                             [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+//                         ]
+//                     },
+//                     marker: {
+//                         radius: 2
+//                     },
+//                     lineWidth: 1,
+//                     states: {
+//                         hover: {
+//                             lineWidth: 1
+//                         }
+//                     },
+//                     threshold: null
+//                 },
+
+//                 series: {
+//                     cursor: 'pointer',
+// //                        point: {
+// //                            events: {
+// //                                click: function (e) {
+// //                                    hs.htmlExpand(null, {
+// //                                        pageOrigin: {
+// //                                            x: e.pageX || e.clientX,
+// //                                            y: e.pageY || e.clientY
+// //                                        },
+// //                                        headingText: this.series.name,
+// //                                        maincontentText: Highcharts.dateFormat('%A, %b %e, %Y', this.x) + ':<br/> ' +
+// //                                        this.y + ' visits',
+// //                                        width: 200
+// //                                    });
+// //                                }
+// //                            }
+// //                        },
+//                     marker: {
+//                         lineWidth: 1
+//                     }
+//                 },
+
+
+// //                    column: {
+// //                        pointPadding: 0.2,
+// //                        borderWidth: 0
+// //                    }
+//             },
+// //                series:series
+//             series: [{
+//                 type: 'area',
+//                 name: 'Actual',
+//                 lineWidth: 1,
+//                 marker: {
+//                     radius: 4
+//                 },
+//                 data:data
+// //            },
+// //                {
+// //                    type: 'area',
+// //                    name: 'Target%',
+// //                    data:target
+//                 }]
+//         });
+        $('#eleChart').highcharts({
+            credits:{
+                 enabled:false // 禁用版权信息
+             },
+            title: {
+                text: null
             },
-            tooltip: {
-//                formatter:function(){
-//                    return''+this.series.name+''+
-//                            Highcharts.dateFormat('%Y-%m-%d %H:%M ',this.x)+': '+this.y+' w';
-//
-//                },
-//
-                dateTimeLabelFormats: {
-                    hour: '%m-%e %H:%M',
-                    day: '%m-%e'
-                },
-//                shared: true,
-//                crosshairs: true
+            xAxis: {
+                categories: data.x
             },
-            yAxis: [{ // left y axis
+            yAxis: [{
                 title: {
-                    text: "功率"
-                },
-//                labels: {
-//                    align: 'left',
-//                    x: 3,
-//                    y: 16,
-//                    format: '{value:.,0f}'
-//                },
-//                showFirstLabel: false
+                    text: "Power（W）"
+                }
             }],
-            legend: {
-                align: 'left',
-                verticalAlign: 'top',
-                y: 20,
-                floating: true,
-                borderWidth: 0,
-                enabled: false
-            },
             plotOptions: {
                 area: {
-                    fillColor: {
-                        linearGradient: {
-                            x1: 0,
-                            y1: 0,
-                            x2: 0,
-                            y2: 1
-                        },
-                        stops: [
-                            [0, Highcharts.getOptions().colors[0]],
-                            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-                        ]
-                    },
+                    fillOpacity: 0.3, // 指定所有面积图的透明度
+                    pointStart: 1940,
                     marker: {
-                        radius: 2
-                    },
-                    lineWidth: 1,
-                    states: {
-                        hover: {
-                            lineWidth: 1
+                        enabled: false,
+                        symbol: 'circle',
+                        radius: 2,
+                        states: {
+                            hover: {
+                                enabled: true
+                            }
                         }
-                    },
-                    threshold: null
-                },
-
-                series: {
-                    cursor: 'pointer',
-//                        point: {
-//                            events: {
-//                                click: function (e) {
-//                                    hs.htmlExpand(null, {
-//                                        pageOrigin: {
-//                                            x: e.pageX || e.clientX,
-//                                            y: e.pageY || e.clientY
-//                                        },
-//                                        headingText: this.series.name,
-//                                        maincontentText: Highcharts.dateFormat('%A, %b %e, %Y', this.x) + ':<br/> ' +
-//                                        this.y + ' visits',
-//                                        width: 200
-//                                    });
-//                                }
-//                            }
-//                        },
-                    marker: {
-                        lineWidth: 1
                     }
-                },
-
-
-//                    column: {
-//                        pointPadding: 0.2,
-//                        borderWidth: 0
-//                    }
+                }
             },
-//                series:series
             series: [{
                 type: 'area',
-                name: 'Actual',
-                lineWidth: 1,
-                marker: {
-                    radius: 4
-                },
-                data:data
-//            },
-//                {
-//                    type: 'area',
-//                    name: 'Target%',
-//                    data:target
-                }]
+                data: data.y,
+                marker: { 
+                  fillColor: '#BF0B23',
+                  radius: 0 
+              }
+            }]
         });
     },
-    columnBasicEnergy:function(x,y){
+    columnBasicEnergy:function(data){
+        // console.log(x);
+        // console.log(y);
         $('#eleChart').highcharts({
+            credits:{
+                enabled:false // 禁用版权信息
+            },
             chart:{
                 type:'column'
             },
             title: {
-                text: 'xxxx'
+                text: null
             },
-            subtitle: {
-                text: 'sss'
-            },
+            // subtitle: {
+            //     text: 'sss'
+            // },
 //            credits:{
 //                enabled:false
 //            },
             xAxis: {
                     tickInterval: 2, // one week
 //                    tickWidth: 0,
-                    categories:x,
+                    categories:data.x,
 //                    gridLineWidth: 1,
 //                    labels: {
 //                        align: 'left',
@@ -819,7 +1130,7 @@ var eleChartPrint={
             },
             yAxis: [{ // left y axis
                 title: {
-                    text: "功率"
+                    text: "Energy（KWh）"
                 },
 //                labels: {
 //                    align: 'left',
@@ -899,7 +1210,7 @@ var eleChartPrint={
                 marker: {
                     radius: 4
                 },
-                data:y
+                data:data.y
 //            },
 //                {
 //                    type: 'area',
@@ -910,11 +1221,6 @@ var eleChartPrint={
     }
 };
 eleChartPrint.init();
-
-
-
-
-
 
 
     </script>
