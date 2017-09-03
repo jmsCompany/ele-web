@@ -10,6 +10,7 @@
 				<th>网关品牌</th>
 				<th>逆变器序列号</th>
 				<th>逆变器品牌</th>
+				<th>输入电量</th>
 				<th>状态</th>
 				<th>更新时间</th>
 				<th>操作</th>
@@ -55,6 +56,12 @@
 			</div>
 			<div class="col-xs-12 mar-top-20px">
 				<div class="form-group">
+					<label style="text-align:center;width:100px;">输入电量</label>
+					<input type="text" class="form-control input-w-3 password" name="inverterVol" id="inverterVol"/>
+				</div>
+			</div>
+			<div class="col-xs-12 mar-top-20px">
+				<div class="form-group">
 					<label style="text-align:center;width:100px;">状态</label>
 					<select class="" name="status" id="status">
 						<option value="1">在线</option>
@@ -74,7 +81,8 @@
 <script type="text/javascript">
 	var hash = location.hash;
 	var id = hash.slice(hash.indexOf('&id=') + 4);
-	var fag = 1;
+	var flag = 1;
+	var dataId;
   var app = {
 		table:null,
 		id:null,
@@ -94,7 +102,7 @@
 				"bDestroy": true,
 				"processing": true,
 				"serverSide": true,
-				"stateSave": true,
+				"stateSave": false,
 				"stateDuration": -1,
 				"ajax": {
 					"type": 'POST',
@@ -124,6 +132,8 @@
 		},
 		bindEvent(){
 			var _this = this
+			$('#table tbody').unbind( "click" )
+			$('.submit').off('click')
 			$('#table').on('click','.button-delete',function(){
 				var rowData = _this.table.row($(this).parents('tr')).data()
 				$.deleteCustomerDevice(rowData[rowData.length-1],jmstoken,function(data){
@@ -136,17 +146,19 @@
 			})
 			$('#add').on('click',function(){
 				$('.tcbox-pwd').show()
-				fag = 1
+				flag = 1
 			})
 			$('#table').on('click','.button-edit',function(){
-					var rowData = _this.table.row($(this).parents('tr')).data()
-					$("#inverterSn").val(rowData[2])
-					$("#dataloggerSn").val(rowData[0])
-					$("#inverterAlias").val(rowData[3])
-					$("#dataloggerAlias").val(rowData[1])
-					$("#status").val(rowData[4])
-					fag==0
+				var rowData = _this.table.row($(this).parents('tr')).data()
+				$("#inverterSn").val(rowData[2])
+				$("#dataloggerSn").val(rowData[0])
+				$("#inverterAlias").val(rowData[3])
+				$("#dataloggerAlias").val(rowData[1])
+				$("#inverterVol").val(rowData[4])
+				$("#status").val(rowData[5])
 				$('.tcbox-pwd').show()
+				flag = 0
+				dataId = rowData[7]
 			})
 			$('.submit').on('click',function(){
 				var data = {
@@ -155,9 +167,11 @@
 					dataloggerSn:$("#dataloggerSn").val(),
 					inverterAlias:$("#inverterAlias").val(),
 					dataloggerAlias:$("#dataloggerAlias").val(),
-					status:$("#status").val(),
+					vol: $("#inverterVol").val(),
+					status:$("#status").val()
 				}
-				if(fag==1){
+				if(flag==1){
+					delete data.id
 					$.saveDevice(JSON.stringify(data),jmstoken,function(data){
 						$('.tcbox-pwd').hide()
 						if (data.valid) {
@@ -168,6 +182,7 @@
 						_this.loadTable()
 					})
 				}else {
+					data.id = dataId
 					$.saveDevice(JSON.stringify(data),jmstoken,function(data){
 						$('.tcbox-pwd').hide()
 						if (data.valid) {

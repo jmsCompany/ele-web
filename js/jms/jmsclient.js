@@ -2,8 +2,8 @@
 
 
      //$clientURL = "http://118.178.94.7:9997/ele/"
-     $clientURL = "http://localhost:9997/ele/"
-    // $clientURL = "http://192.168.1.104:9997/ele/"
+    // $clientURL = "http://localhost:9997/ele/"
+    $clientURL = "http://192.168.1.100:9997/ele/"
 
 	//$.fn.dataTable.ext.errMode = 'throw';
 

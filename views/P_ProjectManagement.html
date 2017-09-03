@@ -27,6 +27,7 @@
                     <th>施工单</th>
                     <th>货款单</th>
                     <th>销售跟踪单</th>
+                    <th>数据</th>
                     <th>作废</th>
                 </tr>
             </thead>
@@ -122,25 +123,30 @@ $('#tableProj').DataTable( {
                 {
                     "targets": -2,
                     "data": null,
-                    "defaultContent": '<button class="button-edit" data-action="view-sales">查看</button>'
+                    "defaultContent": '<button class="button-edit" data-action="view-data">查看</button>'
                 },
                 {
                     "targets": -3,
                     "data": null,
-                    "defaultContent": '<button class="button-edit" data-action="view-payment">查看</button>'
+                    "defaultContent": '<button class="button-edit" data-action="view-sales">查看</button>'
                 },
                 {
                     "targets": -4,
                     "data": null,
-                    "defaultContent": '<button class="button-edit" data-action="view-construction">查看</button>'
+                    "defaultContent": '<button class="button-edit" data-action="view-payment">查看</button>'
                 },
                 {
                     "targets": -5,
                     "data": null,
-                    "defaultContent": '<button class="button-edit" data-action="view-collection">查看</button>'
+                    "defaultContent": '<button class="button-edit" data-action="view-construction">查看</button>'
                 },
                 {
                     "targets": -6,
+                    "data": null,
+                    "defaultContent": '<button class="button-edit" data-action="view-collection">查看</button>'
+                },
+                {
+                    "targets": -7,
                     "data": null,
                     "defaultContent": '<button class="button-edit" data-action="view-progress">查看</button>'
                 } ],
@@ -208,6 +214,11 @@ $('#tableProj').DataTable( {
                                });
                             });
 
+                        },
+
+                        'view-data': function() {
+                            location.hash="#/?groupId=P_ProjectManagement&viewId=I_ele&projId=" + $(this).parents('td').siblings().eq(0).text();
+                            window.location.reload();
                         },
 
                         'view-sales':function(){

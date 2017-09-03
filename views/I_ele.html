@@ -1,3 +1,12 @@
+<style>
+    .outer-th, .outer-td {
+        vertical-align: top;
+        padding: 0 !important;
+    }
+    .inner-table {
+        margin-bottom: 0;
+    }
+</style>
 <div class="cont">
     <div class="r-header-body">
         <h2>个人电站</h2>
@@ -7,9 +16,9 @@
             <ul id="ulnav">
                 <li class="button-edit current">概况</li>
                 <li class="button-edit" data-action="In_real_time">实时</li>
-                <li class="button-edit" data-action="view-progress">历史</li>
-                <li class="button-edit" data-action="view-progress">报警</li>
-                <li class="button-edit" data-action="view-progress">报表</li>
+                <li class="button-edit" data-action="In_history">历史</li>
+                <li class="button-edit" data-action="In_warning">报警</li>
+                <li class="button-edit" data-action="In_dashboard">报表</li>
                 <!--<li class="button-edit" data-action="view-progress">管理</li>-->
             </ul>
         </div>
@@ -21,7 +30,7 @@
         </div>
     </div>
     <section>
-    <!-- 第一个 -->
+    <!-- 概况 -->
     <div class="S-content" style="display: block;">
         <div class="left">
             <div class="station-photo">
@@ -180,7 +189,7 @@
             </div>
         </div>      
     </div>
-    <!--  第二个 -->
+    <!-- 实时 -->
     <div class="S-content">      
        <!--<label>客户区域：</label>-->
             <!--<select name="dicCode">-->
@@ -196,104 +205,43 @@
             <!--<img src="../images/bar_Right_2.png" onclick="page_last_page2();AGFpage_last_page2();" onmouseover="btn_last_page_over(this)" onmouseout="btn_last_page_out(this)" class="btn_to_page fl">-->
             <!--<img id="btn_reload" src="../images/bar_Updata.png" onclick="location.reload();" class="fl">-->
         <!--</div>-->
-
-
-        <table id="tablePo" class="tabletxt" cellspacing="0" width="100%">
+        <table id="realTimeTable" class="tabletxt" cellspacing="0" width="100%">
             <thead>
                 <tr>
-                    <th rowspan="2">序号</th>
-                    <th  rowspan="2">逆变器序列号</th>
-                    <th colspan="3">DC Input</th>
-                    <th colspan="5">AC Output</th>
-                    <th rowspan="2">当日电量(KWh)</th>
-                    <th rowspan="2">累计能量(KWh)</th>
-                    <th rowspan="2">温度(℃)</th>
-                    <th rowspan="2">时间</th>
-                </tr>
-                <tr>
-                    <th>通道</th>
-                    <th>电压(V)</th>
-                    <th>电流(A)</th>
-                    <th>相位</th>
-                    <th>电压(V)</th>
-                    <th>电流(A)</th>
-                    <th>功率(W)</th>
+                    <th>序号</th>
+                    <th>逆变器序列号</th>
+                    <th class="outer-th">
+                        <table class="table inner-table" frame="void">
+                            <tr><th colspan="3">DC Input</th></tr>
+                            <tr>
+                                <th width="100">通道</th>
+                                <th width="100">电压(V)</th>
+                                <th width="100">电流(A)</th>
+                            </tr>
+                        </table>
+                    </th>
+                    <th class="outer-th">
+                        <table class="table inner-table" frame="void">
+                            <tr><th colspan="4">AC Output</th></tr>
+                            <tr>
+                                <th width="25%">相位</th>
+                                <th width="25%">电压(V)</th>
+                                <th width="25%">电流(A)</th>
+                                <th width="25%">功率(W)</th>
+                            </tr>
+                        </table>
+                    </th>
                     <th>频率(Hz)</th>
+                    <th>当日电量(KWh)</th>
+                    <th>累计能量(KWh)</th>
+                    <th>温度(℃)</th>
+                    <th>时间</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td rowspan="3">1</td>
-                    <td rowspan="3">001413821388-002</td>
-                    <td>PV1</td>
-                    <td>257.0</td>
-                    <td>6.8</td>
-                    <td>L1</td>
-                    <td>239.0</td>
-                    <td>6.6</td>
-                    <td>1747</td>
-                    <td rowspan="3">49.8</td>
-                    <td rowspan="3">10.58</td>
-                    <td rowspan="3">1473.8</td>
-                    <td rowspan="3">50.0</td>
-                    <td rowspan="3">2017-06-29 14:07:58 GMT +8</td>
-                </tr>
-                <tr>
-                    <td>PV1</td>
-                    <td>257.0</td>
-                    <td>6.8</td>
-                    <td>L1</td>
-                    <td>239.0</td>
-                    <td>6.6</td>
-                    <td>1747</td>
-                </tr>
-                <tr>
-                    <td>PV1</td>
-                    <td>257.0</td>
-                    <td>6.8</td>
-                    <td>L1</td>
-                    <td>239.0</td>
-                    <td>6.6</td>
-                    <td>1747</td>
-                </tr>
-                <tr>
-                    <td rowspan="3">1</td>
-                    <td rowspan="3">001413821388-002</td>
-                    <td>PV1</td>
-                    <td>257.0</td>
-                    <td>6.8</td>
-                    <td>L1</td>
-                    <td>239.0</td>
-                    <td>6.6</td>
-                    <td>1747</td>
-                    <td rowspan="3">49.8</td>
-                    <td rowspan="3">10.58</td>
-                    <td rowspan="3">1473.8</td>
-                    <td rowspan="3">50.0</td>
-                    <td rowspan="3">2017-06-29 14:07:58 GMT +8</td>
-                </tr>
-                <tr>
-                    <td>PV1</td>
-                    <td>257.0</td>
-                    <td>6.8</td>
-                    <td>L1</td>
-                    <td>239.0</td>
-                    <td>6.6</td>
-                    <td>1747</td>
-                </tr>
-                <tr>
-                    <td>PV1</td>
-                    <td>257.0</td>
-                    <td>6.8</td>
-                    <td>L1</td>
-                    <td>239.0</td>
-                    <td>6.6</td>
-                    <td>1747</td>
-                </tr>
-            </tbody>
+            <tbody id="realTimeTbody"></tbody>
         </table>
     </div>
-    <!-- 第三个 -->
+    <!-- 历史 -->
     <div class="S-content">
         <div class="left">
             <div class="equipment-list">
@@ -312,17 +260,18 @@
             </div>
         </div>
     </div>
-    <!-- 第四个 -->
+    <!-- 报警 -->
     <div class="S-content">      
-       <label>客户区域：</label>
-            <select name="dicCode">
-            </select>
-            <select name="dicCode">
-            </select>
-            <button id="search" class="button-sytle1">查询</button>
-        <table id="tablePo" class="tabletxt" cellspacing="0" width="100%">
+        <label>客户区域：</label>
+        <select name="dicCode">
+        </select>
+        <select name="dicCode">
+        </select>
+        <button id="search" class="button-sytle1">查询</button>
+        <table id="warningTable" class="dataTable" cellspacing="0" width="100%">
             <thead>
                 <tr>
+                    <th>序号</th>
                     <th>逆变器SN</th>
                     <th>报警信息</th>
                     <th>报警代码</th>
@@ -336,7 +285,7 @@
             </tbody>
         </table>
     </div>
-    <!-- 第五个 -->
+    <!-- 报表 -->
     <div class="S-content">      
        <div>报表管理</div>
            
@@ -680,12 +629,49 @@
 // myChart.setOption(option);
 //}
 // var jmstoken= store.get('JMS-TOKEN');
+var hash = location.hash;
+var projId = hash.slice(hash.indexOf('&projId=') + 8);
 var eleChartPrint={
     init:function(){
         var self = this;
         this.bindEvents();
     },
-    bindEvents:function(){
+    // 生成实时Tab表格（嵌套table）
+    generateRealTimeTable: function(list) {
+        var str = ''
+        list.forEach(function(item) {
+            str += '<tr>'
+                + '<td>' + item.seq + '</td>'
+                + '<td>' + item.sn + '</td>'
+            if (item.input.length > 0) {
+                str += '<td class="outer-td"><table class="table inner-table" frame="void">'
+                item.input.forEach(function(inp) {
+                    str += '<tr><td width="100">' + (inp.hl === null ? '&nbsp;' : inp.hl) + '</td>'
+                        + '<td width="100">' + (inp.dy === null ? '&nbsp;' : inp.dy) + '</td>'
+                        + '<td width="100">' + (inp.dl === null ? '&nbsp;' : inp.dl) + '</td></tr>'
+                })
+                str += '</table></td>'
+            }
+            if (item.output.length > 0) {
+                str += '<td class="outer-td"><table class="table inner-table" frame="void">'
+                item.output.forEach(function(oup) {
+                    str += '<tr><td width="25%">' + (oup.xw === null ? '' : oup.xw) + '</td>'
+                        + '<td width="25%">' + (oup.dy === null ? '&nbsp;' : oup.dy) + '</td>'
+                        + '<td width="25%">' + (oup.dl === null ? '&nbsp;' : oup.dl) + '</td>'
+                        + '<td width="25%">' + (oup.gl === null ? '&nbsp;' : oup.gl) + '</td></tr>'
+                })
+                str += '</table></td>'
+            }
+            str += '<td>' + item.pl + '</td>'
+                + '<td>' + item.drdl + '</td>'
+                + '<td>' + item.ljnl + '</td>'
+                + '<td>' + item.wd + '</td>'
+                + '<td>' + item.time + '</td>'
+                + '</tr>'
+        })
+        return str
+    },
+    bindEvents: function() {
         var self = this;
         var dataPickerOpt = {
             format: "YYYY-MM-DD"
@@ -737,11 +723,97 @@ var eleChartPrint={
             },
             zIndex:3000
         });
+        $('#date1').datetimepicker(dataPickerOpt);
+        $('#date2').datetimepicker({format: "YYYY-MM"});
+
+        // Tab切换
         $('#ulnav li').click(function(){
             var i = $(this).index();
             $(this).addClass('current').siblings().removeClass("current");
             $(".S-content").eq(i).fadeIn(300).siblings().fadeOut(300);
         });
+
+        /***********实时**********/
+
+        // 获取实时Tab数据
+        $.JMSClient('info/getssinv', {
+            'type': 'POST',
+            headers: {'JMS-TOKEN':jmstoken},
+            data: JSON.stringify({id: projId})
+        }, function(data) {
+            if (data && data.length > 0) {
+                var tbody = self.generateRealTimeTable(data)
+                $('#realTimeTbody').html(tbody)
+            }
+        });
+
+        /***********历史**********/
+
+        // 获取历史Tab数据
+        $.JMSClient('info/devices', {
+            'type':'GET',
+            headers: {'JMS-TOKEN':jmstoken},
+            data: 'proId=' + projId
+        }, function(data) {
+            console.log(data)
+        });
+
+        /***********报警**********/
+        $('#warningTable').DataTable({
+            "ordering": false,
+            "bDestroy": true,
+            "processing": true,
+            "serverSide": true,
+            "stateSave": false,
+            "stateDuration": -1,
+            "ajax": {
+                "type": 'POST',
+                "url": $clientURL + "info/getalertstable",
+                "dataType": "json",
+                "headers":{'JMS-TOKEN':jmstoken}
+            },
+            "columnDefs": [
+                {
+                    "targets": -1,
+                    "data": null,
+                    "defaultContent": '<button class="button-edit warningTable-del" data-action="del">删除</button>'
+                },
+                {
+                    "targets": -2,
+                    "data": null,
+                    "defaultContent": '<button class="button-edit warningTable-deal" data-action="deal">处理</button>'
+                },
+                {
+                    "targets": -3,
+                    "data": null,
+                    "defaultContent": '<button class="button-edit" data-action="view">查看</button>'
+                }
+            ],
+            "language": {
+                "url": "js/datatable/chinese.json"
+            },
+            dom: "tip",
+            "iDisplayLength":"50",
+            initComplete: function() {
+                // 处理
+                $('.warningTable-deal').on('click', function() {
+
+                })
+                
+                // 删除
+                $('.warningTable-del').on('click', function () {
+                    if(confirm('确认删除？')) {
+                        $.delLocation($(this).parents('td').siblings().eq(0).text(), function(data){
+                            if(!data.valid){
+                                alert(data.msg);
+                            }else{
+                               init(); 
+                            }
+                        });
+                    }
+                });
+            }
+        })
 
         $('#sixcontbtn li').click(function(){
             var i = $(this).index();
@@ -759,33 +831,6 @@ var eleChartPrint={
         data.year = year;
         data.idMachine = idMachine;
         var $obj= $("#eleChartTable");
-//        $.mbrInfo(data,jmstoken, function (data) {
-//            debugger;
-//            if(count(data)>0){
-//                var x = new Array();
-//                var y = new Array();
-//                var target = new Array();
-//                _(data).each(function(item,i) {
-//                    $obj.find("tr:first").append('<th>wk'+item.x+'</th>');
-//                    var objy = (item.y).toFixed(2);
-//                    $obj.find("tr:eq(1)").append('<th>'+objy+'</th>');
-//                    $obj.find("tr:eq(2)").append('<th>'+item.target+'</th>');
-//                    x[i] = item.x;
-//                    y[i] = item.y;
-//                    target[i] = item.target;
-//                });
-//
-//            }
-//
-//            debugger;
-//            self.columnBasic(x, y ,target );
-//        });
-//        var x=[1,2,3,4,5,6,7,8,9,10];
-//        var y=[6,7,8,9,10,11,7,9,3,5];
-//        data=[{"y":0.0,"Date":"06/29/2017 05:10:00"},{"y":0.0,"Date":"06/29/2017 05:15:00"},{"y":0.0,"Date":"06/29/2017 05:20:00"},{"y":0.0,"Date":"06/29/2017 05:25:00"},{"y":79.0,"Date":"06/29/2017 05:30:00"},{"y":113.0,"Date":"06/29/2017 05:35:00"},{"y":113.0,"Date":"06/29/2017 05:40:00"},{"y":177.0,"Date":"06/29/2017 05:45:00"},{"y":177.0,"Date":"06/29/2017 05:50:00"},{"y":177.0,"Date":"06/29/2017 05:55:00"},{"y":177.0,"Date":"06/29/2017 06:00:00"},{"y":253.0,"Date":"06/29/2017 06:05:00"},{"y":318.0,"Date":"06/29/2017 06:10:00"},{"y":318.0,"Date":"06/29/2017 06:15:00"},{"y":318.0,"Date":"06/29/2017 06:20:00"},{"y":324.0,"Date":"06/29/2017 06:25:00"},{"y":324.0,"Date":"06/29/2017 06:30:00"},{"y":324.0,"Date":"06/29/2017 06:35:00"},{"y":765.0,"Date":"06/29/2017 06:40:00"},{"y":765.0,"Date":"06/29/2017 06:45:00"},{"y":1321.0,"Date":"06/29/2017 06:50:00"},{"y":1321.0,"Date":"06/29/2017 06:55:00"},{"y":1321.0,"Date":"06/29/2017 07:00:00"},{"y":1078.0,"Date":"06/29/2017 07:10:00"},{"y":1843.0,"Date":"06/29/2017 07:15:00"},{"y":1843.0,"Date":"06/29/2017 07:20:00"},{"y":1843.0,"Date":"06/29/2017 07:25:00"},{"y":1459.0,"Date":"06/29/2017 07:30:00"},{"y":2286.0,"Date":"06/29/2017 07:35:00"},{"y":2515.0,"Date":"06/29/2017 07:40:00"},{"y":2564.0,"Date":"06/29/2017 07:45:00"},{"y":937.0,"Date":"06/29/2017 07:50:00"},{"y":937.0,"Date":"06/29/2017 07:55:00"},{"y":1457.0,"Date":"06/29/2017 08:05:00"},{"y":2564.0,"Date":"06/29/2017 08:10:00"},{"y":1168.0,"Date":"06/29/2017 08:15:00"},{"y":1168.0,"Date":"06/29/2017 08:20:00"},{"y":1168.0,"Date":"06/29/2017 08:25:00"},{"y":3623.0,"Date":"06/29/2017 08:35:00"},{"y":2924.0,"Date":"06/29/2017 08:40:00"},{"y":2001.0,"Date":"06/29/2017 08:45:00"},{"y":2409.0,"Date":"06/29/2017 08:50:00"},{"y":2409.0,"Date":"06/29/2017 08:55:00"},{"y":1480.0,"Date":"06/29/2017 09:00:00"},{"y":1469.0,"Date":"06/29/2017 09:05:00"},{"y":3243.0,"Date":"06/29/2017 09:10:00"},{"y":3243.0,"Date":"06/29/2017 09:15:00"},{"y":3243.0,"Date":"06/29/2017 09:20:00"},{"y":3405.0,"Date":"06/29/2017 09:25:00"},{"y":3405.0,"Date":"06/29/2017 09:30:00"},{"y":3405.0,"Date":"06/29/2017 09:35:00"},{"y":1676.0,"Date":"06/29/2017 10:00:00"},{"y":2625.0,"Date":"06/29/2017 10:05:00"},{"y":2625.0,"Date":"06/29/2017 10:10:00"},{"y":4707.0,"Date":"06/29/2017 10:15:00"},{"y":3758.0,"Date":"06/29/2017 10:20:00"},{"y":3758.0,"Date":"06/29/2017 10:25:00"},{"y":988.0,"Date":"06/29/2017 10:45:00"},{"y":5054.0,"Date":"06/29/2017 10:50:00"},{"y":5054.0,"Date":"06/29/2017 10:55:00"},{"y":3425.0,"Date":"06/29/2017 11:00:00"},{"y":3425.0,"Date":"06/29/2017 11:05:00"},{"y":5527.0,"Date":"06/29/2017 11:10:00"},{"y":2102.0,"Date":"06/29/2017 11:15:00"},{"y":2102.0,"Date":"06/29/2017 11:20:00"},{"y":4116.0,"Date":"06/29/2017 11:30:00"},{"y":4116.0,"Date":"06/29/2017 11:35:00"},{"y":4116.0,"Date":"06/29/2017 11:40:00"}];
-        // $.getJSON('https://data.jianshukeji.com/jsonp?filename=json/usdeur.json&callback=?', function (data) {
-        //     self.columnBasicPower(data);
-        // });
 
         showPowerChart();
         $("#power1").on('click',function(){
@@ -1222,5 +1267,4 @@ var eleChartPrint={
 };
 eleChartPrint.init();
 
-
-    </script>
+</script>
