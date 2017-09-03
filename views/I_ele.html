@@ -6,6 +6,28 @@
     .inner-table {
         margin-bottom: 0;
     }
+    .daily-modal {
+        width: 90%;
+    }
+    .daily-modal-content {
+        padding: 15px;
+    }
+    #projectInfo {
+        width: 60%;
+        overflow: hidden;
+    }
+    #projectInfo li {
+        width: 50%;
+        float: left;
+    }
+    #snInfo {
+        width: 60%;
+        overflow: hidden;
+    }
+    #snInfo li {
+        width: 50%;
+        float: left;
+    }
 </style>
 <div class="cont">
     <div class="r-header-body">
@@ -71,105 +93,99 @@
                     </li>
                 </ul>
             </div>
-        </div>
-        <div class="right">
-            <!--<div class="S-top">-->
-                <!--<div class="col-ms-3">-->
-                    <!--<p>累计减少砍伐树木</p>-->
-                    <!--<span>9.13 <nth>棵</nth></span>   -->
+            <div class="right">
+                <!--<div class="S-top">-->
+                    <!--<div class="col-ms-3">-->
+                        <!--<p>累计减少砍伐树木</p>-->
+                        <!--<span>9.13 <nth>棵</nth></span>   -->
+                    <!--</div>-->
+                    <!--<div class="col-ms-3">-->
+                        <!--<p>累计减少二氧化碳</p>-->
+                        <!--<span>9.13 <nth>吨</nth></span> -->
+                    <!--</div>-->
+                    <!--<div class="col-ms-3">-->
+                        <!--<p>收益</p>-->
+                        <!--<span><nth>¥</nth>9<nth>K</nth></span> -->
+                    <!--</div>-->
                 <!--</div>-->
-                <!--<div class="col-ms-3">-->
-                    <!--<p>累计减少二氧化碳</p>-->
-                    <!--<span>9.13 <nth>吨</nth></span> -->
-                <!--</div>-->
-                <!--<div class="col-ms-3">-->
-                    <!--<p>收益</p>-->
-                    <!--<span><nth>¥</nth>9<nth>K</nth></span> -->
-                <!--</div>-->
-            <!--</div>-->
-            <div class="S-center">
-                <table class="table" border="1">
-                    <thead>
-                        <tr>
-                            <td>当前功率</td>
-                            <td>当日电量</td>
-                            <td>当月电量</td>
-                            <td>当年电量</td>
-                            <td>总电量</td>
+                <div class="S-center">
+                    <table class="table" border="1">
+                        <thead>
+                            <tr>
+                                <td>当前功率</td>
+                                <td>当日电量</td>
+                                <td>当月电量</td>
+                                <td>当年电量</td>
+                                <td>总电量</td>
+                            </tr>
+                        </thead>
+                        <tr class="colorgreen">
+                            <td>123KW</td>
+                            <td>123KW</td>
+                            <td>123KW</td>
+                            <td>123KW</td>
+                            <td>123KW</td>
                         </tr>
-                    </thead>
-                    <tr class="colorgreen">
-                        <td>123KW</td>
-                        <td>123KW</td>
-                        <td>123KW</td>
-                        <td>123KW</td>
-                        <td>123KW</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="S-bottom">
-                <!--<button class="btn btn-info power">功率</button><button class="btn btn-info">电量</button><button class="btn btn-info">日</button><button class="btn btn-info">周</button>-->
+                    </table>
+                </div>
+                <div class="S-bottom">
+                    <!--<button class="btn btn-info power">功率</button><button class="btn btn-info">电量</button><button class="btn btn-info">日</button><button class="btn btn-info">周</button>-->
 
-                <div class="mbr_cont">
-                    <div id="dailyMainTableWrap">
-                        <style>
-                            @media print {
-                                table {
-                                    width: 100%;
-                                    border-collapse: collapse;
+                    <div class="mbr_cont">
+                        <div id="dailyMainTableWrap">
+                            <style>
+                                @media print {
+                                    table {
+                                        width: 100%;
+                                        border-collapse: collapse;
+                                    }
+
+                                    table,
+                                    td {
+                                        border: 1px solid #000;
+                                        position: relative;
+                                    }
+
+                                    .isplittitle p span.pull-left {
+                                        float: left;
+                                    }
+
+                                    .isplittitle p span.pull-right {
+                                        float: right;
+                                    }
                                 }
-
-                                table,
-                                td {
-                                    border: 1px solid #000;
-                                    position: relative;
-                                }
-
-                                .isplittitle p span.pull-left {
-                                    float: left;
-                                }
-
-                                .isplittitle p span.pull-right {
-                                    float: right;
-                                }
-                            }
-                        </style>
-
+                            </style>
                         <div class="r-header-body  ">
                             <div class="topBar" style="border-radius: 5px 5px 0px 0px">
                                 <input name="tt" type="button" id="power1" style="border-radius: 3px 3px 0px 0px" value="功率">
                                 <input name="ff231" type="button" id="energy1" style="border-radius: 3px 3px 0px 0px"  value="电量">
                             </div>
-                        </div>
 
-                        <div class="mbr_boxmid" id="eleChart">
-                        </div>
-                        <table cellpadding="0" cellspacing="0" width="100%" class="mbr_tablefoot" id="eleChartTable">
-                            <tbody>
+                            <div class="mbr_boxmid" id="eleChart">
+                            </div>
+                            <table cellpadding="0" cellspacing="0" width="100%" class="mbr_tablefoot" id="eleChartTable">
+                                <tbody>
 
-                                <tr>
-                                    <div class="r-header-body  "  id="power2">
-                                        <div class="btn-group btn-group-left">
+                                    <tr>
+                                        <div class="r-header-body  "  id="power2">
                                             <div class="btn-group btn-group-left">
-                                                <label>日期：</label><input type="text" id='date1' style="width:90px">
+                                                <div class="btn-group btn-group-left">
+                                                    <label>日期：</label><input type="text" id='date1' style="width:90px">
+                                                </div>
                                             </div>
-                                        </div>
-
                                         <div>
                                             <div class="right-list" id="dayORWeek">
                                                 <button class="button-sytle1 on" data='day'>日</button>
                                                 <button class="button-sytle1" data='week'>周</button>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div class="r-header-body  " style="display: none" id="energy2">
-                                        <div class="btn-group btn-group-left">
+                                        <div class="r-header-body  " style="display: none" id="energy2">
                                             <div class="btn-group btn-group-left">
-                                                <label>年月</label><input type="text" id='date2' style="width:90px">
+                                                <div class="btn-group btn-group-left">
+                                                    <label>年月</label><input type="text" id='date2' style="width:90px">
+                                                </div>
                                             </div>
-                                        </div>
-
                                         <div>
                                             <div class="right-list" id="allORYearOrMonth">
                                                 <button class="button-sytle1 on" id="all1" data="all">历年</button>
@@ -177,237 +193,210 @@
                                                 <button class="button-sytle1" id="month1" data="month">月</button>
                                             </div>
                                         </div>
-                                    </div>
-                                </tr>
+                                    </tr>
 
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
+
+                    <div id="main" style="width: 100%;height:600px;"></div>
                 </div>
-
-                <div id="main" style="width: 100%;height:600px;"></div>
-            </div>
-        </div>      
-    </div>
-    <!-- 实时 -->
-    <div class="S-content">      
-       <!--<label>客户区域：</label>-->
-            <!--<select name="dicCode">-->
-            <!--</select>-->
-            <!--<button id="search" class="button-sytle1">查询</button>-->
-        <!--<div id="tools_bar" class="fl">-->
-            <!--<img src="../images/bar_Left_2.png" onclick="page_first_page2();AGFpage_first_page2();" onmouseover="btn_first_page_over(this)" onmouseout="btn_first_page_out(this)" class="btn_to_page fl">-->
-            <!--<img src="../images/bar_Left_1.png" onclick="page_up2();AGFpage_up2();" onmouseover="btn_up_page_over(this)" onmouseout="btn_up_page_out(this)" class="btn_to_page fl">-->
-            <!--<div id="page_bar" class="fl">-->
-                <!--<span>Page</span><input id="page_index" class="fl"><span>of</span><div id="page_count" class="fl">1</div>-->
+            </div>      
+        </div>
+        <!-- 实时 -->
+        <div class="S-content">      
+           <!--<label>客户区域：</label>-->
+                <!--<select name="dicCode">-->
+                <!--</select>-->
+                <!--<button id="search" class="button-sytle1">查询</button>-->
+            <!--<div id="tools_bar" class="fl">-->
+                <!--<img src="../images/bar_Left_2.png" onclick="page_first_page2();AGFpage_first_page2();" onmouseover="btn_first_page_over(this)" onmouseout="btn_first_page_out(this)" class="btn_to_page fl">-->
+                <!--<img src="../images/bar_Left_1.png" onclick="page_up2();AGFpage_up2();" onmouseover="btn_up_page_over(this)" onmouseout="btn_up_page_out(this)" class="btn_to_page fl">-->
+                <!--<div id="page_bar" class="fl">-->
+                    <!--<span>Page</span><input id="page_index" class="fl"><span>of</span><div id="page_count" class="fl">1</div>-->
+                <!--</div>-->
+                <!--<img src="../images/bar_Right_1.png" onclick="page_down2();AGFpage_down2()" onmouseover="btn_down_page_over(this)" onmouseout="btn_down_page_out(this)" class="btn_to_page fl">-->
+                <!--<img src="../images/bar_Right_2.png" onclick="page_last_page2();AGFpage_last_page2();" onmouseover="btn_last_page_over(this)" onmouseout="btn_last_page_out(this)" class="btn_to_page fl">-->
+                <!--<img id="btn_reload" src="../images/bar_Updata.png" onclick="location.reload();" class="fl">-->
             <!--</div>-->
-            <!--<img src="../images/bar_Right_1.png" onclick="page_down2();AGFpage_down2()" onmouseover="btn_down_page_over(this)" onmouseout="btn_down_page_out(this)" class="btn_to_page fl">-->
-            <!--<img src="../images/bar_Right_2.png" onclick="page_last_page2();AGFpage_last_page2();" onmouseover="btn_last_page_over(this)" onmouseout="btn_last_page_out(this)" class="btn_to_page fl">-->
-            <!--<img id="btn_reload" src="../images/bar_Updata.png" onclick="location.reload();" class="fl">-->
-        <!--</div>-->
-        <table id="realTimeTable" class="tabletxt" cellspacing="0" width="100%">
-            <thead>
-                <tr>
-                    <th>序号</th>
-                    <th>逆变器序列号</th>
-                    <th class="outer-th">
-                        <table class="table inner-table" frame="void">
-                            <tr><th colspan="3">DC Input</th></tr>
-                            <tr>
-                                <th width="100">通道</th>
-                                <th width="100">电压(V)</th>
-                                <th width="100">电流(A)</th>
-                            </tr>
-                        </table>
-                    </th>
-                    <th class="outer-th">
-                        <table class="table inner-table" frame="void">
-                            <tr><th colspan="4">AC Output</th></tr>
-                            <tr>
-                                <th width="25%">相位</th>
-                                <th width="25%">电压(V)</th>
-                                <th width="25%">电流(A)</th>
-                                <th width="25%">功率(W)</th>
-                            </tr>
-                        </table>
-                    </th>
-                    <th>频率(Hz)</th>
-                    <th>当日电量(KWh)</th>
-                    <th>累计能量(KWh)</th>
-                    <th>温度(℃)</th>
-                    <th>时间</th>
-                </tr>
-            </thead>
-            <tbody id="realTimeTbody"></tbody>
-        </table>
-    </div>
-    <!-- 历史 -->
-    <div class="S-content">
-        <div class="left">
-            <div class="equipment-list">
-                <span class="title">设备列表</span>
-                <ul>
-                    <li>
-                        <p>5609876543456789</p>
-                    </li>
-                </ul>
+            <table id="realTimeTable" class="tabletxt" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>逆变器序列号</th>
+                        <th class="outer-th">
+                            <table class="table inner-table" frame="void">
+                                <tr><th colspan="3">DC Input</th></tr>
+                                <tr>
+                                    <th width="100">通道</th>
+                                    <th width="100">电压(V)</th>
+                                    <th width="100">电流(A)</th>
+                                </tr>
+                            </table>
+                        </th>
+                        <th class="outer-th">
+                            <table class="table inner-table" frame="void">
+                                <tr><th colspan="4">AC Output</th></tr>
+                                <tr>
+                                    <th width="25%">相位</th>
+                                    <th width="25%">电压(V)</th>
+                                    <th width="25%">电流(A)</th>
+                                    <th width="25%">功率(W)</th>
+                                </tr>
+                            </table>
+                        </th>
+                        <th>频率(Hz)</th>
+                        <th>当日电量(KWh)</th>
+                        <th>累计能量(KWh)</th>
+                        <th>温度(℃)</th>
+                        <th>时间</th>
+                    </tr>
+                </thead>
+                <tbody id="realTimeTbody"></tbody>
+            </table>
+        </div>
+        <!-- 历史 -->
+        <div class="S-content">
+            <div class="left">
+                <div class="equipment-list">
+                    <span class="title">设备列表</span>
+                    <ul id="historyDeviceList"></ul>
+                </div>
+            </div>
+            <div class="right">
+                <div class="S-bottom">
+                    <button class="btn btn-info">显示隐藏</button><button class="btn btn-info">查询</button><button class="btn btn-info">日</button><button class="btn btn-info">周</button>
+                    <div id="main" style="width: 100%;height:600px;"></div>
+                </div>
             </div>
         </div>
-        <div class="right">
-            <div class="S-bottom">
-                <button class="btn btn-info">显示隐藏</button><button class="btn btn-info">查询</button><button class="btn btn-info">日</button><button class="btn btn-info">周</button>
-                <div id="main" style="width: 100%;height:600px;"></div>
-            </div>
+        <!-- 报警 -->
+        <div class="S-content">  
+            <select id="warningTimetype">
+                <option value="1">今天</option>
+                <option value="2">最近一周</option>
+                <option value="3">最近一个月</option>
+                <option value="4">最近一年</option>
+            </select>
+            <select id="warningStatus">
+                <option value="2">全部</option>
+                <option value="1">已处理</option>
+                <option value="0">未处理</option>
+            </select>
+            <input id="warningSearchKey" type="text" placeholder="输入条件查询">
+            <button id="warningSearch" class="button-sytle1">查询</button>
+            <table id="warningTable" class="dataTable" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>逆变器ID</th>
+                        <th>逆变器SN</th>
+                        <th>报警信息</th>
+                        <th>报警代码</th>
+                        <th>报警时间</th>
+                        <th>报警状态</th>
+                        <th>查看图表</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
         </div>
-    </div>
-    <!-- 报警 -->
-    <div class="S-content">      
-        <label>客户区域：</label>
-        <select name="dicCode">
-        </select>
-        <select name="dicCode">
-        </select>
-        <button id="search" class="button-sytle1">查询</button>
-        <table id="warningTable" class="dataTable" cellspacing="0" width="100%">
-            <thead>
-                <tr>
-                    <th>序号</th>
-                    <th>逆变器SN</th>
-                    <th>报警信息</th>
-                    <th>报警代码</th>
-                    <th>报警时间</th>
-                    <th>报警状态</th>
-                    <th>查看图标</th>
-                    <th>操作</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-    </div>
-    <!-- 报表 -->
-    <div class="S-content">      
-       <div>报表管理</div>
-           
-        <table id="tablePo" class="tabletxt" cellspacing="0" width="100%">
-           <tr>
-               <td>日报表</td>
-               <td>日期：<input type="text"></td>
-               <td><button class="btn btn-info">预览</button></td>
-               <td><button class="btn btn-info">导出</button></td>
-           </tr> 
-           <tr>
-               <td>周报表</td>
-               <td>起始日期<input type="text">至<input type="text"></td>
-               <td><button class="btn btn-info">预览</button></td>
-               <td><button class="btn btn-info">导出</button></td>
-           </tr>
-           <tr>
-               <td>月报表</td>
-               <td>年<input type="text">月<input type="text"></td>
-               <td><button class="btn btn-info">预览</button></td>
-               <td><button class="btn btn-info">导出</button></td>
-           </tr> 
-           <tr>
-               <td>年报表</td>
-               <td>年<input type="text"></td>
-               <td><button class="btn btn-info">预览</button></td>
-               <td><button class="btn btn-info">导出</button></td>
-           </tr> 
-           <tr>
-               <td>表警</td>
-               <td>起始日期<input type="text">至<input type="text"></td>
-               <td><button class="btn btn-info">预览</button></td>
-               <td><button class="btn btn-info">导出</button></td>
-           </tr>
-        </table>
-    </div>
-    <!-- 第六个 -->
-    <div class="S-content">      
-       <div class="nav-box">
-            <ul id="sixcontbtn">
-                <li class="button-edit">电站管理</li>
-                <li class="button-edit current" data-action="In_real_time">设备</li>
-                <li class="button-edit" data-action="view-progress">报警管理</li>
-                <li class="button-edit" data-action="view-progress">电量修正</li>
-                <li class="button-edit" data-action="view-progress">SIM卡号</li>
-                <li class="button-edit" data-action="view-progress">电价</li>
-            </ul>
-        </div>
-        <div class="sixcont">
-            <ul id="sixcontcon">
-                <li></li>
-                <li class="current">
-                    <table id="tablePo" class="tabletxt" cellspacing="0" width="100%">
-                    <thead>
-                        <tr>
-                            <th>采集器序列号</th>
-                            <th>网关品牌</th>
-                            <th>逆变器序列号</th>
-                            <th>逆变器品牌</th>
-                            <th>状态</th>
-                            <th>更新时间</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-                <button class="btn btn-info currentbtn">增加序列号</button>
-                </li>
-                <li>
-                    <div class="antbox">
-                        <label>报警通知：<input type="checkbox" name="" id=""> 邮箱</label>
-                        <label>报警邮箱：<input type="text" name="" id=""></label>
-                        <button class="btn btn-info">确定</button>
+        <!-- 报表 -->
+        <div class="S-content">      
+            <div>报表管理</div>
+            <table id="tablePo" class="tabletxt" cellspacing="0" width="100%">
+               <tr>
+                   <td>日报表</td>
+                   <td>日期：<input type="text"></td>
+                   <td><button id="dailyView" class="btn btn-info">预览</button></td>
+                   <td><button id="dailyExport" class="btn btn-primary">导出</button></td>
+               </tr> 
+               <tr>
+                   <td>周报表</td>
+                   <td>起始日期<input type="text">至<input type="text"></td>
+                   <td><button class="btn btn-info">预览</button></td>
+                   <td><button class="btn btn-info">导出</button></td>
+               </tr>
+               <tr>
+                   <td>月报表</td>
+                   <td>年<input type="text">月<input type="text"></td>
+                   <td><button class="btn btn-info">预览</button></td>
+                   <td><button class="btn btn-info">导出</button></td>
+               </tr> 
+               <tr>
+                   <td>年报表</td>
+                   <td>年<input type="text"></td>
+                   <td><button class="btn btn-info">预览</button></td>
+                   <td><button class="btn btn-info">导出</button></td>
+               </tr> 
+               <tr>
+                   <td>表警</td>
+                   <td>起始日期<input type="text">至<input type="text"></td>
+                   <td><button class="btn btn-info">预览</button></td>
+                   <td><button class="btn btn-info">导出</button></td>
+               </tr>
+            </table>
+            <div id="dailyModal" class="tcbox daily-modal">
+                <div class="tcbox_cont">
+                    <div class="body-head-title">
+                        <span class="h-title">日报表</span>
                     </div>
-                </li>
-                <li>
-                    <div class="alldj">
-                        <div class="titlebold"><span>电站总量修正</span> <input type="text"><span>kwh</span> <button class="btn btn-info">确定</button></div>
-                        <span class="smallfont">总电量补缺适用于更换设备卡等情况造成的</span>
-                        <div><p class="titlebold">电站年月量修正<span>电站年月量修正适用于数据未成功上传导致的电量误差，该值不会影响总电量</span></p> </div>
-                        <select>
-                            <option value="2017">2017</option>
-                        </select>
-                        <select>
-                            <option value="5">5</option>
-                        </select>
-                        <input type="text"> <button class="btn btn-info">添加</button>
-                        <div>年／月／电量补差</div>
-                    </div>    
-                </li>
-                <li class="fivelicon">
-                    <p>提示：如果您使用自己购买的SIM卡，您可以在这里填写编辑SIM卡号，该信息会显示在“个人电站”列表中</p>
-                    <label>自供SIM卡号：<input type="text" name="" id=""></label>
-                    <label>采集器序列号：<input type="text" name="" id=""></label>
-                    <button class="btn btn-info">确定</button>
-                </li>
-                <li class="lastlicon">
-                    <p><input type="checkbox" name="" id="">电价区间</p>
-                     <table id="tablePo" class="tabletxt" cellspacing="0" width="100%">
-                       <tr>
-                           <td>起始日期：</td>
-                           <td>至</td>
-                           <td>电价</td>
-                           <td>操作</td>
-                       </tr> 
-                       <tr>
-                           <td><input type="text"></td>
-                           <td><input type="text"></td>
-                           <td><input type="text"></td>
-                           <td><button class="btn btn-info">+</button></td>
-                       </tr>
-                      
-                    </table>
-                    <button class="btn btn-info sure">保存</button>
-                </li>
-            </ul>
-
-
-
-        </div>
-    </div>
-</section>
+                    <input type="button" class="tc_close">
+                    <div class="daily-modal-content">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">项目概述</div>
+                            <div class="panel-body">
+                                <ul id="projectInfo"></ul>
+                                <ul id="snInfo"></ul>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">统计</div>
+                            <div class="panel-body">
+                                <div class="form-group clearfix">
+                                    <label class="control-label pull-left">逆变器SN：</label>
+                                    <div class="col-sm-2">
+                                        <select id="snList" class="form-control"></select>
+                                    </div>
+                                </div>
+                                <table id="dailyTable" class="dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>逆变器SN</th>
+                                            <th>Vpv1</th>
+                                            <th>Vpv2</th>
+                                            <th>Vpv3</th>
+                                            <th>Ipv1</th>
+                                            <th>Ipv2</th>
+                                            <th>Ipv3</th>
+                                            <th>Vac1</th>
+                                            <th>Vac2</th>
+                                            <th>Vac3</th>
+                                            <th>Iac1</th>
+                                            <th>Iac2</th>
+                                            <th>Iac3</th>
+                                            <th>Pac1</th>
+                                            <th>Pac2</th>
+                                            <th>Pac3</th>
+                                            <th>Fac</th>
+                                            <th>温度(℃)</th>
+                                            <th>时间(GMT +8)</th>
+                                            <th>当日电量(kWh)</th>
+                                            <th>总电量(kWh)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+               </div>
+            </div>
+        </div>  
+    </section>
 </div>
 <!-- <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&amp;ak=ovW97sIaF51o5ADwMGOq4Oza"></script> -->
 
@@ -631,8 +620,8 @@
 // var jmstoken= store.get('JMS-TOKEN');
 var hash = location.hash;
 var projId = hash.slice(hash.indexOf('&projId=') + 8);
-var eleChartPrint={
-    init:function(){
+var eleChartPrint= {
+    init: function(){
         var self = this;
         this.bindEvents();
     },
@@ -670,6 +659,99 @@ var eleChartPrint={
                 + '</tr>'
         })
         return str
+    },
+    // 生成历史Tab设备列表
+    generateDeviceList: function(list) {
+        var str = ''
+        list.forEach(function(item) {
+            str += '<li><a href="javascript:;" data-id=' + item.id_DEVICE + '>' + item.mac + '</a></li>'
+        })
+        $('#historyDeviceList').html(str)
+    },
+    // 初始化报警Tab表格
+    initWarningTable: function(params) {
+        params = params || {
+            timetype: 1,
+            type: 2,
+            q: ''
+        }
+        var self = this
+        var $warningTable = $('#warningTable').DataTable({
+            "ordering": false,
+            "bDestroy": true,
+            "processing": true,
+            "serverSide": true,
+            "stateSave": false,
+            "stateDuration": -1,
+            "ajax": {
+                "type": 'POST',
+                "url": $clientURL + "info/getalertstable",
+                "dataType": "json",
+                "headers":{'JMS-TOKEN':jmstoken},
+                "data": params
+            },
+            "columnDefs": [
+                {
+                    "targets": -1,
+                    "data": null,
+                    "defaultContent": '<button class="button-edit warningTable-deal">处理</button><button class="button-edit warningTable-del">删除</button>'
+                },
+                {
+                    "targets": -2,
+                    "data": null,
+                    "defaultContent": '<button class="button-edit warningTable-view">查看</button>'
+                }
+            ],
+            "language": {
+                "url": "js/datatable/chinese.json"
+            },
+            dom: "tip",
+            "iDisplayLength":"50",
+            initComplete: function() {
+                // 处理
+                $('.warningTable-deal').on('click', function() {
+                    var rowData = $warningTable.row($(this).parents('tr')).data()
+                    $.JMSClient('info/handlealert', {
+                        'type':'GET',
+                        headers: {'JMS-TOKEN':jmstoken},
+                        data: 'id=' + rowData[6]
+                    }, function(data) {
+                        if (data.valid) {
+                            self.initWarningTable()
+                        } else {
+                            alert(data.msg)
+                        }
+                    });
+                })
+
+                // 删除
+                $('.warningTable-del').on('click', function () {
+                    if(confirm('确认删除？')) {
+                        var rowData = $warningTable.row($(this).parents('tr')).data()
+                        $.JMSClient('info/deletealert', {
+                            'type':'GET',
+                            headers: {'JMS-TOKEN':jmstoken},
+                            data: 'id=' + rowData[6]
+                        }, function(data) {
+                            if (data.valid) {
+                                self.initWarningTable()
+                            } else {
+                                alert(data.msg)
+                            }
+                        });
+                    }
+                });
+
+                // 查看
+                $('.warningTable-view').on('click', function() {
+                    var rowData = $warningTable.row($(this).parents('tr')).data()
+                    deviceId = rowData[1]
+                    $('#ulnav li').removeClass("current");
+                    $('#ulnav li:eq(2)').addClass('current');
+                    $(".S-content").eq(2).fadeIn(300).siblings().fadeOut(300);
+                })
+            }
+        })
     },
     bindEvents: function() {
         var self = this;
@@ -755,65 +837,128 @@ var eleChartPrint={
             headers: {'JMS-TOKEN':jmstoken},
             data: 'proId=' + projId
         }, function(data) {
-            console.log(data)
+            if (data && data.length > 0) {
+                self.generateDeviceList(data)
+            }
         });
 
         /***********报警**********/
-        $('#warningTable').DataTable({
-            "ordering": false,
-            "bDestroy": true,
-            "processing": true,
-            "serverSide": true,
-            "stateSave": false,
-            "stateDuration": -1,
-            "ajax": {
-                "type": 'POST',
-                "url": $clientURL + "info/getalertstable",
-                "dataType": "json",
-                "headers":{'JMS-TOKEN':jmstoken}
-            },
-            "columnDefs": [
-                {
-                    "targets": -1,
-                    "data": null,
-                    "defaultContent": '<button class="button-edit warningTable-del" data-action="del">删除</button>'
-                },
-                {
-                    "targets": -2,
-                    "data": null,
-                    "defaultContent": '<button class="button-edit warningTable-deal" data-action="deal">处理</button>'
-                },
-                {
-                    "targets": -3,
-                    "data": null,
-                    "defaultContent": '<button class="button-edit" data-action="view">查看</button>'
-                }
-            ],
-            "language": {
-                "url": "js/datatable/chinese.json"
-            },
-            dom: "tip",
-            "iDisplayLength":"50",
-            initComplete: function() {
-                // 处理
-                $('.warningTable-deal').on('click', function() {
-
-                })
-                
-                // 删除
-                $('.warningTable-del').on('click', function () {
-                    if(confirm('确认删除？')) {
-                        $.delLocation($(this).parents('td').siblings().eq(0).text(), function(data){
-                            if(!data.valid){
-                                alert(data.msg);
-                            }else{
-                               init(); 
-                            }
-                        });
-                    }
-                });
+        self.initWarningTable()
+        $('#warningSearch').on('click', function() {
+            var params = {
+                timetype: $('#warningTimetype').val(),
+                type: $('#warningStatus').val(),
+                q: $('#warningSearchKey').val()
             }
+            self.initWarningTable(params)
         })
+
+        /***********报表**********/
+
+        // 获取日统计表格
+        function fetchDailyTable(snId) {
+            var $dailyTable = $('#dailyTable').DataTable({
+                "ordering": false,
+                "bDestroy": true,
+                "processing": true,
+                "serverSide": true,
+                "stateSave": false,
+                "stateDuration": -1,
+                "ajax": {
+                    "type": 'POST',
+                    "url": $clientURL + "info/invertdatatable",
+                    "dataType": "json",
+                    "headers": {'JMS-TOKEN':jmstoken},
+                    "data": {id: snId}
+                },
+                "columnDefs": [],
+                "language": {
+                    "url": "js/datatable/chinese.json"
+                },
+                dom: "tip",
+                "iDisplayLength": "50"
+            })
+        }
+
+        // 日报表预览
+        $('#dailyView').on('click', function() {
+            var top = $('#body').scrollTop();
+            var left = $('#body').scrollLeft();
+            $('#dailyModal').css({
+                top: '5%',
+                left: '5%'
+            }).draggable().show();
+
+            // 获取项目概述
+            var params = {
+                id: projId,
+                time: '2017-09-03'
+            }
+            $.JMSClient('info/getdailyreport', {
+                'type': 'POST',
+                headers: {'JMS-TOKEN':jmstoken},
+                data: JSON.stringify(params)
+            }, function(data) {
+                var str = ''
+                var snStr = ''
+                if (data) {
+                    str += '<li><label>电站名称：</label><span>' + data.site + '</span></li>'
+                        + '<li><label>当日电量：</label><span>' + data.drdl + '</span></li>'
+                        + '<li><label>装机容量：</label><span>' + data.zjrl + '</span></li>'
+                        + '<li><label>总电量：</label><span>' + data.zdl + '</span></li>'
+                        + '<li><label>时间：</label><span>' + data.time + '</span></li>'
+                }
+                $('#projectInfo').html(str)
+                if (data.nbq && data.nbq.length > 0) {
+                    data.nbq.forEach(function(item) {
+                        snStr += '<li><label>sn：</label><span>' + item.sn + '</span></li><li><label>电量：</label><span>' + item.dl + '</span></li>'
+                    })
+                }
+                $('#snInfo').html(snStr)
+            });
+
+            // 获取逆变器ID列表
+            $.JMSClient('info/deviceselects', {
+                'type': 'GET',
+                headers: {'JMS-TOKEN':jmstoken},
+                data: {proId: projId}
+            }, function(data) {
+                var str = ''
+                if (data && data.length > 0) {
+                    data.forEach(function(item) {
+                        str += '<option value="' + item.id + '">' + item.name + '</option>'
+                    })
+                    fetchDailyTable(data[0].id)
+                }
+                $('#snList').html(str)
+            });
+
+            $('#snList').on('change', function() {
+                var id = $(this).val()
+                fetchDailyTable(id)
+            })
+        })
+
+        // 关闭dialog
+        $('#dailyModal').on('click', '.tc_close', function() {
+            $('#dailyModal').hide();
+        });
+
+        // 日报表导出
+        $('#dailyExport').on('click', function() {
+            var params = {
+                id: projId,
+                time: '2017-09-03'
+            }
+            $.JMSClient('info/daliyexport ', {
+                'type': 'POST',
+                headers: {'JMS-TOKEN':jmstoken},
+                data: JSON.stringify(params)
+            }, function(data) {
+                console.log(data)
+            });
+        })
+
 
         $('#sixcontbtn li').click(function(){
             var i = $(this).index();
