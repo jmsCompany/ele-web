@@ -1,3 +1,38 @@
+<style>
+    .outer-th, .outer-td {
+        vertical-align: top;
+        padding: 0 !important;
+    }
+    .inner-table {
+        margin-bottom: 0;
+    }
+    .daily-modal {
+        width: 90%;
+    }
+    .daily-modal-content {
+        padding: 15px;
+    }
+    #projectInfo {
+        width: 60%;
+        overflow: hidden;
+    }
+    #projectInfo li {
+        width: 50%;
+        float: left;
+    }
+    #snInfo {
+        width: 60%;
+        overflow: hidden;
+    }
+    #snInfo li {
+        width: 50%;
+        float: left;
+    }
+    .text-left {
+        text-align: left !important;
+        padding-left: 15px !important;
+    }
+</style>
 <div class="cont">
     <div class="r-header-body">
         <h2>个人电站</h2>
@@ -7,9 +42,9 @@
             <ul id="ulnav">
                 <li class="button-edit current">概况</li>
                 <li class="button-edit" data-action="In_real_time">实时</li>
-                <li class="button-edit" data-action="view-progress">历史</li>
-                <li class="button-edit" data-action="view-progress">报警</li>
-                <li class="button-edit" data-action="view-progress">报表</li>
+                <li class="button-edit" data-action="In_history">历史</li>
+                <li class="button-edit" data-action="In_warning">报警</li>
+                <li class="button-edit" data-action="In_dashboard">报表</li>
                 <!--<li class="button-edit" data-action="view-progress">管理</li>-->
             </ul>
         </div>
@@ -21,146 +56,99 @@
         </div>
     </div>
     <section>
-    <!-- 第一个 -->
-    <div class="S-content" style="display: block;">
-        <div class="left">
-            <div class="station-photo">
-                <span class="title">电站照片</span>
-                <img src="http://szb.gdzjdaily.com.cn/zjrb/res/1/20130204/6731359942018422.jpg" alt="">  
+        <!-- 概况 -->
+        <div class="S-content" style="display: block;">
+            <div class="left">
+                <div class="station-photo">
+                    <span class="title">电站照片</span>
+                    <img src="http://szb.gdzjdaily.com.cn/zjrb/res/1/20130204/6731359942018422.jpg" alt="">  
+                </div>
+                <div class="station-map">
+                    <span class="title">电站地图</span>
+                    <div id="map" style="width: 100%;height: 200px;"></div>
+                </div>
+                <div class="station-info">
+                    <span class="title">电站信息</span>
+                    <ul>
+                        <li>
+                            <p>装机电容：</p>
+                            <span>8.00kw</span>
+                        </li>
+                        <li>
+                            <p>安装商：</p>
+                            <span>我啊不对劲呢大家的年代</span>
+                        </li>
+                        <li>
+                            <p>峰值功率：</p>
+                            <span>7.8kw</span>
+                        </li>
+                         <li>
+                            <p>发电效率：</p>
+                            <span>3.69kwh／kw／day</span>
+                        </li>
+                        <li>
+                            <p>注册时间：</p>
+                            <span>2017 - 01 - 12</span>
+                        </li>
+                        <li>
+                            <p>最后更新时间：</p>
+                            <span>2017 - 01 - 16</span>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="station-map">
-                <span class="title">电站地图</span>
-                <!-- <img src="http://img1.cache.netease.com/catchpic/D/DD/DD2BDAA9F531FDFE3B275B93418FEE99.jpg" alt=""> -->
-                <div id="map" style="width: 100%;height: 200px;"></div>
-            </div>
-            <div class="station-info">
-                <span class="title">电站信息</span>
-                <ul>
-                    <li>
-                        <p>装机电容：</p>
-                        <span>8.00kw</span>
-                    </li>
-                    <li>
-                        <p>安装商：</p>
-                        <span>我啊不对劲呢大家的年代</span>
-                    </li>
-                    <li>
-                        <p>峰值功率：</p>
-                        <span>7.8kw</span>
-                    </li>
-                     <li>
-                        <p>发电效率：</p>
-                        <span>3.69kwh／kw／day</span>
-                    </li>
-                    <li>
-                        <p>注册时间：</p>
-                        <span>2017 - 01 - 12</span>
-                    </li>
-                    <li>
-                        <p>最后更新时间：</p>
-                        <span>2017 - 01 - 16</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="right">
-            <!--<div class="S-top">-->
-                <!--<div class="col-ms-3">-->
-                    <!--<p>累计减少砍伐树木</p>-->
-                    <!--<span>9.13 <nth>棵</nth></span>   -->
-                <!--</div>-->
-                <!--<div class="col-ms-3">-->
-                    <!--<p>累计减少二氧化碳</p>-->
-                    <!--<span>9.13 <nth>吨</nth></span> -->
-                <!--</div>-->
-                <!--<div class="col-ms-3">-->
-                    <!--<p>收益</p>-->
-                    <!--<span><nth>¥</nth>9<nth>K</nth></span> -->
-                <!--</div>-->
-            <!--</div>-->
-            <div class="S-center">
-                <table class="table" border="1">
-                    <thead>
-                        <tr>
-                            <td>当前功率</td>
-                            <td>当日电量</td>
-                            <td>当月电量</td>
-                            <td>当年电量</td>
-                            <td>总电量</td>
+            <div class="right">
+                <div class="S-center">
+                    <table class="table" border="1">
+                        <thead>
+                            <tr>
+                                <td>当前功率</td>
+                                <td>当日电量</td>
+                                <td>当月电量</td>
+                                <td>当年电量</td>
+                                <td>总电量</td>
+                            </tr>
+                        </thead>
+                        <tr class="colorgreen">
+                            <td>123KW</td>
+                            <td>123KW</td>
+                            <td>123KW</td>
+                            <td>123KW</td>
+                            <td>123KW</td>
                         </tr>
-                    </thead>
-                    <tr class="colorgreen">
-                        <td>123KW</td>
-                        <td>123KW</td>
-                        <td>123KW</td>
-                        <td>123KW</td>
-                        <td>123KW</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="S-bottom">
-                <!--<button class="btn btn-info power">功率</button><button class="btn btn-info">电量</button><button class="btn btn-info">日</button><button class="btn btn-info">周</button>-->
-
-                <div class="mbr_cont">
-                    <div id="dailyMainTableWrap">
-                        <style>
-                            @media print {
-                                table {
-                                    width: 100%;
-                                    border-collapse: collapse;
-                                }
-
-                                table,
-                                td {
-                                    border: 1px solid #000;
-                                    position: relative;
-                                }
-
-                                .isplittitle p span.pull-left {
-                                    float: left;
-                                }
-
-                                .isplittitle p span.pull-right {
-                                    float: right;
-                                }
-                            }
-                        </style>
-
-                        <div class="r-header-body  ">
+                    </table>
+                </div>
+                <div class="S-bottom">
+                    <div class="mbr_cont">
+                        <div class="r-header-body">
                             <div class="topBar" style="border-radius: 5px 5px 0px 0px">
                                 <input name="tt" type="button" id="power1" style="border-radius: 3px 3px 0px 0px" value="功率">
                                 <input name="ff231" type="button" id="energy1" style="border-radius: 3px 3px 0px 0px"  value="电量">
                             </div>
-                        </div>
-
-                        <div class="mbr_boxmid" id="eleChart">
-                        </div>
-                        <table cellpadding="0" cellspacing="0" width="100%" class="mbr_tablefoot" id="eleChartTable">
-                            <tbody>
-
-                                <tr>
-                                    <div class="r-header-body  "  id="power2">
-                                        <div class="btn-group btn-group-left">
+                            <div class="mbr_boxmid" id="eleChart"></div>
+                            <table cellpadding="0" cellspacing="0" width="100%" class="mbr_tablefoot" id="eleChartTable">
+                                <tbody>
+                                    <tr>
+                                        <div class="r-header-body"  id="power2">
                                             <div class="btn-group btn-group-left">
-                                                <label>日期：</label><input type="text" id='date1' style="width:90px">
+                                                <div class="btn-group btn-group-left">
+                                                    <label>日期：</label><input type="text" id='date1' style="width:90px">
+                                                </div>
                                             </div>
                                         </div>
-
                                         <div>
                                             <div class="right-list" id="dayORWeek">
                                                 <button class="button-sytle1 on" data='day'>日</button>
                                                 <button class="button-sytle1" data='week'>周</button>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <div class="r-header-body  " style="display: none" id="energy2">
-                                        <div class="btn-group btn-group-left">
+                                        <div class="r-header-body  " style="display: none" id="energy2">
                                             <div class="btn-group btn-group-left">
-                                                <label>年月</label><input type="text" id='date2' style="width:90px">
+                                                <div class="btn-group btn-group-left">
+                                                    <label>年月</label><input type="text" id='date2' style="width:90px">
+                                                </div>
                                             </div>
                                         </div>
-
                                         <div>
                                             <div class="right-list" id="allORYearOrMonth">
                                                 <button class="button-sytle1 on" id="all1" data="all">历年</button>
@@ -168,438 +156,273 @@
                                                 <button class="button-sytle1" id="month1" data="month">月</button>
                                             </div>
                                         </div>
-                                    </div>
-                                </tr>
-
-                            </tbody>
-                        </table>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
+                    <div id="main" style="width: 100%;height:600px;"></div>
                 </div>
-
-                <div id="main" style="width: 100%;height:600px;"></div>
-            </div>
-        </div>      
-    </div>
-    <!--  第二个 -->
-    <div class="S-content">      
-       <!--<label>客户区域：</label>-->
-            <!--<select name="dicCode">-->
-            <!--</select>-->
-            <!--<button id="search" class="button-sytle1">查询</button>-->
-        <!--<div id="tools_bar" class="fl">-->
-            <!--<img src="../images/bar_Left_2.png" onclick="page_first_page2();AGFpage_first_page2();" onmouseover="btn_first_page_over(this)" onmouseout="btn_first_page_out(this)" class="btn_to_page fl">-->
-            <!--<img src="../images/bar_Left_1.png" onclick="page_up2();AGFpage_up2();" onmouseover="btn_up_page_over(this)" onmouseout="btn_up_page_out(this)" class="btn_to_page fl">-->
-            <!--<div id="page_bar" class="fl">-->
-                <!--<span>Page</span><input id="page_index" class="fl"><span>of</span><div id="page_count" class="fl">1</div>-->
-            <!--</div>-->
-            <!--<img src="../images/bar_Right_1.png" onclick="page_down2();AGFpage_down2()" onmouseover="btn_down_page_over(this)" onmouseout="btn_down_page_out(this)" class="btn_to_page fl">-->
-            <!--<img src="../images/bar_Right_2.png" onclick="page_last_page2();AGFpage_last_page2();" onmouseover="btn_last_page_over(this)" onmouseout="btn_last_page_out(this)" class="btn_to_page fl">-->
-            <!--<img id="btn_reload" src="../images/bar_Updata.png" onclick="location.reload();" class="fl">-->
-        <!--</div>-->
-
-
-        <table id="tablePo" class="tabletxt" cellspacing="0" width="100%">
-            <thead>
-                <tr>
-                    <th rowspan="2">序号</th>
-                    <th  rowspan="2">逆变器序列号</th>
-                    <th colspan="3">DC Input</th>
-                    <th colspan="5">AC Output</th>
-                    <th rowspan="2">当日电量(KWh)</th>
-                    <th rowspan="2">累计能量(KWh)</th>
-                    <th rowspan="2">温度(℃)</th>
-                    <th rowspan="2">时间</th>
-                </tr>
-                <tr>
-                    <th>通道</th>
-                    <th>电压(V)</th>
-                    <th>电流(A)</th>
-                    <th>相位</th>
-                    <th>电压(V)</th>
-                    <th>电流(A)</th>
-                    <th>功率(W)</th>
-                    <th>频率(Hz)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td rowspan="3">1</td>
-                    <td rowspan="3">001413821388-002</td>
-                    <td>PV1</td>
-                    <td>257.0</td>
-                    <td>6.8</td>
-                    <td>L1</td>
-                    <td>239.0</td>
-                    <td>6.6</td>
-                    <td>1747</td>
-                    <td rowspan="3">49.8</td>
-                    <td rowspan="3">10.58</td>
-                    <td rowspan="3">1473.8</td>
-                    <td rowspan="3">50.0</td>
-                    <td rowspan="3">2017-06-29 14:07:58 GMT +8</td>
-                </tr>
-                <tr>
-                    <td>PV1</td>
-                    <td>257.0</td>
-                    <td>6.8</td>
-                    <td>L1</td>
-                    <td>239.0</td>
-                    <td>6.6</td>
-                    <td>1747</td>
-                </tr>
-                <tr>
-                    <td>PV1</td>
-                    <td>257.0</td>
-                    <td>6.8</td>
-                    <td>L1</td>
-                    <td>239.0</td>
-                    <td>6.6</td>
-                    <td>1747</td>
-                </tr>
-                <tr>
-                    <td rowspan="3">1</td>
-                    <td rowspan="3">001413821388-002</td>
-                    <td>PV1</td>
-                    <td>257.0</td>
-                    <td>6.8</td>
-                    <td>L1</td>
-                    <td>239.0</td>
-                    <td>6.6</td>
-                    <td>1747</td>
-                    <td rowspan="3">49.8</td>
-                    <td rowspan="3">10.58</td>
-                    <td rowspan="3">1473.8</td>
-                    <td rowspan="3">50.0</td>
-                    <td rowspan="3">2017-06-29 14:07:58 GMT +8</td>
-                </tr>
-                <tr>
-                    <td>PV1</td>
-                    <td>257.0</td>
-                    <td>6.8</td>
-                    <td>L1</td>
-                    <td>239.0</td>
-                    <td>6.6</td>
-                    <td>1747</td>
-                </tr>
-                <tr>
-                    <td>PV1</td>
-                    <td>257.0</td>
-                    <td>6.8</td>
-                    <td>L1</td>
-                    <td>239.0</td>
-                    <td>6.6</td>
-                    <td>1747</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <!-- 第三个 -->
-    <div class="S-content">
-        <div class="left">
-            <div class="equipment-list">
-                <span class="title">设备列表</span>
-                <ul>
-                    <li>
-                        <p>5609876543456789</p>
-                    </li>
-                </ul>
-            </div>
+            </div>      
         </div>
-        <div class="right">
-            <div class="S-bottom">
-                <button class="btn btn-info">显示隐藏</button><button class="btn btn-info">查询</button><button class="btn btn-info">日</button><button class="btn btn-info">周</button>
-                <div id="main" style="width: 100%;height:600px;"></div>
+        <!-- 实时 -->
+        <div class="S-content">      
+            <table id="realTimeTable" class="tabletxt" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>逆变器序列号</th>
+                        <th class="outer-th">
+                            <table class="table inner-table" frame="void">
+                                <tr><th colspan="3">DC Input</th></tr>
+                                <tr>
+                                    <th width="100">通道</th>
+                                    <th width="100">电压(V)</th>
+                                    <th width="100">电流(A)</th>
+                                </tr>
+                            </table>
+                        </th>
+                        <th class="outer-th">
+                            <table class="table inner-table" frame="void">
+                                <tr><th colspan="4">AC Output</th></tr>
+                                <tr>
+                                    <th width="25%">相位</th>
+                                    <th width="25%">电压(V)</th>
+                                    <th width="25%">电流(A)</th>
+                                    <th width="25%">功率(W)</th>
+                                </tr>
+                            </table>
+                        </th>
+                        <th>频率(Hz)</th>
+                        <th>当日电量(KWh)</th>
+                        <th>累计能量(KWh)</th>
+                        <th>温度(℃)</th>
+                        <th>时间</th>
+                    </tr>
+                </thead>
+                <tbody id="realTimeTbody"></tbody>
+            </table>
+        </div>
+        <!-- 历史 -->
+        <div class="S-content">
+            <div class="left">
+                <div class="equipment-list">
+                    <span class="title">设备列表</span>
+                    <ul id="historyDeviceList"></ul>
+                </div>
             </div>
-        </div>
-    </div>
-    <!-- 第四个 -->
-    <div class="S-content">      
-       <label>客户区域：</label>
-            <select name="dicCode">
-            </select>
-            <select name="dicCode">
-            </select>
-            <button id="search" class="button-sytle1">查询</button>
-        <table id="tablePo" class="tabletxt" cellspacing="0" width="100%">
-            <thead>
-                <tr>
-                    <th>逆变器SN</th>
-                    <th>报警信息</th>
-                    <th>报警代码</th>
-                    <th>报警时间</th>
-                    <th>报警状态</th>
-                    <th>查看图标</th>
-                    <th>操作</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-    </div>
-    <!-- 第五个 -->
-    <div class="S-content">      
-       <div>报表管理</div>
-           
-        <table id="tablePo" class="tabletxt" cellspacing="0" width="100%">
-           <tr>
-               <td>日报表</td>
-               <td>日期：<input type="text"></td>
-               <td><button class="btn btn-info">预览</button></td>
-               <td><button class="btn btn-info">导出</button></td>
-           </tr> 
-           <tr>
-               <td>周报表</td>
-               <td>起始日期<input type="text">至<input type="text"></td>
-               <td><button class="btn btn-info">预览</button></td>
-               <td><button class="btn btn-info">导出</button></td>
-           </tr>
-           <tr>
-               <td>月报表</td>
-               <td>年<input type="text">月<input type="text"></td>
-               <td><button class="btn btn-info">预览</button></td>
-               <td><button class="btn btn-info">导出</button></td>
-           </tr> 
-           <tr>
-               <td>年报表</td>
-               <td>年<input type="text"></td>
-               <td><button class="btn btn-info">预览</button></td>
-               <td><button class="btn btn-info">导出</button></td>
-           </tr> 
-           <tr>
-               <td>表警</td>
-               <td>起始日期<input type="text">至<input type="text"></td>
-               <td><button class="btn btn-info">预览</button></td>
-               <td><button class="btn btn-info">导出</button></td>
-           </tr>
-        </table>
-    </div>
-    <!-- 第六个 -->
-    <div class="S-content">      
-       <div class="nav-box">
-            <ul id="sixcontbtn">
-                <li class="button-edit">电站管理</li>
-                <li class="button-edit current" data-action="In_real_time">设备</li>
-                <li class="button-edit" data-action="view-progress">报警管理</li>
-                <li class="button-edit" data-action="view-progress">电量修正</li>
-                <li class="button-edit" data-action="view-progress">SIM卡号</li>
-                <li class="button-edit" data-action="view-progress">电价</li>
-            </ul>
-        </div>
-        <div class="sixcont">
-            <ul id="sixcontcon">
-                <li></li>
-                <li class="current">
-                    <table id="tablePo" class="tabletxt" cellspacing="0" width="100%">
-                    <thead>
-                        <tr>
-                            <th>采集器序列号</th>
-                            <th>网关品牌</th>
-                            <th>逆变器序列号</th>
-                            <th>逆变器品牌</th>
-                            <th>状态</th>
-                            <th>更新时间</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-                <button class="btn btn-info currentbtn">增加序列号</button>
-                </li>
-                <li>
-                    <div class="antbox">
-                        <label>报警通知：<input type="checkbox" name="" id=""> 邮箱</label>
-                        <label>报警邮箱：<input type="text" name="" id=""></label>
-                        <button class="btn btn-info">确定</button>
+            <div class="right">
+                <div class="S-bottom">
+                    <div class="r-header-body">
+                        <div class="topBar" style="border-radius: 5px 5px 0px 0px" id="day1OrWeek1">
+                            <input name="tt" type="button" class="on" data="day" id="day1" style="border-radius: 3px 3px 0px 0px" value="日">
+                            <input name="ff231" type="button" id="week1" data="week" style="border-radius: 3px 3px 0px 0px" value="周">
+                            <label>日期：<input type="text" id="date3" style="width:90px"></label>
+                            <select name="" id="stype">
+                                <option value="1">直流输入电压</option>
+                                <option value="2">直流输入电流</option>
+                                <option value="3">交流输出电压</option>
+                                <option value="4">交流输出电流</option>
+                                <option value="5">交流输出功率</option>
+                                <option value="6">交流输出频率</option>
+                                <option value="7">温度</option>
+                                <option value="8">累计能量</option>
+                            </select>
+                        </div>
                     </div>
-                </li>
-                <li>
-                    <div class="alldj">
-                        <div class="titlebold"><span>电站总量修正</span> <input type="text"><span>kwh</span> <button class="btn btn-info">确定</button></div>
-                        <span class="smallfont">总电量补缺适用于更换设备卡等情况造成的</span>
-                        <div><p class="titlebold">电站年月量修正<span>电站年月量修正适用于数据未成功上传导致的电量误差，该值不会影响总电量</span></p> </div>
-                        <select>
-                            <option value="2017">2017</option>
-                        </select>
-                        <select>
-                            <option value="5">5</option>
-                        </select>
-                        <input type="text"> <button class="btn btn-info">添加</button>
-                        <div>年／月／电量补差</div>
-                    </div>    
-                </li>
-                <li class="fivelicon">
-                    <p>提示：如果您使用自己购买的SIM卡，您可以在这里填写编辑SIM卡号，该信息会显示在“个人电站”列表中</p>
-                    <label>自供SIM卡号：<input type="text" name="" id=""></label>
-                    <label>采集器序列号：<input type="text" name="" id=""></label>
-                    <button class="btn btn-info">确定</button>
-                </li>
-                <li class="lastlicon">
-                    <p><input type="checkbox" name="" id="">电价区间</p>
-                     <table id="tablePo" class="tabletxt" cellspacing="0" width="100%">
-                       <tr>
-                           <td>起始日期：</td>
-                           <td>至</td>
-                           <td>电价</td>
-                           <td>操作</td>
-                       </tr> 
-                       <tr>
-                           <td><input type="text"></td>
-                           <td><input type="text"></td>
-                           <td><input type="text"></td>
-                           <td><button class="btn btn-info">+</button></td>
-                       </tr>
-                      
-                    </table>
-                    <button class="btn btn-info sure">保存</button>
-                </li>
-            </ul>
-
-
-
+                    <div class="mbr_boxmid" id="histroyChart"></div>
+                </div>
+            </div>
         </div>
-    </div>
-</section>
+        <!-- 报警 -->
+        <div class="S-content">  
+            <select id="warningTimetype">
+                <option value="1">今天</option>
+                <option value="2">最近一周</option>
+                <option value="3">最近一个月</option>
+                <option value="4">最近一年</option>
+            </select>
+            <select id="warningStatus">
+                <option value="2">全部</option>
+                <option value="1">已处理</option>
+                <option value="0">未处理</option>
+            </select>
+            <input id="warningSearchKey" type="text" placeholder="输入条件查询">
+            <button id="warningSearch" class="button-sytle1">查询</button>
+            <table id="warningTable" class="dataTable" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>逆变器ID</th>
+                        <th>逆变器SN</th>
+                        <th>报警信息</th>
+                        <th>报警代码</th>
+                        <th>报警时间</th>
+                        <th>报警状态</th>
+                        <th>查看图表</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <!-- 报表 -->
+        <div class="S-content">      
+            <div>报表管理</div>
+            <table id="tablePo" class="tabletxt" cellspacing="0" width="100%">
+               <tr>
+                   <td>日报表</td>
+                   <td class="text-left">日期：<input type="text"></td>
+                   <td><button id="dailyView" class="btn btn-info">预览</button></td>
+                   <td><button id="dailyExport" class="btn btn-info">导出</button></td>
+               </tr> 
+               <tr>
+                   <td>周报表</td>
+                   <td class="text-left">起始日期：<input type="text">至<input type="text"></td>
+                   <td><button class="btn btn-info">预览</button></td>
+                   <td><button class="btn btn-info">导出</button></td>
+               </tr>
+               <tr>
+                   <td>月报表</td>
+                   <td class="text-left">年：<input type="text">月：<input type="text"></td>
+                   <td><button class="btn btn-info">预览</button></td>
+                   <td><button class="btn btn-info">导出</button></td>
+               </tr> 
+               <tr>
+                   <td>年报表</td>
+                   <td class="text-left">年：<input type="text"></td>
+                   <td><button class="btn btn-info">预览</button></td>
+                   <td><button class="btn btn-info">导出</button></td>
+               </tr> 
+               <tr>
+                   <td>表警</td>
+                   <td class="text-left">起始日期：<input type="text">至<input type="text"></td>
+                   <td><button class="btn btn-info">预览</button></td>
+                   <td><button class="btn btn-info">导出</button></td>
+               </tr>
+            </table>
+            <div id="dailyModal" class="tcbox daily-modal">
+                <div class="tcbox_cont">
+                    <div class="body-head-title">
+                        <span class="h-title">日报表</span>
+                    </div>
+                    <input type="button" class="tc_close">
+                    <div class="daily-modal-content">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">项目概述</div>
+                            <div class="panel-body">
+                                <ul id="projectInfo"></ul>
+                                <ul id="snInfo"></ul>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">统计</div>
+                            <div class="panel-body">
+                                <div class="form-group clearfix">
+                                    <label class="control-label pull-left">逆变器SN：</label>
+                                    <div class="col-sm-2">
+                                        <select id="snList" class="form-control"></select>
+                                    </div>
+                                </div>
+                                <table id="dailyTable" class="dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>逆变器SN</th>
+                                            <th>Vpv1</th>
+                                            <th>Vpv2</th>
+                                            <th>Vpv3</th>
+                                            <th>Ipv1</th>
+                                            <th>Ipv2</th>
+                                            <th>Ipv3</th>
+                                            <th>Vac1</th>
+                                            <th>Vac2</th>
+                                            <th>Vac3</th>
+                                            <th>Iac1</th>
+                                            <th>Iac2</th>
+                                            <th>Iac3</th>
+                                            <th>Pac1</th>
+                                            <th>Pac2</th>
+                                            <th>Pac3</th>
+                                            <th>Fac</th>
+                                            <th>温度(℃)</th>
+                                            <th>时间(GMT +8)</th>
+                                            <th>当日电量(kWh)</th>
+                                            <th>总电量(kWh)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+               </div>
+            </div>
+        </div>  
+    </section>
 </div>
-<!-- <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&amp;ak=ovW97sIaF51o5ADwMGOq4Oza"></script> -->
-
-<!-- <script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script> -->
-<!-- <script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script> -->
-<!-- <script type="text/javascript" src="http://api.map.baidu.com/getscript?v=1.1&ak=&services=true&t=20130716024058"></script> -->
-<!-- <script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak=ovW97sIaF51o5ADwMGOq4Oza&services=&t=20170823191629"></script> -->
-  <!-- <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ovW97sIaF51o5ADwMGOq4Oza"></script> -->
-  <!-- <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ovW97sIaF51o5ADwMGOq4Oza"></script> -->
-  <script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak=ovW97sIaF51o5ADwMGOq4Oza&services=&t=20170823191629"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak=ovW97sIaF51o5ADwMGOq4Oza&services=&t=20170823191629"></script>
 <script type="text/javascript">
-    function getMap(x,y){
+    function getMap(x,y) {
         setTimeout(function(){
             var map = new BMap.Map("map");    // 创建Map实例
             map.centerAndZoom(new BMap.Point(x, y), 16); 
-
-
-
-            // var myIcon = new BMap.Icon("http://api.map.baidu.com/img/markers.png", new BMap.Size(23, 25), {  
-            //             offset: new BMap.Size(10, 25), // 指定定位位置  
-            //             imageOffset: new BMap.Size(0, 0 - 10 * 25) // 设置图片偏移  
-            //         });  
         var marker2 = new BMap.Marker(new BMap.Point(x, y));  // 创建标注
             map.addOverlay(marker2);   
-
-            // var myIcon = new BMap.Icon("http://api.map.baidu.com/img/markers.png", new BMap.Size(50, 50), {
-            //             offset: new BMap.Point(x, y), // 指定定位位置
-            //             imageOffset: new BMap.Size(0, 0) // 设置图片偏移
-            //         });
-            // var marker=new BMap.Marker(e.point,{icon:myIcon});
-            // map.removeOverlay(preMarker);
-            // map.addOverlay(marker);
-            // preMarker=marker;
         },0);
-        // clearTimeout(time);
     }
         
-    
-    // $.JMSClient = function (path,opt,callback) {
-// alert(9);
-// var defaults = {
-//                      'url':        $clientURL+'info/station',
-//                      'type':        'GET',
-//                      'dataType':    'json',
-//                      'contentType': 'application/json; charset=UTF-8',
-//                      'data':         {'proId':1},
-//                      headers:      {},
-//                      processData:   true
+    //hxg 兼容上传文件操作
+    $.ajax({
+        url:          $clientURL+'info/station',
+        type:         'GET',
+        dataType:     'json',
+        contentType:  'application/json; charset=UTF-8',
+        data:         {'proId':1},
+        headers:      {'JMS-TOKEN':jmstoken},
+        processData:  true,
+        beforeSend:function(XMLHttpRequest){
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+        },
+        complete: function(XMLHttpRequest, textStatus){
+        },
+        success: function(data, textStatus){
+            console.log(data);
+            // 报警数
+            $('.smalltip>span>i').html(data.bjs);
+            $('.colorgreen').html(
+                '<td>'+ data.dqgl +'KW</td>'+
+                '<td>'+ data.drdl +'KW</td>'+
+                '<td>'+ data.dydl +'KW</td>'+
+                '<td>'+ data.dndl +'KW</td>'+
+                '<td>'+ data.zdl +'KW</td>'
+                );
 
-//         };
-     // var options = $.extend({}, defaults, opt);
-        //hxg 兼容上传文件操作
-       $.ajax({
-            url:          $clientURL+'info/station',
-            type:         'GET',
-            dataType:     'json',
-            contentType:  'application/json; charset=UTF-8',
-            data:         {'proId':1},
-            headers:      {'JMS-TOKEN':jmstoken},
-            processData:  true,
-            beforeSend:function(XMLHttpRequest){
-                // $('#body-center').block({
-                //     message: '数据加载中。。。',
-                //     css: {
-                //         border: 'none',
-                //         padding: '15px',
-                //         backgroundColor: '#000',
-                //         '-webkit-border-radius': '10px',
-                //         '-moz-border-radius': '10px',
-                //         opacity: .5,
-                //         color: '#fff'
-                //     }
-                // });
-            },
-            error: function(XMLHttpRequest, textStatus, errorThrown) {
-               // $('#body-center').unblock();
-               //  alert(XMLHttpRequest.status);
-               //  alert(textStatus);
-              //   alert('error');
-            },
-            complete:function(XMLHttpRequest, textStatus){
-                // $('#body-center').unblock();
-            },
-            success: function(data, textStatus){
-                console.log(data);
-                // 报警数
-                $('.smalltip>span>i').html(data.bjs);
-                $('.colorgreen').html(
-                    '<td>'+ data.dqgl +'KW</td>'+
-                    '<td>'+ data.drdl +'KW</td>'+
-                    '<td>'+ data.dydl +'KW</td>'+
-                    '<td>'+ data.dndl +'KW</td>'+
-                    '<td>'+ data.zdl +'KW</td>'
-                    );
+            // table基本信息
+            $('.station-photo>img').attr('src',$clientURL + "getImage/" + data.pic +'/');
 
-                // table基本信息
-                $('.station-photo>img').attr('src',$clientURL + "getImage/" + data.pic +'/');
+            // 电站信息
+            $('.station-info>ul>li:nth-of-type(1)>span').html(data.zjrl+'kw');
+            $('.station-info>ul>li:nth-of-type(2)>span').html(data.azs);
+            $('.station-info>ul>li:nth-of-type(3)>span').html(data.fzgl+'kw');
+            $('.station-info>ul>li:nth-of-type(4)>span').html(data.fdxl+'kwh／kw／day');
+            $('.station-info>ul>li:nth-of-type(5)>span').html(data.zcsj);
+            $('.station-info>ul>li:nth-of-type(6)>span').html(data.zhgxsj);
 
-                // 电站信息
-                $('.station-info>ul>li:nth-of-type(1)>span').html(data.zjrl+'kw');
-                $('.station-info>ul>li:nth-of-type(2)>span').html(data.azs);
-                $('.station-info>ul>li:nth-of-type(3)>span').html(data.fzgl+'kw');
-                $('.station-info>ul>li:nth-of-type(4)>span').html(data.fdxl+'kwh／kw／day');
-                $('.station-info>ul>li:nth-of-type(5)>span').html(data.zcsj);
-                $('.station-info>ul>li:nth-of-type(6)>span').html(data.zhgxsj);
+            // 获取天气
+            getWeather(data.city);
+            // 获取地图
+            getMap(data.lat,data.lang);
+        }
+    });
 
-                // 获取天气
-                getWeather(data.city);
-                // 获取地图
-                getMap(data.lat,data.lang);
-            }
-        });
-    // };
     // 获取天气
     function getWeather(location){
-        // $.ajax({
-        //     url:          'http://api.map.baidu.com/telematics/v3/weather?location='+
-        //                   location+
-        //                   '&output=json&ak=VBu4kIUlmnMRvVThgmYuadYB',
-        //     type:         'GET',
-        //     dataType:     'json',
-        //     contentType:  'application/json; charset=UTF-8',
-        //     // data:         {'proId':1},
-        //     // headers:      {'JMS-TOKEN':jmstoken},
-        //     processData:  true,
-        //     beforeSend:function(XMLHttpRequest){
-        //     },
-        //     error: function(XMLHttpRequest, textStatus, errorThrown) {
-        //     },
-        //     complete:function(XMLHttpRequest, textStatus){
-        //     },
-        //     success: function(data, textStatus){
-        //         console.log(data);
-        //     }
-        // });
         $.ajax({
             url : 'http://api.map.baidu.com/telematics/v3/weather?location='+location+'&output=json&ak=VBu4kIUlmnMRvVThgmYuadYB',
             dataType : 'jsonp',
             success : function(json){
-                //your code
-                // console.log(json.results[0].weather_data);
                 var first=json.results[0].weather_data[0];
                 var second=json.results[0].weather_data[1];
                 var third=json.results[0].weather_data[2];
@@ -609,444 +432,57 @@
             }
         });
     }
-        
 
-    // $.get($clientURL+"info/station",1,function(data){
-    //     console.log(data);
-    //     // $("#footer").html(data);
-    // });
+    getHistroyChar();
 
-
-//        // 基于准备好的dom，初始化echarts实例
-//        var myChart = echarts.init(document.getElementById('main'));
-// $.echeatsinit(function(data){
-    // console.log(data.data)
-    // console.log(data.date)
-    // 使用刚指定的配置项和数据显示图表。
-    // initdata(data)
-// })
-
-//function initdata(listdata){
-//   var option = {
-//    title: {
-//        text: ''
-//    },
-//    tooltip : {
-//        trigger: 'axis',
-//        axisPointer: {
-//            type: 'cross',
-//            label: {
-//                backgroundColor: 'skyblue'
-//            }
-//        }
-//    },
-//    // legend: {
-//    //     data:['邮件营销','联盟广告','视频广告','直接访问','搜索引擎']
-//    // },
-//    toolbox: {
-//        feature: {
-//            saveAsImage: {}
-//        }
-//    },
-//    grid: {
-//        left: '3%',
-//        right: '4%',
-//        bottom: '3%',
-//        containLabel: true
-//    },
-//    xAxis : [
-//        {
-//            type : 'category',
-//            boundaryGap : false,
-//            data : listdata.date
-//        }
-//    ],
-//    yAxis : [
-//        {
-//            type : 'value'
-//        }
-//    ],
-//    series : [
-//        {
-//            name:'功率',
-//            type:'line',
-//            stack: '总量',
-//            areaStyle: {normal: {}},
-//            data:listdata.data
-//        }
-//    ]
-//};
-//
-// myChart.setOption(option);
-//}
-// var jmstoken= store.get('JMS-TOKEN');
-var eleChartPrint={
-    init:function(){
-        var self = this;
-        this.bindEvents();
-    },
-    bindEvents:function(){
-        var self = this;
-        var dataPickerOpt = {
-            format: "YYYY-MM-DD"
-        };
-        var date=new Date();
-        var year=date.getFullYear();
-        var month=date.getMonth()+1;
-        month=month<10?'0'+month:month;
-        var day=date.getDate();
-        day=day<10?'0'+day:day;
-        $('#date1').attr('value',year+'-'+month+'-'+day);
-        $("#date1").jeDate({
-            // hmsSetVal:{hh:00,mm:00,ss:00},
-            // minDate: '2016-06-16',
-            // maxDate: '2025-06-16',
-            format:"YYYY-MM-DD",
-            choosefun:function(elem, val, date) {
-                // console.log(elem);
-                // console.log(val);
-                // console.log(date);
-                elem.attr('value', val);
-                showPowerChart();
+    var date=new Date();
+    var year=date.getFullYear();
+    var month=date.getMonth()+1;
+    month=month<10?'0'+month:month;
+    var day=date.getDate();
+    day=day<10?'0'+day:day;
+    $('#date3').attr('value',year+'-'+month+'-'+day);
+    $("#date3").jeDate({
+        format:"YYYY-MM-DD",
+        choosefun:function(elem, val, date) {
+            elem.attr('value', val);
+            getHistroyChar();
+        },
+        zIndex:3000
+    });
+    $('#day1OrWeek1>input[type=button]').on('click',function(){
+        $(this).addClass('on').siblings().removeClass('on');
+        getHistroyChar();
+    });
+    $('#stype').on('change',function(){
+        getHistroyChar();
+    })
+    function getHistroyChar(){
+        $.ajax({
+            url:          $clientURL+'info/getdevicechart',
+            type:         'POST',
+            dataType:     'json',
+            contentType:  'application/json; charset=UTF-8',
+            data:         JSON.stringify({'id':1001,'time':$('#date3').val(),'type':$('#day1OrWeek1>.on').attr('data'),'stype':$('#stype').val()}),
+            headers:      {'JMS-TOKEN':jmstoken},
+            processData:  true,
+            beforeSend:function(XMLHttpRequest){
             },
-            zIndex:3000
-        });
-        // var v = $('#date1').datetimepicker({
-        //     format: "YYYY-MM-DD"
-        // });
-        // $('#date1').bind("propertychange input",function(){
-        //     alert(1);
-        // });
-        // .bind('change', function (e) {
-        //     alert(9);
-        // })
-        // console.log($('#date1').attr('value'));
-        $('#date2').attr('value',year+'-'+month);
-        // $('#date2').datetimepicker({format: "YYYY-MM"});
-        $("#date2").jeDate({
-            // hmsSetVal:{hh:00,mm:00,ss:00},
-            // minDate: '2016-06-16',
-            // maxDate: '2025-06-16',
-            format:"YYYY-MM",
-            choosefun:function(elem, val, date) {
-                // console.log(elem);
-                // console.log(val);
-                // console.log(date);
-                elem.attr('value', val);
-                showEnergyChart();
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
             },
-            zIndex:3000
+            complete:function(XMLHttpRequest, textStatus){
+            },
+            success: function(data, textStatus){
+                console.log(data);
+                initHistroyChar(data);
+            }
         });
-        $('#ulnav li').click(function(){
-            var i = $(this).index();
-            $(this).addClass('current').siblings().removeClass("current");
-            $(".S-content").eq(i).fadeIn(300).siblings().fadeOut(300);
-        });
-
-        $('#sixcontbtn li').click(function(){
-            var i = $(this).index();
-            $(this).addClass('current').siblings().removeClass("current");
-            $("#sixcontcon li").eq(i).fadeIn(300).siblings().fadeOut(300);
-        });
-        $('.mbr_tablefoot tr:even').css("color","#0b6bf9");
-        $('.mbr_tablefoot tr:odd').css("color","#f00");
-
-
-        var routeParams = RouterManager.getParams();
-        var data = {};
-        var year = routeParams.year;
-        var idMachine = routeParams.idMachine;
-        data.year = year;
-        data.idMachine = idMachine;
-        var $obj= $("#eleChartTable");
-//        $.mbrInfo(data,jmstoken, function (data) {
-//            debugger;
-//            if(count(data)>0){
-//                var x = new Array();
-//                var y = new Array();
-//                var target = new Array();
-//                _(data).each(function(item,i) {
-//                    $obj.find("tr:first").append('<th>wk'+item.x+'</th>');
-//                    var objy = (item.y).toFixed(2);
-//                    $obj.find("tr:eq(1)").append('<th>'+objy+'</th>');
-//                    $obj.find("tr:eq(2)").append('<th>'+item.target+'</th>');
-//                    x[i] = item.x;
-//                    y[i] = item.y;
-//                    target[i] = item.target;
-//                });
-//
-//            }
-//
-//            debugger;
-//            self.columnBasic(x, y ,target );
-//        });
-//        var x=[1,2,3,4,5,6,7,8,9,10];
-//        var y=[6,7,8,9,10,11,7,9,3,5];
-//        data=[{"y":0.0,"Date":"06/29/2017 05:10:00"},{"y":0.0,"Date":"06/29/2017 05:15:00"},{"y":0.0,"Date":"06/29/2017 05:20:00"},{"y":0.0,"Date":"06/29/2017 05:25:00"},{"y":79.0,"Date":"06/29/2017 05:30:00"},{"y":113.0,"Date":"06/29/2017 05:35:00"},{"y":113.0,"Date":"06/29/2017 05:40:00"},{"y":177.0,"Date":"06/29/2017 05:45:00"},{"y":177.0,"Date":"06/29/2017 05:50:00"},{"y":177.0,"Date":"06/29/2017 05:55:00"},{"y":177.0,"Date":"06/29/2017 06:00:00"},{"y":253.0,"Date":"06/29/2017 06:05:00"},{"y":318.0,"Date":"06/29/2017 06:10:00"},{"y":318.0,"Date":"06/29/2017 06:15:00"},{"y":318.0,"Date":"06/29/2017 06:20:00"},{"y":324.0,"Date":"06/29/2017 06:25:00"},{"y":324.0,"Date":"06/29/2017 06:30:00"},{"y":324.0,"Date":"06/29/2017 06:35:00"},{"y":765.0,"Date":"06/29/2017 06:40:00"},{"y":765.0,"Date":"06/29/2017 06:45:00"},{"y":1321.0,"Date":"06/29/2017 06:50:00"},{"y":1321.0,"Date":"06/29/2017 06:55:00"},{"y":1321.0,"Date":"06/29/2017 07:00:00"},{"y":1078.0,"Date":"06/29/2017 07:10:00"},{"y":1843.0,"Date":"06/29/2017 07:15:00"},{"y":1843.0,"Date":"06/29/2017 07:20:00"},{"y":1843.0,"Date":"06/29/2017 07:25:00"},{"y":1459.0,"Date":"06/29/2017 07:30:00"},{"y":2286.0,"Date":"06/29/2017 07:35:00"},{"y":2515.0,"Date":"06/29/2017 07:40:00"},{"y":2564.0,"Date":"06/29/2017 07:45:00"},{"y":937.0,"Date":"06/29/2017 07:50:00"},{"y":937.0,"Date":"06/29/2017 07:55:00"},{"y":1457.0,"Date":"06/29/2017 08:05:00"},{"y":2564.0,"Date":"06/29/2017 08:10:00"},{"y":1168.0,"Date":"06/29/2017 08:15:00"},{"y":1168.0,"Date":"06/29/2017 08:20:00"},{"y":1168.0,"Date":"06/29/2017 08:25:00"},{"y":3623.0,"Date":"06/29/2017 08:35:00"},{"y":2924.0,"Date":"06/29/2017 08:40:00"},{"y":2001.0,"Date":"06/29/2017 08:45:00"},{"y":2409.0,"Date":"06/29/2017 08:50:00"},{"y":2409.0,"Date":"06/29/2017 08:55:00"},{"y":1480.0,"Date":"06/29/2017 09:00:00"},{"y":1469.0,"Date":"06/29/2017 09:05:00"},{"y":3243.0,"Date":"06/29/2017 09:10:00"},{"y":3243.0,"Date":"06/29/2017 09:15:00"},{"y":3243.0,"Date":"06/29/2017 09:20:00"},{"y":3405.0,"Date":"06/29/2017 09:25:00"},{"y":3405.0,"Date":"06/29/2017 09:30:00"},{"y":3405.0,"Date":"06/29/2017 09:35:00"},{"y":1676.0,"Date":"06/29/2017 10:00:00"},{"y":2625.0,"Date":"06/29/2017 10:05:00"},{"y":2625.0,"Date":"06/29/2017 10:10:00"},{"y":4707.0,"Date":"06/29/2017 10:15:00"},{"y":3758.0,"Date":"06/29/2017 10:20:00"},{"y":3758.0,"Date":"06/29/2017 10:25:00"},{"y":988.0,"Date":"06/29/2017 10:45:00"},{"y":5054.0,"Date":"06/29/2017 10:50:00"},{"y":5054.0,"Date":"06/29/2017 10:55:00"},{"y":3425.0,"Date":"06/29/2017 11:00:00"},{"y":3425.0,"Date":"06/29/2017 11:05:00"},{"y":5527.0,"Date":"06/29/2017 11:10:00"},{"y":2102.0,"Date":"06/29/2017 11:15:00"},{"y":2102.0,"Date":"06/29/2017 11:20:00"},{"y":4116.0,"Date":"06/29/2017 11:30:00"},{"y":4116.0,"Date":"06/29/2017 11:35:00"},{"y":4116.0,"Date":"06/29/2017 11:40:00"}];
-        // $.getJSON('https://data.jianshukeji.com/jsonp?filename=json/usdeur.json&callback=?', function (data) {
-        //     self.columnBasicPower(data);
-        // });
-
-        showPowerChart();
-        $("#power1").on('click',function(){
-            showPowerChart();
-            
-                // self.columnBasicPower(123);
-
-
-            // $.getJSON('https://data.jianshukeji.com/jsonp?filename=json/usdeur.json&callback=?', function (data) {
-                // self.columnBasicPower(data);
-            // });
-        });
-
-        $('#dayORWeek>button').on('click',function(){
-            $(this).addClass('on').siblings().removeClass('on');
-            showPowerChart();
-        });
-        function showPowerChart(){
-            $('#energy2').hide();
-            $('#power2').show();
-            $.ajax({
-                url:          $clientURL+'info/getglchart',
-                type:         'POST',
-                dataType:     'json',
-                contentType:  'application/json; charset=UTF-8',
-                data:         JSON.stringify({id:'1001',time:$('#date1').attr('value'),type:$('#dayORWeek>.on').attr('data')
-            }),
-                headers:      {'JMS-TOKEN':jmstoken},
-                processData:  true,
-                beforeSend:function(XMLHttpRequest){
-                },
-                error: function(XMLHttpRequest, textStatus, errorThrown) {
-                },
-                complete:function(XMLHttpRequest, textStatus){
-                },
-                success: function(data, textStatus){
-                    console.log(data);
-                    self.columnBasicPower(data);
-                }
-            });
-        }
-
-        // var monthData=[{"y":32.01,"Year":"2017","Mouth":"5","Day":"1","Hour":"1","Min":"0","Sec":"0"},{"y":50.34,"Year":"2017","Mouth":"5","Day":"2","Hour":"1","Min":"0","Sec":"0"},{"y":45.11,"Year":"2017","Mouth":"5","Day":"3","Hour":"1","Min":"0","Sec":"0"},{"y":40.7,"Year":"2017","Mouth":"5","Day":"4","Hour":"1","Min":"0","Sec":"0"},{"y":10.51,"Year":"2017","Mouth":"5","Day":"5","Hour":"1","Min":"0","Sec":"0"},{"y":16.65,"Year":"2017","Mouth":"5","Day":"6","Hour":"1","Min":"0","Sec":"0"},{"y":38.3,"Year":"2017","Mouth":"5","Day":"7","Hour":"1","Min":"0","Sec":"0"},{"y":37.72,"Year":"2017","Mouth":"5","Day":"8","Hour":"1","Min":"0","Sec":"0"},{"y":37.85,"Year":"2017","Mouth":"5","Day":"9","Hour":"1","Min":"0","Sec":"0"},{"y":2.96,"Year":"2017","Mouth":"5","Day":"10","Hour":"1","Min":"0","Sec":"0"},{"y":30.05,"Year":"2017","Mouth":"5","Day":"11","Hour":"1","Min":"0","Sec":"0"},{"y":29.38,"Year":"2017","Mouth":"5","Day":"12","Hour":"1","Min":"0","Sec":"0"},{"y":28.98,"Year":"2017","Mouth":"5","Day":"13","Hour":"1","Min":"0","Sec":"0"},{"y":39.89,"Year":"2017","Mouth":"5","Day":"14","Hour":"1","Min":"0","Sec":"0"},{"y":38.57,"Year":"2017","Mouth":"5","Day":"15","Hour":"1","Min":"0","Sec":"0"},{"y":46.9,"Year":"2017","Mouth":"5","Day":"16","Hour":"1","Min":"0","Sec":"0"},{"y":48.27,"Year":"2017","Mouth":"5","Day":"17","Hour":"1","Min":"0","Sec":"0"},{"y":41.04,"Year":"2017","Mouth":"5","Day":"18","Hour":"1","Min":"0","Sec":"0"},{"y":15.57,"Year":"2017","Mouth":"5","Day":"19","Hour":"1","Min":"0","Sec":"0"},{"y":20.06,"Year":"2017","Mouth":"5","Day":"20","Hour":"1","Min":"0","Sec":"0"},{"y":25.2,"Year":"2017","Mouth":"5","Day":"21","Hour":"1","Min":"0","Sec":"0"},{"y":22.11,"Year":"2017","Mouth":"5","Day":"22","Hour":"1","Min":"0","Sec":"0"},{"y":14.87,"Year":"2017","Mouth":"5","Day":"23","Hour":"1","Min":"0","Sec":"0"},{"y":23.5,"Year":"2017","Mouth":"5","Day":"24","Hour":"1","Min":"0","Sec":"0"},{"y":16.1,"Year":"2017","Mouth":"5","Day":"25","Hour":"1","Min":"0","Sec":"0"},{"y":30.18,"Year":"2017","Mouth":"5","Day":"26","Hour":"1","Min":"0","Sec":"0"},{"y":40.05,"Year":"2017","Mouth":"5","Day":"27","Hour":"1","Min":"0","Sec":"0"},{"y":24.8,"Year":"2017","Mouth":"5","Day":"28","Hour":"1","Min":"0","Sec":"0"},{"y":29.8,"Year":"2017","Mouth":"5","Day":"29","Hour":"1","Min":"0","Sec":"0"},{"y":0,"Year":"2017","Mouth":"5","Day":"30","Hour":"1","Min":"0","Sec":"0"}]
-        // var x = new Array();
-        // var y = new Array();
-        // _(monthData).each(function(item,i) {
-        //      x[i] = item.Day;
-        //      y[i] = item.y;
-        // });
-        $("#energy1").on('click',function(){
-            // $('#energy2').show();
-            // $('#power2').hide();
-            // self.columnBasicEnergy(x, y);
-            showEnergyChart();
-        });
-        function showEnergyChart(){
-            $('#energy2').show();
-            $('#power2').hide();
-            // self.columnBasicEnergy(x, y);
-            $.ajax({
-                url:          $clientURL+'info/getdlchart',
-                type:         'POST',
-                dataType:     'json',
-                contentType:  'application/json; charset=UTF-8',
-                data:         JSON.stringify({id:'1001',time:$('#date2').attr('value'),type:$('#allORYearOrMonth>.on').attr('data')
-            }),
-                headers:      {'JMS-TOKEN':jmstoken},
-                processData:  true,
-                beforeSend:function(XMLHttpRequest){
-                },
-                error: function(XMLHttpRequest, textStatus, errorThrown) {
-                },
-                complete:function(XMLHttpRequest, textStatus){
-                },
-                success: function(data, textStatus){
-                    // console.log(data);
-                    self.columnBasicEnergy(data);
-                }
-            });
-        }
-        $("#month1").on('click',function(){
-            // self.columnBasicEnergy(x, y);
-            $(this).addClass('on').siblings().removeClass('on');
-            showEnergyChart();
-        });
-        $("#year1").on('click',function(){
-            // self.columnBasicEnergy(x1, y1);
-            $(this).addClass('on').siblings().removeClass('on');
-            showEnergyChart();
-        });
-        $("#all1").on('click',function(){
-            // self.columnBasicEnergy(x2, y2);
-            $(this).addClass('on').siblings().removeClass('on');
-            showEnergyChart();
-        });
-        // var yearData=[{"y":0,"Year":"2017","Mouth":"0","Day":"1","Hour":"0","Min":"0","Sec":"0"},{"y":302.78,"Year":"2017","Mouth":"1","Day":"1","Hour":"0","Min":"0","Sec":"0"},{"y":1017.28,"Year":"2017","Mouth":"2","Day":"1","Hour":"0","Min":"0","Sec":"0"},{"y":954.88,"Year":"2017","Mouth":"3","Day":"1","Hour":"0","Min":"0","Sec":"0"},{"y":961.12,"Year":"2017","Mouth":"4","Day":"1","Hour":"0","Min":"0","Sec":"0"},{"y":877.47,"Year":"2017","Mouth":"5","Day":"1","Hour":"0","Min":"0","Sec":"0"},{"y":0,"Year":"2017","Mouth":"6","Day":"1","Hour":"0","Min":"0","Sec":"0"},{"y":0,"Year":"2017","Mouth":"7","Day":"1","Hour":"0","Min":"0","Sec":"0"},{"y":0,"Year":"2017","Mouth":"8","Day":"1","Hour":"0","Min":"0","Sec":"0"},{"y":0,"Year":"2017","Mouth":"9","Day":"1","Hour":"0","Min":"0","Sec":"0"},{"y":0,"Year":"2017","Mouth":"10","Day":"1","Hour":"0","Min":"0","Sec":"0"},{"y":0,"Year":"2017","Mouth":"11","Day":"1","Hour":"0","Min":"0","Sec":"0"}];
-        // var x1 = new Array();
-        // var y1 = new Array();
-        // _(yearData).each(function(item,i) {
-        //     x1[i] = item.Mouth;
-        //     y1[i] = item.y;
-        // });
-        
-
-        // var allData=[{"y":4113.53,"Year":"2017","Mouth":"1","Day":"1","Hour":"1","Min":"1","Sec":"0"},{"y":0,"Year":"2018","Mouth":"1","Day":"1","Hour":"1","Min":"1","Sec":"0"},{"y":0,"Year":"2019","Mouth":"1","Day":"1","Hour":"1","Min":"1","Sec":"0"},{"y":0,"Year":"2020","Mouth":"1","Day":"1","Hour":"1","Min":"1","Sec":"0"},{"y":0,"Year":"2021","Mouth":"1","Day":"1","Hour":"1","Min":"1","Sec":"0"},{"y":0,"Year":"2022","Mouth":"1","Day":"1","Hour":"1","Min":"1","Sec":"0"},{"y":0,"Year":"2023","Mouth":"1","Day":"1","Hour":"1","Min":"1","Sec":"0"},{"y":0,"Year":"2024","Mouth":"1","Day":"1","Hour":"1","Min":"1","Sec":"0"}];
-        // var x2 = new Array();
-        // var y2 = new Array();
-        // _(allData).each(function(item,i) {
-        //     x2[i] = item.Mouth;
-        //     y2[i] = item.y;
-        // });
-        
-    },
-    columnBasicPower:function(data){
-        // alert(123)
-        // console.log(data);
-        // data=[216.4, 194.1, 95.6];
-//         $('#eleChart').highcharts({
-//             chart:{
-//                 zoomType:'x'
-//             },
-//             title: {
-//                 text: 'Feenstra Balk'
-//             },
-//             // subtitle: {
-//             //     text: 'sss'
-//             // },
-// //            credits:{
-// //                enabled:false
-// //            },
-//             xAxis: {
-//                     tickInterval:   3600 * 1000, // one week
-// //                    tickWidth: 0,
-// //                    categories: x,
-// //                    gridLineWidth: 1,
-// //                    labels: {
-// //                        align: 'left',
-// //                        x: 3,
-// //                        y: -3,
-// //                        enabled:true
-// //                    },
-//                     type: 'datetime',
-// //                type: '%Y-%m-%d %H:%M:%S',
-
-//                     dateTimeLabelFormats: {
-//                         hour: '%m-%e %H:%M',
-//                         day: '%m-%d',
-//                         week: '%m-%d',
-//                         month: '%Y-%m',
-//                         year: '%Y'
-//                     }
-//             },
-//             tooltip: {
-// //                formatter:function(){
-// //                    return''+this.series.name+''+
-// //                            Highcharts.dateFormat('%Y-%m-%d %H:%M ',this.x)+': '+this.y+' w';
-// //
-// //                },
-// //
-//                 dateTimeLabelFormats: {
-//                     hour: '%m-%e %H:%M',
-//                     day: '%m-%e'
-//                 },
-// //                shared: true,
-// //                crosshairs: true
-//             },
-//             yAxis: [{ // left y axis
-//                 title: {
-//                     text: "Power（W）"
-//                 },
-// //                labels: {
-// //                    align: 'left',
-// //                    x: 3,
-// //                    y: 16,
-// //                    format: '{value:.,0f}'
-// //                },
-// //                showFirstLabel: false
-//             }],
-//             legend: {
-//                 align: 'left',
-//                 verticalAlign: 'top',
-//                 y: 20,
-//                 floating: true,
-//                 borderWidth: 0,
-//                 enabled: false
-//             },
-//             plotOptions: {
-//                 area: {
-//                     fillColor: {
-//                         linearGradient: {
-//                             x1: 0,
-//                             y1: 0,
-//                             x2: 0,
-//                             y2: 1
-//                         },
-//                         stops: [
-//                             [0, Highcharts.getOptions().colors[0]],
-//                             [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-//                         ]
-//                     },
-//                     marker: {
-//                         radius: 2
-//                     },
-//                     lineWidth: 1,
-//                     states: {
-//                         hover: {
-//                             lineWidth: 1
-//                         }
-//                     },
-//                     threshold: null
-//                 },
-
-//                 series: {
-//                     cursor: 'pointer',
-// //                        point: {
-// //                            events: {
-// //                                click: function (e) {
-// //                                    hs.htmlExpand(null, {
-// //                                        pageOrigin: {
-// //                                            x: e.pageX || e.clientX,
-// //                                            y: e.pageY || e.clientY
-// //                                        },
-// //                                        headingText: this.series.name,
-// //                                        maincontentText: Highcharts.dateFormat('%A, %b %e, %Y', this.x) + ':<br/> ' +
-// //                                        this.y + ' visits',
-// //                                        width: 200
-// //                                    });
-// //                                }
-// //                            }
-// //                        },
-//                     marker: {
-//                         lineWidth: 1
-//                     }
-//                 },
-
-
-// //                    column: {
-// //                        pointPadding: 0.2,
-// //                        borderWidth: 0
-// //                    }
-//             },
-// //                series:series
-//             series: [{
-//                 type: 'area',
-//                 name: 'Actual',
-//                 lineWidth: 1,
-//                 marker: {
-//                     radius: 4
-//                 },
-//                 data:data
-// //            },
-// //                {
-// //                    type: 'area',
-// //                    name: 'Target%',
-// //                    data:target
-//                 }]
-//         });
-        $('#eleChart').highcharts({
+    }
+    function initHistroyChar(data){
+        $('#histroyChart').highcharts({
             credits:{
-                 enabled:false // 禁用版权信息
-             },
+                enabled:false // 禁用版权信息
+            },
             title: {
                 text: null
             },
@@ -1081,146 +517,540 @@ var eleChartPrint={
                   fillColor: '#BF0B23',
                   radius: 0 
               }
-            }]
+          }]
         });
-    },
-    columnBasicEnergy:function(data){
-        // console.log(x);
-        // console.log(y);
-        $('#eleChart').highcharts({
-            credits:{
-                enabled:false // 禁用版权信息
-            },
-            chart:{
-                type:'column'
-            },
-            title: {
-                text: null
-            },
-            // subtitle: {
-            //     text: 'sss'
-            // },
-//            credits:{
-//                enabled:false
-//            },
-            xAxis: {
-                    tickInterval: 2, // one week
-//                    tickWidth: 0,
-                    categories:data.x,
-//                    gridLineWidth: 1,
-//                    labels: {
-//                        align: 'left',
-//                        x: 3,
-//                        y: -3,
-//                        enabled:true
-//                    },
-//                type: 'datetime',
-//                dateTimeLabelFormats: {
-//                    hour: '%m-%e %H:%M',
-//                    day: '%m-%e'
-//                }
-            },
-            tooltip: {
-                dateTimeLabelFormats: {
-                    hour: '%m-%e %H:%M',
-                    day: '%m-%e'
+    }
+
+    var hash = location.hash;
+    var projId = hash.slice(hash.indexOf('&projId=') + 8);
+    var eleChartPrint= {
+    init: function(){
+        var self = this;
+        this.bindEvents();
+        },
+        // 生成实时Tab表格（嵌套table）
+        generateRealTimeTable: function(list) {
+            var str = ''
+            list.forEach(function(item) {
+                str += '<tr>'
+                    + '<td>' + item.seq + '</td>'
+                    + '<td>' + item.sn + '</td>'
+                if (item.input.length > 0) {
+                    str += '<td class="outer-td"><table class="table inner-table" frame="void">'
+                    item.input.forEach(function(inp) {
+                        str += '<tr><td width="100">' + (inp.hl === null ? '&nbsp;' : inp.hl) + '</td>'
+                            + '<td width="100">' + (inp.dy === null ? '&nbsp;' : inp.dy) + '</td>'
+                            + '<td width="100">' + (inp.dl === null ? '&nbsp;' : inp.dl) + '</td></tr>'
+                    })
+                    str += '</table></td>'
+                }
+                if (item.output.length > 0) {
+                    str += '<td class="outer-td"><table class="table inner-table" frame="void">'
+                    item.output.forEach(function(oup) {
+                        str += '<tr><td width="25%">' + (oup.xw === null ? '' : oup.xw) + '</td>'
+                            + '<td width="25%">' + (oup.dy === null ? '&nbsp;' : oup.dy) + '</td>'
+                            + '<td width="25%">' + (oup.dl === null ? '&nbsp;' : oup.dl) + '</td>'
+                            + '<td width="25%">' + (oup.gl === null ? '&nbsp;' : oup.gl) + '</td></tr>'
+                    })
+                    str += '</table></td>'
+                }
+                str += '<td>' + item.pl + '</td>'
+                    + '<td>' + item.drdl + '</td>'
+                    + '<td>' + item.ljnl + '</td>'
+                    + '<td>' + item.wd + '</td>'
+                    + '<td>' + item.time + '</td>'
+                    + '</tr>'
+            })
+            return str
+        },
+        // 生成历史Tab设备列表
+        generateDeviceList: function(list) {
+            var str = ''
+            list.forEach(function(item) {
+                str += '<li><a href="javascript:;" data-id=' + item.id_DEVICE + '>' + item.mac + '</a></li>'
+            })
+            $('#historyDeviceList').html(str)
+        },
+        // 初始化报警Tab表格
+        initWarningTable: function(params) {
+            params = params || {
+                timetype: 1,
+                type: 2,
+                q: ''
+            }
+            var self = this
+            var $warningTable = $('#warningTable').DataTable({
+                "ordering": false,
+                "bDestroy": true,
+                "processing": true,
+                "serverSide": true,
+                "stateSave": false,
+                "stateDuration": -1,
+                "ajax": {
+                    "type": 'POST',
+                    "url": $clientURL + "info/getalertstable",
+                    "dataType": "json",
+                    "headers":{'JMS-TOKEN':jmstoken},
+                    "data": params
                 },
-                shared: true,
-                crosshairs: true
-            },
-            yAxis: [{ // left y axis
+                "columnDefs": [
+                    {
+                        "targets": -1,
+                        "data": null,
+                        "defaultContent": '<button class="button-edit warningTable-deal">处理</button><button class="button-edit warningTable-del">删除</button>'
+                    },
+                    {
+                        "targets": -2,
+                        "data": null,
+                        "defaultContent": '<button class="button-edit warningTable-view">查看</button>'
+                    }
+                ],
+                "language": {
+                    "url": "js/datatable/chinese.json"
+                },
+                dom: "tip",
+                "iDisplayLength":"50",
+                initComplete: function() {
+                    // 处理
+                    $('.warningTable-deal').on('click', function() {
+                        var rowData = $warningTable.row($(this).parents('tr')).data()
+                        $.JMSClient('info/handlealert', {
+                            'type':'GET',
+                            headers: {'JMS-TOKEN':jmstoken},
+                            data: 'id=' + rowData[6]
+                        }, function(data) {
+                            if (data.valid) {
+                                self.initWarningTable()
+                            } else {
+                                alert(data.msg)
+                            }
+                        });
+                    })
+
+                    // 删除
+                    $('.warningTable-del').on('click', function () {
+                        if(confirm('确认删除？')) {
+                            var rowData = $warningTable.row($(this).parents('tr')).data()
+                            $.JMSClient('info/deletealert', {
+                                'type':'GET',
+                                headers: {'JMS-TOKEN':jmstoken},
+                                data: 'id=' + rowData[6]
+                            }, function(data) {
+                                if (data.valid) {
+                                    self.initWarningTable()
+                                } else {
+                                    alert(data.msg)
+                                }
+                            });
+                        }
+                    });
+
+                    // 查看
+                    $('.warningTable-view').on('click', function() {
+                        var rowData = $warningTable.row($(this).parents('tr')).data()
+                        deviceId = rowData[1]
+                        $('#ulnav li').removeClass("current");
+                        $('#ulnav li:eq(2)').addClass('current');
+                        $(".S-content").eq(2).fadeIn(300).siblings().fadeOut(300);
+                    })
+                }
+            })
+        },
+        bindEvents: function() {
+            var self = this;
+            var dataPickerOpt = {
+                format: "YYYY-MM-DD"
+            };
+            var date=new Date();
+            var year=date.getFullYear();
+            var month=date.getMonth()+1;
+            month=month<10?'0'+month:month;
+            var day=date.getDate();
+            day=day<10?'0'+day:day;
+            $('#date1').attr('value',year+'-'+month+'-'+day);
+            $("#date1").jeDate({
+                format:"YYYY-MM-DD",
+                choosefun:function(elem, val, date) {
+                    elem.attr('value', val);
+                    showPowerChart();
+                },
+                zIndex:3000
+            });
+            $('#date2').attr('value',year+'-'+month);
+            $("#date2").jeDate({
+                format:"YYYY-MM",
+                choosefun:function(elem, val, date) {
+                    elem.attr('value', val);
+                    showEnergyChart();
+                },
+                zIndex:3000
+            });
+            $('#date1').datetimepicker(dataPickerOpt);
+            $('#date2').datetimepicker({format: "YYYY-MM"});
+
+            // Tab切换
+            $('#ulnav li').click(function() {
+                var i = $(this).index();
+                console.log(i)
+                $(this).addClass('current').siblings().removeClass("current");
+                $(".S-content").eq(i).fadeIn(300).siblings().fadeOut(300);
+            });
+
+            /***********实时**********/
+
+            // 获取实时Tab数据
+            $.JMSClient('info/getssinv', {
+                'type': 'POST',
+                headers: {'JMS-TOKEN':jmstoken},
+                data: JSON.stringify({id: projId})
+            }, function(data) {
+                if (data && data.length > 0) {
+                    var tbody = self.generateRealTimeTable(data)
+                    $('#realTimeTbody').html(tbody)
+                }
+            });
+
+            /***********历史**********/
+
+            // 获取历史Tab数据
+            $.JMSClient('info/devices', {
+                'type':'GET',
+                headers: {'JMS-TOKEN':jmstoken},
+                data: 'proId=' + projId
+            }, function(data) {
+                if (data && data.length > 0) {
+                    self.generateDeviceList(data)
+                }
+            });
+
+            /***********报警**********/
+            self.initWarningTable()
+            $('#warningSearch').on('click', function() {
+                var params = {
+                    timetype: $('#warningTimetype').val(),
+                    type: $('#warningStatus').val(),
+                    q: $('#warningSearchKey').val()
+                }
+                self.initWarningTable(params)
+            })
+
+            /***********报表**********/
+
+            // 获取日统计表格
+            function fetchDailyTable(snId) {
+                var $dailyTable = $('#dailyTable').DataTable({
+                    "ordering": false,
+                    "bDestroy": true,
+                    "processing": true,
+                    "serverSide": true,
+                    "stateSave": false,
+                    "stateDuration": -1,
+                    "ajax": {
+                        "type": 'POST',
+                        "url": $clientURL + "info/invertdatatable",
+                        "dataType": "json",
+                        "headers": {'JMS-TOKEN':jmstoken},
+                        "data": {id: snId}
+                    },
+                    "columnDefs": [],
+                    "language": {
+                        "url": "js/datatable/chinese.json"
+                    },
+                    dom: "tip",
+                    "iDisplayLength": "50"
+                })
+            }
+
+            // 日报表预览
+            $('#dailyView').on('click', function() {
+                var top = $('#body').scrollTop();
+                var left = $('#body').scrollLeft();
+                $('#dailyModal').css({
+                    top: '5%',
+                    left: '5%'
+                }).draggable().show();
+
+                // 获取项目概述
+                var params = {
+                    id: projId,
+                    time: '2017-09-03'
+                }
+                $.JMSClient('info/getdailyreport', {
+                    'type': 'POST',
+                    headers: {'JMS-TOKEN':jmstoken},
+                    data: JSON.stringify(params)
+                }, function(data) {
+                    var str = ''
+                    var snStr = ''
+                    if (data) {
+                        str += '<li><label>电站名称：</label><span>' + data.site + '</span></li>'
+                            + '<li><label>当日电量：</label><span>' + data.drdl + '</span></li>'
+                            + '<li><label>装机容量：</label><span>' + data.zjrl + '</span></li>'
+                            + '<li><label>总电量：</label><span>' + data.zdl + '</span></li>'
+                            + '<li><label>时间：</label><span>' + data.time + '</span></li>'
+                    }
+                    $('#projectInfo').html(str)
+                    if (data.nbq && data.nbq.length > 0) {
+                        data.nbq.forEach(function(item) {
+                            snStr += '<li><label>sn：</label><span>' + item.sn + '</span></li><li><label>电量：</label><span>' + item.dl + '</span></li>'
+                        })
+                    }
+                    $('#snInfo').html(snStr)
+                });
+
+                // 获取逆变器ID列表
+                $.JMSClient('info/deviceselects', {
+                    'type': 'GET',
+                    headers: {'JMS-TOKEN':jmstoken},
+                    data: {proId: projId}
+                }, function(data) {
+                    var str = ''
+                    if (data && data.length > 0) {
+                        data.forEach(function(item) {
+                            str += '<option value="' + item.id + '">' + item.name + '</option>'
+                        })
+                        fetchDailyTable(data[0].id)
+                    }
+                    $('#snList').html(str)
+                });
+
+                $('#snList').on('change', function() {
+                    var id = $(this).val()
+                    fetchDailyTable(id)
+                })
+            })
+
+            // 关闭dialog
+            $('#dailyModal').on('click', '.tc_close', function() {
+                $('#dailyModal').hide();
+            });
+
+            // 日报表导出
+            $('#dailyExport').on('click', function() {
+                var params = {
+                    id: projId,
+                    time: '2017-09-03'
+                }
+                $.JMSClient('info/daliyexport ', {
+                    'type': 'POST',
+                    headers: {'JMS-TOKEN':jmstoken},
+                    data: JSON.stringify(params)
+                }, function(data) {
+                    console.log(data)
+                });
+            })
+
+
+            $('#sixcontbtn li').click(function(){
+                var i = $(this).index();
+                $(this).addClass('current').siblings().removeClass("current");
+                $("#sixcontcon li").eq(i).fadeIn(300).siblings().fadeOut(300);
+            });
+            $('.mbr_tablefoot tr:even').css("color","#0b6bf9");
+            $('.mbr_tablefoot tr:odd').css("color","#f00");
+
+
+            var routeParams = RouterManager.getParams();
+            var data = {};
+            var year = routeParams.year;
+            var idMachine = routeParams.idMachine;
+            data.year = year;
+            data.idMachine = idMachine;
+            var $obj= $("#eleChartTable");
+
+            showPowerChart();
+            $("#power1").on('click',function(){
+                showPowerChart();
+            });
+
+            $('#dayORWeek>button').on('click',function(){
+                $(this).addClass('on').siblings().removeClass('on');
+                showPowerChart();
+            });
+            function showPowerChart(){
+                $('#energy2').hide();
+                $('#power2').show();
+                $.ajax({
+                    url:          $clientURL+'info/getglchart',
+                    type:         'POST',
+                    dataType:     'json',
+                    contentType:  'application/json; charset=UTF-8',
+                    data:         JSON.stringify({id:'1001',time:$('#date1').attr('value'),type:$('#dayORWeek>.on').attr('data')
+                }),
+                    headers:      {'JMS-TOKEN':jmstoken},
+                    processData:  true,
+                    beforeSend:function(XMLHttpRequest){
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    },
+                    complete:function(XMLHttpRequest, textStatus){
+                    },
+                    success: function(data, textStatus){
+                        console.log(data);
+                        self.columnBasicPower(data);
+                    }
+                });
+            }
+
+            $("#energy1").on('click',function(){
+                showEnergyChart();
+            });
+            function showEnergyChart(){
+                $('#energy2').show();
+                $('#power2').hide();
+                $.ajax({
+                    url:          $clientURL+'info/getdlchart',
+                    type:         'POST',
+                    dataType:     'json',
+                    contentType:  'application/json; charset=UTF-8',
+                    data:         JSON.stringify({id:'1001',time:$('#date2').attr('value'),type:$('#allORYearOrMonth>.on').attr('data')
+                }),
+                    headers:      {'JMS-TOKEN':jmstoken},
+                    processData:  true,
+                    beforeSend:function(XMLHttpRequest){
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    },
+                    complete:function(XMLHttpRequest, textStatus){
+                    },
+                    success: function(data, textStatus){
+                        self.columnBasicEnergy(data);
+                    }
+                });
+            }
+            $("#month1").on('click',function(){
+                $(this).addClass('on').siblings().removeClass('on');
+                showEnergyChart();
+            });
+            $("#year1").on('click',function(){
+                $(this).addClass('on').siblings().removeClass('on');
+                showEnergyChart();
+            });
+            $("#all1").on('click',function(){
+                $(this).addClass('on').siblings().removeClass('on');
+                showEnergyChart();
+            });
+        },
+        columnBasicPower:function(data){
+            $('#eleChart').highcharts({
+                credits:{
+                     enabled:false // 禁用版权信息
+                 },
                 title: {
-                    text: "Energy（KWh）"
+                    text: null
                 },
-//                labels: {
-//                    align: 'left',
-//                    x: 3,
-//                    y: 16,
-//                    format: '{value:.,0f}'
-//                },
-//                showFirstLabel: false
-            }],
-            legend: {
-                align: 'left',
-                verticalAlign: 'top',
-                y: 20,
-                floating: true,
-                borderWidth: 0,
-                enabled: false
-            },
-            plotOptions: {
-                area: {
-                    fillColor: {
-                        linearGradient: {
-                            x1: 0,
-                            y1: 0,
-                            x2: 0,
-                            y2: 1
+                xAxis: {
+                    categories: data.x
+                },
+                yAxis: [{
+                    title: {
+                        text: "Power（W）"
+                    }
+                }],
+                plotOptions: {
+                    area: {
+                        fillOpacity: 0.3, // 指定所有面积图的透明度
+                        pointStart: 1940,
+                        marker: {
+                            enabled: false,
+                            symbol: 'circle',
+                            radius: 2,
+                            states: {
+                                hover: {
+                                    enabled: true
+                                }
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    type: 'area',
+                    data: data.y,
+                    marker: { 
+                      fillColor: '#BF0B23',
+                      radius: 0 
+                  }
+                }]
+            });
+        },
+        columnBasicEnergy:function(data){
+            $('#eleChart').highcharts({
+                credits:{
+                    enabled:false // 禁用版权信息
+                },
+                chart:{
+                    type:'column'
+                },
+                title: {
+                    text: null
+                },
+                xAxis: {
+                    tickInterval: 2, // one week
+                    categories:data.x,
+                },
+                tooltip: {
+                    dateTimeLabelFormats: {
+                        hour: '%m-%e %H:%M',
+                        day: '%m-%e'
+                    },
+                    shared: true,
+                    crosshairs: true
+                },
+                yAxis: [{
+                    title: {
+                        text: "Energy（KWh）"
+                    }
+                }],
+                legend: {
+                    align: 'left',
+                    verticalAlign: 'top',
+                    y: 20,
+                    floating: true,
+                    borderWidth: 0,
+                    enabled: false
+                },
+                plotOptions: {
+                    area: {
+                        fillColor: {
+                            linearGradient: {
+                                x1: 0,
+                                y1: 0,
+                                x2: 0,
+                                y2: 1
+                            },
+                            stops: [
+                                [0, Highcharts.getOptions().colors[0]],
+                                [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                            ]
                         },
-                        stops: [
-                            [0, Highcharts.getOptions().colors[0]],
-                            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-                        ]
+                        marker: {
+                            radius: 2
+                        },
+                        lineWidth: 1,
+                        states: {
+                            hover: {
+                                lineWidth: 1
+                            }
+                        },
+                        threshold: null
                     },
-                    marker: {
-                        radius: 2
-                    },
-                    lineWidth: 1,
-                    states: {
-                        hover: {
+                    series: {
+                        cursor: 'pointer',
+                        marker: {
                             lineWidth: 1
                         }
                     },
-                    threshold: null
                 },
-
-                series: {
-                    cursor: 'pointer',
-//                        point: {
-//                            events: {
-//                                click: function (e) {
-//                                    hs.htmlExpand(null, {
-//                                        pageOrigin: {
-//                                            x: e.pageX || e.clientX,
-//                                            y: e.pageY || e.clientY
-//                                        },
-//                                        headingText: this.series.name,
-//                                        maincontentText: Highcharts.dateFormat('%A, %b %e, %Y', this.x) + ':<br/> ' +
-//                                        this.y + ' visits',
-//                                        width: 200
-//                                    });
-//                                }
-//                            }
-//                        },
+                series: [{
+                    name: 'Actual',
+                    lineWidth: 1,
                     marker: {
-                        lineWidth: 1
-                    }
-                },
-
-
-//                    column: {
-//                        pointPadding: 0.2,
-//                        borderWidth: 0
-//                    }
-            },
-//                series:series
-            series: [{
-                name: 'Actual',
-                lineWidth: 1,
-                marker: {
-                    radius: 4
-                },
-                data:data.y
-//            },
-//                {
-//                    type: 'area',
-//                    name: 'Target%',
-//                    data:target
-            }]
-        });
-    }
-};
-eleChartPrint.init();
-
-
-    </script>
+                        radius: 4
+                    },
+                    data:data.y
+                }]
+            });
+        }
+    };
+    eleChartPrint.init();
+</script>
