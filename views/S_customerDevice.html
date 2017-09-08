@@ -38,7 +38,7 @@
 			</div>
 			<div class="col-xs-12 mar-top-20px">
 				<div class="form-group">
-					<label style="text-align:center;width:100px;">网关品牌</label>
+					<label style="text-align:center;width:100px;">采集器品牌</label>
 					<input type="text" class="form-control input-w-3 password" name="dataloggerAlias" id="dataloggerAlias"/>
 				</div>
 			</div>
@@ -46,6 +46,12 @@
 				<div class="form-group">
 					<label style="text-align:center;width:100px;">逆变器序列号</label>
 					<input type="text" class="form-control input-w-3 password" name="inverterSn" id="inverterSn"/>
+				</div>
+			</div>
+			<div class="col-xs-12 mar-top-20px">
+				<div class="form-group">
+					<label style="text-align:center;width:100px;">序号</label>
+					<input type="text" class="form-control input-w-3 password" name="idx" id="idx"/>
 				</div>
 			</div>
 			<div class="col-xs-12 mar-top-20px">
@@ -63,7 +69,7 @@
 			<div class="col-xs-12 mar-top-20px">
 				<div class="form-group">
 					<label style="text-align:center;width:100px;">状态</label>
-					<select class="" name="status" id="status">
+					<select class="" name="online" id="online">
 						<option value="1">在线</option>
 						<option value="0">离线</option>
 					</select>
@@ -168,7 +174,9 @@
 					inverterAlias:$("#inverterAlias").val(),
 					dataloggerAlias:$("#dataloggerAlias").val(),
 					vol: $("#inverterVol").val(),
-					status:$("#status").val()
+					online:$("#online").val(),
+					idx:$("#idx").val(),
+					deleted:0
 				}
 				if(flag==1){
 					delete data.id
