@@ -97,7 +97,7 @@
 				}
 			});
 		},
-		bindEvent(){
+		bindEvent: function(){
 			var _this = this
 			$('#table').on('click','.button-open',function(){
 				var rowData = _this.table.row($(this).parents('tr')).data()
@@ -142,7 +142,7 @@
 				})
 			})
 		}
-	}
+	};
 	$(function(){
 		app.init()
 		//关闭

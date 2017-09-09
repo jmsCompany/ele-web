@@ -524,10 +524,6 @@
     var hash = location.hash;
     var projId = hash.slice(hash.indexOf('&projId=') + 8);
     var ele = {
-        init: function(){
-            var self = this;
-            this.bindEvents();
-        },
         // 初始化地图
         initMap: function(x, y) {
             var map = new BMap.Map("map");    // 创建Map实例
@@ -550,7 +546,7 @@
                 }
             });
         },
-        initStation() {
+        initStation: function() {
             // 获取站点信息
             $.ajax({
                 url:          $clientURL+'info/station',
@@ -1659,6 +1655,10 @@
 
             // 初始化功率chart
             self.initPowerChart();
+        },
+        init: function() {
+            var self = this;
+            this.bindEvents();
         }
     };
     ele.init();
