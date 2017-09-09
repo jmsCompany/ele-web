@@ -99,7 +99,7 @@ li:hover .in_menu{display:block}
 .li-th-8{width:25%;border:none!important;min-width:250px!important}
 .table-ul-tr{border-bottom:1px solid #e7e9ed;height:48px;line-height:48px}
 .table-ul-tr li{float:left;padding-left:20px;border-right:1px solid #e7e9ed}
-.r-header-body{padding:5px 10px;background:#f4f7fa;border:solid 1px #dfe3e9;width:100%;clear:both;float:left;margin-bottom:5px}
+.r-header-body{padding:5px 10px;background:#f4f7fa;border:solid 1px #dfe3e9;width:100%;}
 .r-header-body label{width:auto;float:left;color:#666;line-height:28px;margin-bottom:0}
 .border-none{outline:0!important;box-shadow:none!important;border:none!important}
 .margin-right-10{margin-right:10px}
@@ -162,15 +162,13 @@ th:last-child{border-right:0}
 .pwoDetail td{padding:4px 0;border:1px solid #ddd;border-collapse:collapse}
 .pwoDetail input,.pwoDetail input[readonly],.pwoDetail select{background:0 0;box-shadow:none;line-height:22px;border-radius:0;border:1px solid #eee}
 .pwoDetail select{width:157px}
-.mbr_cont{margin:10px;border:1px solid #ddd;border-bottom:0}
 .mbr_cont thead th{background:#fff;text-align:center;font-size:16px;padding:5px 0;border-bottom:0}
 .mbr_cont thead{font-weight:700}
 .mbr_cont td{border:1px solid #ddd}
-.mbr_boxmid{min-height:400px}
+.mbr_boxmid{min-height:400px;margin: 10px 0;}
 .mbr_cont tbody th{text-align:center;border:0;padding:4px 0}
 .mbr_cont td{padding:2px 0 2px 10px;font-size:12px}
 .mbr_cont tr td:last-child{border-right:0}
-.mbr_cont input[type=text]{border:0;box-shadow:none;border-bottom:1px solid #ccc;border-radius:0}
 .datetime{width:auto;float:left}
 .datetime label{float:left;line-height:28px;padding-right:5px;font-weight:100;padding-left:75px}
 .datetime .date{width:158px;float:right}
@@ -243,7 +241,6 @@ input.error:focus,select.error:focus,textarea.error:focus{border-color:#843534;-
 
 .r-header-body h2{display:inline;font-size:18px;line-height:30px;}
 
-
 /*个人电站*/
 .personal-station-nav{
 /*  height: 50px;*/
@@ -291,10 +288,11 @@ input.error:focus,select.error:focus,textarea.error:focus{border-color:#843534;-
 }
 .S-content{
 	margin-top: 10px;
+  overflow: hidden;
 }
 .S-content .left{
 	float: left;
-	margin-right: 10px;
+	margin-right: 1%;
 	width: 15%;
 	box-sizing: border-box;
 }
@@ -303,7 +301,7 @@ input.error:focus,select.error:focus,textarea.error:focus{border-color:#843534;-
 	border:1px solid #ccc;
 	margin-bottom: 10px;
 }
-.S-content .left div .title{
+.S-content .left .title{
 	width: 100%;
 	display: block;
 	line-height: 30px;
@@ -312,6 +310,34 @@ input.error:focus,select.error:focus,textarea.error:focus{border-color:#843534;-
 }
 .S-content .left div img{
 	width: 100%;
+}
+.S-content .left .eq-list .title {
+  color: #428bca;
+  font-weight: bold;
+  background: #d8e9f9;
+}
+.S-content .left .eq-list ul {
+  margin-bottom: 0;
+}
+.S-content .left .eq-list ul li {
+  padding-left: 10px;
+  padding: 5px 0 5px 10px;
+}
+.S-content .left .eq-list ul li a {
+  color: #444;
+  text-decoration: none;
+}
+.S-content .left .eq-list ul li a:hover {
+  color: #0af;
+}
+.S-content .left .eq-list ul li a.on {
+  color: #0af;
+}
+.S-content .left .eq-list ul li img {
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+  vertical-align: sub;
 }
 .S-content .right{
 	float: left;
@@ -330,7 +356,7 @@ input.error:focus,select.error:focus,textarea.error:focus{border-color:#843534;-
 }
 .S-content .station-info li p{
 	width: 100%;
-	color:#ccc;
+	color:#666;
 }
 .S-content .station-info li span{
 	text-align: right;
@@ -373,8 +399,10 @@ input.error:focus,select.error:focus,textarea.error:focus{border-color:#843534;-
 	margin: 0;
 }
 .S-center{
-	margin:10px 0;
 	border-radius: 5px;
+}
+.S-center .table {
+  margin-bottom: 10px;
 }
 .colorgreen td{
 	color:green;

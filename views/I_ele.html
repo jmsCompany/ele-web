@@ -12,25 +12,32 @@
     .daily-modal-content {
         padding: 15px;
     }
-    #projectInfo {
+    .project-info {
         width: 60%;
         overflow: hidden;
     }
-    #projectInfo li {
+    .project-info li {
         width: 50%;
         float: left;
     }
-    #snInfo {
+    #dailySnInfo {
         width: 60%;
         overflow: hidden;
     }
-    #snInfo li {
+    #dailySnInfo li {
         width: 50%;
         float: left;
     }
     .text-left {
         text-align: left !important;
         padding-left: 15px !important;
+    }
+    .button-sytle1.on {
+        background-color: #428bca;
+    }
+    .panel .form-group .control-label {
+        margin-bottom: 0;
+        line-height: 26px;
     }
 </style>
 <div class="cont">
@@ -45,7 +52,6 @@
                 <li class="button-edit" data-action="In_history">历史</li>
                 <li class="button-edit" data-action="In_warning">报警</li>
                 <li class="button-edit" data-action="In_dashboard">报表</li>
-                <!--<li class="button-edit" data-action="view-progress">管理</li>-->
             </ul>
         </div>
         <div class="smalltip">
@@ -121,47 +127,36 @@
                 <div class="S-bottom">
                     <div class="mbr_cont">
                         <div class="r-header-body">
-                            <div class="topBar" style="border-radius: 5px 5px 0px 0px">
-                                <input name="tt" type="button" id="power1" style="border-radius: 3px 3px 0px 0px" value="功率">
-                                <input name="ff231" type="button" id="energy1" style="border-radius: 3px 3px 0px 0px"  value="电量">
+                            <div class="topBar">
+                                <a href="javascript:;" id="power1" class="btn btn-default btn-primary">功率</a>
+                                <a href="javascript:;" id="energy1" class="btn btn-default">电量</a>
                             </div>
                             <div class="mbr_boxmid" id="eleChart"></div>
-                            <table cellpadding="0" cellspacing="0" width="100%" class="mbr_tablefoot" id="eleChartTable">
-                                <tbody>
-                                    <tr>
-                                        <div class="r-header-body"  id="power2">
-                                            <div class="btn-group btn-group-left">
-                                                <div class="btn-group btn-group-left">
-                                                    <label>日期：</label><input type="text" id='date1' style="width:90px">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="right-list" id="dayORWeek">
-                                                <button class="button-sytle1 on" data='day'>日</button>
-                                                <button class="button-sytle1" data='week'>周</button>
-                                            </div>
-                                        </div>
-                                        <div class="r-header-body  " style="display: none" id="energy2">
-                                            <div class="btn-group btn-group-left">
-                                                <div class="btn-group btn-group-left">
-                                                    <label>年月</label><input type="text" id='date2' style="width:90px">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="right-list" id="allORYearOrMonth">
-                                                <button class="button-sytle1 on" id="all1" data="all">历年</button>
-                                                <button class="button-sytle1" id="year1" data="year">年</button>
-                                                <button class="button-sytle1" id="month1" data="month">月</button>
-                                            </div>
-                                        </div>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div id="power2" class="clearfix">
+                                <div class="btn-group btn-group-left">
+                                    <div class="btn-group btn-group-left">
+                                        <label>日期：</label><input type="text" id='date1' style="width:90px">
+                                    </div>
+                                </div>
+                                <div class="right-list" id="dayORWeek">
+                                    <button class="button-sytle1 on" data='day'>日</button>
+                                    <button class="button-sytle1" data='week'>周</button>
+                                </div>
+                            </div>
+                            <div id="energy2" class="clearfix">
+                                <div class="btn-group btn-group-left">
+                                    <div class="btn-group btn-group-left">
+                                        <label>年月：</label><input type="text" id='date2' style="width:90px">
+                                    </div>
+                                </div>
+                                <div class="right-list" id="allORYearOrMonth">
+                                    <button class="button-sytle1 on" id="all1" data="all">历年</button>
+                                    <button class="button-sytle1" id="year1" data="year">年</button>
+                                    <button class="button-sytle1" id="month1" data="month">月</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div id="main" style="width: 100%;height:600px;"></div>
                 </div>
             </div>      
         </div>
@@ -206,7 +201,7 @@
         <!-- 历史 -->
         <div class="S-content">
             <div class="left">
-                <div class="equipment-list">
+                <div class="eq-list">
                     <span class="title">设备列表</span>
                     <ul id="historyDeviceList"></ul>
                 </div>
@@ -214,11 +209,8 @@
             <div class="right">
                 <div class="S-bottom">
                     <div class="r-header-body">
-                        <div class="topBar" style="border-radius: 5px 5px 0px 0px" id="day1OrWeek1">
-                            <input name="tt" type="button" class="on" data="day" id="day1" style="border-radius: 3px 3px 0px 0px" value="日">
-                            <input name="ff231" type="button" id="week1" data="week" style="border-radius: 3px 3px 0px 0px" value="周">
-                            <label>日期：<input type="text" id="date3" style="width:90px"></label>
-                            <select name="" id="stype">
+                        <div class="topBar">
+                            <select id="stype" class="form-control" style="width: 120px">
                                 <option value="1">直流输入电压</option>
                                 <option value="2">直流输入电流</option>
                                 <option value="3">交流输出电压</option>
@@ -229,8 +221,19 @@
                                 <option value="8">累计能量</option>
                             </select>
                         </div>
+                        <div class="mbr_boxmid" id="histroyChart"></div>
+                        <div class="clearfix">
+                            <div class="btn-group btn-group-left">
+                                <div class="btn-group btn-group-left">
+                                    <label>日期：</label><input id="date3" type="text" style="width:90px">
+                                </div>
+                            </div>
+                            <div class="right-list" id="dayORWeek1">
+                                <button class="button-sytle1 on" data='day'>日</button>
+                                <button class="button-sytle1" data='week'>周</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="mbr_boxmid" id="histroyChart"></div>
                 </div>
             </div>
         </div>
@@ -272,33 +275,33 @@
             <table id="tablePo" class="tabletxt" cellspacing="0" width="100%">
                <tr>
                    <td>日报表</td>
-                   <td class="text-left">日期：<input type="text"></td>
+                   <td class="text-left">日期：<input id="dailyReportDate" type="text"></td>
                    <td><button id="dailyView" class="btn btn-info">预览</button></td>
                    <td><button id="dailyExport" class="btn btn-info">导出</button></td>
                </tr> 
                <tr>
                    <td>周报表</td>
-                   <td class="text-left">起始日期：<input type="text">至<input type="text"></td>
-                   <td><button class="btn btn-info">预览</button></td>
-                   <td><button class="btn btn-info">导出</button></td>
+                   <td class="text-left">起始日期：<input id="weekReportDate1" type="text"><span style="margin: 0 10px;">至</span><input id="weekReportDate2" type="text"></td>
+                   <td><button id="weekView" class="btn btn-info">预览</button></td>
+                   <td><button id="weekExport" class="btn btn-info">导出</button></td>
                </tr>
                <tr>
                    <td>月报表</td>
-                   <td class="text-left">年：<input type="text">月：<input type="text"></td>
-                   <td><button class="btn btn-info">预览</button></td>
-                   <td><button class="btn btn-info">导出</button></td>
+                   <td class="text-left">年月：<input id="monthReportDate" type="text"></td>
+                   <td><button id="monthView" class="btn btn-info">预览</button></td>
+                   <td><button id="monthExport" class="btn btn-info">导出</button></td>
                </tr> 
                <tr>
                    <td>年报表</td>
-                   <td class="text-left">年：<input type="text"></td>
-                   <td><button class="btn btn-info">预览</button></td>
-                   <td><button class="btn btn-info">导出</button></td>
+                   <td class="text-left">年：<input id="yearReportDate" type="text"></td>
+                   <td><button id="yearView" class="btn btn-info">预览</button></td>
+                   <td><button id="yearExport" class="btn btn-info">导出</button></td>
                </tr> 
                <tr>
-                   <td>表警</td>
-                   <td class="text-left">起始日期：<input type="text">至<input type="text"></td>
-                   <td><button class="btn btn-info">预览</button></td>
-                   <td><button class="btn btn-info">导出</button></td>
+                   <td>报警</td>
+                   <td class="text-left">起始日期：<input id="warnReportDate1" type="text"><span style="margin: 0 10px;">至</span><input id="warnReportDate2" type="text"></td>
+                   <td><button id="warnView" class="btn btn-info">预览</button></td>
+                   <td><button id="warnExport" class="btn btn-info">导出</button></td>
                </tr>
             </table>
             <div id="dailyModal" class="tcbox daily-modal">
@@ -311,8 +314,8 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">项目概述</div>
                             <div class="panel-body">
-                                <ul id="projectInfo"></ul>
-                                <ul id="snInfo"></ul>
+                                <ul id="dailyProjectInfo" class="project-info"></ul>
+                                <ul id="dailySnInfo"></ul>
                             </div>
                         </div>
                         <div class="panel panel-default">
@@ -321,7 +324,7 @@
                                 <div class="form-group clearfix">
                                     <label class="control-label pull-left">逆变器SN：</label>
                                     <div class="col-sm-2">
-                                        <select id="snList" class="form-control"></select>
+                                        <select id="dailySnList" class="form-control"></select>
                                     </div>
                                 </div>
                                 <table id="dailyTable" class="dataTable">
@@ -358,175 +361,251 @@
                     </div>
                </div>
             </div>
-        </div>  
+            <div id="weekModal" class="tcbox daily-modal">
+                <div class="tcbox_cont">
+                    <div class="body-head-title">
+                        <span class="h-title">周报表</span>
+                    </div>
+                    <input type="button" class="tc_close">
+                    <div class="daily-modal-content">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">项目概述</div>
+                            <div class="panel-body">
+                                <ul id="weekProjectInfo" class="project-info"></ul>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">统计</div>
+                            <div class="panel-body">
+                                <div class="form-group clearfix">
+                                    <label class="control-label pull-left">逆变器SN：</label>
+                                    <div class="col-sm-2">
+                                        <select id="weekSnList" class="form-control"></select>
+                                    </div>
+                                </div>
+                                <table id="weekTable" class="dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>逆变器SN</th>
+                                            <th>Vpv1</th>
+                                            <th>Vpv2</th>
+                                            <th>Vpv3</th>
+                                            <th>Ipv1</th>
+                                            <th>Ipv2</th>
+                                            <th>Ipv3</th>
+                                            <th>Vac1</th>
+                                            <th>Vac2</th>
+                                            <th>Vac3</th>
+                                            <th>Iac1</th>
+                                            <th>Iac2</th>
+                                            <th>Iac3</th>
+                                            <th>Pac1</th>
+                                            <th>Pac2</th>
+                                            <th>Pac3</th>
+                                            <th>Fac</th>
+                                            <th>温度(℃)</th>
+                                            <th>时间(GMT +8)</th>
+                                            <th>当日电量(kWh)</th>
+                                            <th>总电量(kWh)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+               </div>
+            </div>
+            <div id="monthModal" class="tcbox daily-modal">
+                <div class="tcbox_cont">
+                    <div class="body-head-title">
+                        <span class="h-title">月报表</span>
+                    </div>
+                    <input type="button" class="tc_close">
+                    <div class="daily-modal-content">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">项目概述</div>
+                            <div class="panel-body">
+                                <ul id="monthProjectInfo" class="project-info"></ul>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">统计</div>
+                            <div class="panel-body">
+                                <table id="monthTable" class="dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>时间</th>
+                                            <th>电量(kWh)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+               </div>
+            </div>
+            <div id="yearModal" class="tcbox daily-modal">
+                <div class="tcbox_cont">
+                    <div class="body-head-title">
+                        <span class="h-title">年报表</span>
+                    </div>
+                    <input type="button" class="tc_close">
+                    <div class="daily-modal-content">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">项目概述</div>
+                            <div class="panel-body">
+                                <ul id="yearProjectInfo" class="project-info"></ul>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">统计</div>
+                            <div class="panel-body">
+                                <table id="yearTable" class="dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>时间</th>
+                                            <th>电量(kWh)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+               </div>
+            </div>
+            <div id="warnModal" class="tcbox daily-modal">
+                <div class="tcbox_cont">
+                    <div class="body-head-title">
+                        <span class="h-title">日报表</span>
+                    </div>
+                    <input type="button" class="tc_close">
+                    <div class="daily-modal-content">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">项目概述</div>
+                            <div class="panel-body">
+                                <ul id="warnProjectInfo" class="project-info"></ul>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">统计</div>
+                            <div class="panel-body">
+                                <div class="form-group clearfix">
+                                    <label class="control-label pull-left">逆变器SN：</label>
+                                    <div class="col-sm-2">
+                                        <select id="warnSnList" class="form-control"></select>
+                                    </div>
+                                </div>
+                                <table id="warnTable" class="dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>逆变器</th>
+                                            <th>报警描述</th>
+                                            <th>报警次数</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+               </div>
+            </div>
+        </div>
     </section>
 </div>
-<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak=ovW97sIaF51o5ADwMGOq4Oza&services=&t=20170823191629"></script>
 <script type="text/javascript">
-    function getMap(x,y) {
-        setTimeout(function(){
-            var map = new BMap.Map("map");    // 创建Map实例
-            map.centerAndZoom(new BMap.Point(x, y), 16); 
-        var marker2 = new BMap.Marker(new BMap.Point(x, y));  // 创建标注
-            map.addOverlay(marker2);   
-        },0);
-    }
-        
-    //hxg 兼容上传文件操作
-    $.ajax({
-        url:          $clientURL+'info/station',
-        type:         'GET',
-        dataType:     'json',
-        contentType:  'application/json; charset=UTF-8',
-        data:         {'proId':1},
-        headers:      {'JMS-TOKEN':jmstoken},
-        processData:  true,
-        beforeSend:function(XMLHttpRequest){
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
-        },
-        complete: function(XMLHttpRequest, textStatus){
-        },
-        success: function(data, textStatus){
-            console.log(data);
-            // 报警数
-            $('.smalltip>span>i').html(data.bjs);
-            $('.colorgreen').html(
-                '<td>'+ data.dqgl +'KW</td>'+
-                '<td>'+ data.drdl +'KW</td>'+
-                '<td>'+ data.dydl +'KW</td>'+
-                '<td>'+ data.dndl +'KW</td>'+
-                '<td>'+ data.zdl +'KW</td>'
-                );
-
-            // table基本信息
-            $('.station-photo>img').attr('src',$clientURL + "getImage/" + data.pic +'/');
-
-            // 电站信息
-            $('.station-info>ul>li:nth-of-type(1)>span').html(data.zjrl+'kw');
-            $('.station-info>ul>li:nth-of-type(2)>span').html(data.azs);
-            $('.station-info>ul>li:nth-of-type(3)>span').html(data.fzgl+'kw');
-            $('.station-info>ul>li:nth-of-type(4)>span').html(data.fdxl+'kwh／kw／day');
-            $('.station-info>ul>li:nth-of-type(5)>span').html(data.zcsj);
-            $('.station-info>ul>li:nth-of-type(6)>span').html(data.zhgxsj);
-
-            // 获取天气
-            getWeather(data.city);
-            // 获取地图
-            getMap(data.lat,data.lang);
-        }
-    });
-
-    // 获取天气
-    function getWeather(location){
-        $.ajax({
-            url : 'http://api.map.baidu.com/telematics/v3/weather?location='+location+'&output=json&ak=VBu4kIUlmnMRvVThgmYuadYB',
-            dataType : 'jsonp',
-            success : function(json){
-                var first=json.results[0].weather_data[0];
-                var second=json.results[0].weather_data[1];
-                var third=json.results[0].weather_data[2];
-                $('.smalltip>p:nth-of-type(1)').html(first.date.substring(0,10)+first.weather+" "+first.temperature);
-                $('.smalltip>p:nth-of-type(2)').html(second.date.split(0,10)+" "+second.weather+" "+second.temperature);
-                $('.smalltip>p:nth-of-type(3)').html(third.date.split(0,10)+" "+third.weather+" "+third.temperature);
-            }
-        });
-    }
-
-    getHistroyChar();
-
-    var date=new Date();
-    var year=date.getFullYear();
-    var month=date.getMonth()+1;
-    month=month<10?'0'+month:month;
-    var day=date.getDate();
-    day=day<10?'0'+day:day;
-    $('#date3').attr('value',year+'-'+month+'-'+day);
-    $("#date3").jeDate({
-        format:"YYYY-MM-DD",
-        choosefun:function(elem, val, date) {
-            elem.attr('value', val);
-            getHistroyChar();
-        },
-        zIndex:3000
-    });
-    $('#day1OrWeek1>input[type=button]').on('click',function(){
-        $(this).addClass('on').siblings().removeClass('on');
-        getHistroyChar();
-    });
-    $('#stype').on('change',function(){
-        getHistroyChar();
-    })
-    function getHistroyChar(){
-        $.ajax({
-            url:          $clientURL+'info/getdevicechart',
-            type:         'POST',
-            dataType:     'json',
-            contentType:  'application/json; charset=UTF-8',
-            data:         JSON.stringify({'id':1001,'time':$('#date3').val(),'type':$('#day1OrWeek1>.on').attr('data'),'stype':$('#stype').val()}),
-            headers:      {'JMS-TOKEN':jmstoken},
-            processData:  true,
-            beforeSend:function(XMLHttpRequest){
-            },
-            error: function(XMLHttpRequest, textStatus, errorThrown) {
-            },
-            complete:function(XMLHttpRequest, textStatus){
-            },
-            success: function(data, textStatus){
-                console.log(data);
-                initHistroyChar(data);
-            }
-        });
-    }
-    function initHistroyChar(data){
-        $('#histroyChart').highcharts({
-            credits:{
-                enabled:false // 禁用版权信息
-            },
-            title: {
-                text: null
-            },
-            xAxis: {
-                categories: data.x
-            },
-            yAxis: [{
-                title: {
-                    text: "Power（W）"
-                }
-            }],
-            plotOptions: {
-                area: {
-                    fillOpacity: 0.3, // 指定所有面积图的透明度
-                    pointStart: 1940,
-                    marker: {
-                        enabled: false,
-                        symbol: 'circle',
-                        radius: 2,
-                        states: {
-                            hover: {
-                                enabled: true
-                            }
-                        }
-                    }
-                }
-            },
-            series: [{
-                type: 'area',
-                data: data.y,
-                marker: { 
-                  fillColor: '#BF0B23',
-                  radius: 0 
-              }
-          }]
-        });
-    }
-
     var hash = location.hash;
     var projId = hash.slice(hash.indexOf('&projId=') + 8);
-    var eleChartPrint= {
-    init: function(){
-        var self = this;
-        this.bindEvents();
+    var ele = {
+        init: function(){
+            var self = this;
+            this.bindEvents();
+        },
+        // 初始化地图
+        initMap: function(x, y) {
+            var map = new BMap.Map("map");    // 创建Map实例
+            map.centerAndZoom(new BMap.Point(x, y), 16); 
+            var marker2 = new BMap.Marker(new BMap.Point(x, y));  // 创建标注
+            map.addOverlay(marker2);   
+        },
+        // 获取天气
+        getWeather: function(location) {
+            $.ajax({
+                url : 'http://api.map.baidu.com/telematics/v3/weather?location=' + location + '&output=json&ak=VBu4kIUlmnMRvVThgmYuadYB',
+                dataType : 'jsonp',
+                success : function(json){
+                    var first=json.results[0].weather_data[0];
+                    var second=json.results[0].weather_data[1];
+                    var third=json.results[0].weather_data[2];
+                    $('.smalltip>p:nth-of-type(1)').html(first.date.substring(0,10)+first.weather+" "+first.temperature);
+                    $('.smalltip>p:nth-of-type(2)').html(second.date.split(0,10)+" "+second.weather+" "+second.temperature);
+                    $('.smalltip>p:nth-of-type(3)').html(third.date.split(0,10)+" "+third.weather+" "+third.temperature);
+                }
+            });
+        },
+        initStation() {
+            // 获取站点信息
+            $.ajax({
+                url:          $clientURL+'info/station',
+                type:         'GET',
+                dataType:     'json',
+                contentType:  'application/json; charset=UTF-8',
+                data:         {'proId': projId},
+                headers:      {'JMS-TOKEN':jmstoken},
+                processData:  true,
+                success: function(data){
+                    // 报警数
+                    $('.smalltip>span>i').html(data.bjs);
+                    $('.colorgreen').html(
+                        '<td>'+ data.dqgl +'KW</td>'+
+                        '<td>'+ data.drdl +'KW</td>'+
+                        '<td>'+ data.dydl +'KW</td>'+
+                        '<td>'+ data.dndl +'KW</td>'+
+                        '<td>'+ data.zdl +'KW</td>'
+                        );
+
+                    // table基本信息
+                    $('.station-photo>img').attr('src',$clientURL + "getImage/" + data.pic +'/');
+
+                    // 电站信息
+                    $('.station-info>ul>li:nth-of-type(1)>span').html(data.zjrl+'kw');
+                    $('.station-info>ul>li:nth-of-type(2)>span').html(data.azs);
+                    $('.station-info>ul>li:nth-of-type(3)>span').html(data.fzgl+'kw');
+                    $('.station-info>ul>li:nth-of-type(4)>span').html(data.fdxl+'kwh／kw／day');
+                    $('.station-info>ul>li:nth-of-type(5)>span').html(data.zcsj);
+                    $('.station-info>ul>li:nth-of-type(6)>span').html(data.zhgxsj);
+
+                    // 获取天气
+                    ele.getWeather(data.city);
+                    // 获取地图
+                    ele.initMap(data.lat, data.lang);
+                }
+            });
+        },
+        // 报表导出
+        exportFile: function(url, params) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", $clientURL + url, true);
+            xhr.setRequestHeader('JMS-TOKEN', jmstoken);
+            xhr.setRequestHeader("Content-type","application/json");
+            xhr.responseType = "blob";
+            xhr.onload = function (event) {
+                var blob = xhr.response;
+                var fileName = xhr.getResponseHeader("fileName");
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = fileName;
+                link.click();
+            };
+
+            xhr.send(JSON.stringify(params));
         },
         // 生成实时Tab表格（嵌套table）
         generateRealTimeTable: function(list) {
@@ -565,13 +644,83 @@
         },
         // 生成历史Tab设备列表
         generateDeviceList: function(list) {
-            var str = ''
+            var str = '';
             list.forEach(function(item) {
-                str += '<li><a href="javascript:;" data-id=' + item.id_DEVICE + '>' + item.mac + '</a></li>'
+                str += '<li><img alt="inv" src="images/inv.png"><a href="javascript:;" data-id=' + item.id_DEVICE + '>' + item.mac + '</a></li>'
+            });
+            $('#historyDeviceList').html(str);
+            $($('#historyDeviceList').find('a')[0]).addClass('on');
+            $('#historyDeviceList').on('click', 'a', function() {
+                var id = $(this).data('id');
+                $('#historyDeviceList a').removeClass('on');
+                $(this).addClass('on');
+                ele.initHistoryChart(id);
             })
-            $('#historyDeviceList').html(str)
         },
-        // 初始化报警Tab表格
+        // 初始化历史chart
+        initHistoryChart: function(deviceId) {
+            $.JMSClient('info/getdevicechart', {
+                'type':'POST',
+                headers: {'JMS-TOKEN':jmstoken},
+                data: JSON.stringify({
+                    id: deviceId, 
+                    time: $('#date3').val(),
+                    type: $('#dayORWeek1>.on').attr('data'),
+                    stype: $('#stype').val()
+                })
+            }, function(data) {
+                $('#histroyChart').highcharts({
+                    credits:{
+                        enabled:false // 禁用版权信息
+                    },
+                    title: {
+                        text: null
+                    },
+                    xAxis: {
+                        categories: data.x
+                    },
+                    yAxis: [{
+                        title: {
+                            text: "Power（W）"
+                        }
+                    }],
+                    legend: {
+                        enabled: false
+                    },
+                    tooltip: {
+                        formatter: function() {
+                            return this.y
+                        },
+                        crosshairs: true
+                    },
+                    plotOptions: {
+                        area: {
+                            fillOpacity: 0.3, // 指定所有面积图的透明度
+                            pointStart: 1940,
+                            marker: {
+                                enabled: false,
+                                symbol: 'circle',
+                                radius: 2,
+                                states: {
+                                    hover: {
+                                        enabled: true
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    series: [{
+                        type: 'area',
+                        data: data.y,
+                        marker: { 
+                          fillColor: '#BF0B23',
+                          radius: 0 
+                      }
+                  }]
+                });
+            });
+        },
+        // 初始化报警table数据
         initWarningTable: function(params) {
             params = params || {
                 timetype: 1,
@@ -647,58 +796,410 @@
 
                     // 查看
                     $('.warningTable-view').on('click', function() {
-                        var rowData = $warningTable.row($(this).parents('tr')).data()
-                        deviceId = rowData[1]
                         $('#ulnav li').removeClass("current");
                         $('#ulnav li:eq(2)').addClass('current');
                         $(".S-content").eq(2).fadeIn(300).siblings().fadeOut(300);
+                        var rowData = $warningTable.row($(this).parents('tr')).data()
+                        deviceId = rowData[0]
+                        ele.initHistoryChart(deviceId)
+                        $('#historyDeviceList a').removeClass('on');
+                        $('#historyDeviceList a[data-id=' + deviceId + ']').addClass('on');
                     })
                 }
             })
         },
+        // 初始化概况-功率chart
+        initPowerChart: function() {
+            $('#energy2').hide();
+            $('#power2').show();
+            $.ajax({
+                url:          $clientURL+'info/getglchart',
+                type:         'POST',
+                dataType:     'json',
+                contentType:  'application/json; charset=UTF-8',
+                data:         JSON.stringify({id:'1001',time:$('#date1').attr('value'),type:$('#dayORWeek>.on').attr('data')
+                }),
+                headers:      {'JMS-TOKEN':jmstoken},
+                processData:  true,
+                success: function(data){
+                    $('#eleChart').highcharts({
+                        credits:{
+                            enabled:false // 禁用版权信息
+                        },
+                        title: {
+                            text: null
+                        },
+                        xAxis: {
+                            categories: data.x
+                        },
+                        yAxis: [{
+                            title: {
+                                text: "Power（W）"
+                            }
+                        }],
+                        legend: {
+                            enabled: false
+                        },
+                        tooltip: {
+                            formatter: function() {
+                                return this.y
+                            },
+                            crosshairs: true
+                        },
+                        plotOptions: {
+                            area: {
+                                fillOpacity: 0.3, // 指定所有面积图的透明度
+                                pointStart: 1940,
+                                marker: {
+                                    enabled: false,
+                                    symbol: 'circle',
+                                    radius: 2,
+                                    states: {
+                                        hover: {
+                                            enabled: true
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        series: [{
+                            type: 'area',
+                            data: data.y,
+                            marker: { 
+                              fillColor: '#BF0B23',
+                              radius: 0 
+                          }
+                        }]
+                    });
+                }
+            });
+        },
+        // 初始化概况-电量chart
+        initEnergyChart: function() {
+            $('#energy2').show();
+            $('#power2').hide();
+            $.ajax({
+                url:          $clientURL+'info/getdlchart',
+                type:         'POST',
+                dataType:     'json',
+                contentType:  'application/json; charset=UTF-8',
+                data:         JSON.stringify({id:'1001',time:$('#date2').attr('value'),type:$('#allORYearOrMonth>.on').attr('data')
+                }),
+                headers:      {'JMS-TOKEN':jmstoken},
+                processData:  true,
+                success: function(data){
+                    $('#eleChart').highcharts({
+                        credits:{
+                            enabled:false // 禁用版权信息
+                        },
+                        chart:{
+                            type:'column'
+                        },
+                        title: {
+                            text: null
+                        },
+                        xAxis: {
+                            tickInterval: 2, // one week
+                            categories:data.x,
+                        },
+                        tooltip: {
+                            dateTimeLabelFormats: {
+                                hour: '%m-%e %H:%M',
+                                day: '%m-%e'
+                            },
+                            shared: true,
+                            crosshairs: true
+                        },
+                        yAxis: [{
+                            title: {
+                                text: "Energy（KWh）"
+                            }
+                        }],
+                        legend: {
+                            align: 'left',
+                            verticalAlign: 'top',
+                            y: 20,
+                            floating: true,
+                            borderWidth: 0,
+                            enabled: false
+                        },
+                        plotOptions: {
+                            area: {
+                                fillColor: {
+                                    linearGradient: {
+                                        x1: 0,
+                                        y1: 0,
+                                        x2: 0,
+                                        y2: 1
+                                    },
+                                    stops: [
+                                        [0, Highcharts.getOptions().colors[0]],
+                                        [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                                    ]
+                                },
+                                marker: {
+                                    radius: 2
+                                },
+                                lineWidth: 1,
+                                states: {
+                                    hover: {
+                                        lineWidth: 1
+                                    }
+                                },
+                                threshold: null
+                            },
+                            series: {
+                                cursor: 'pointer',
+                                marker: {
+                                    lineWidth: 1
+                                }
+                            },
+                        },
+                        series: [{
+                            name: 'Actual',
+                            lineWidth: 1,
+                            marker: {
+                                radius: 4
+                            },
+                            data:data.y
+                        }]
+                    });
+                }
+            });
+        },
+        // 初始化日报表table数据
+        initDailyTable: function(id, date, type) {
+            var $dailyTable = $('#dailyTable').DataTable({
+                "ordering": false,
+                "bDestroy": true,
+                "processing": true,
+                "serverSide": true,
+                "stateSave": false,
+                "stateDuration": -1,
+                "ajax": {
+                    "type": 'POST',
+                    "url": $clientURL + "info/invertdatatable",
+                    "dataType": "json",
+                    "headers": {'JMS-TOKEN': jmstoken},
+                    "data": {
+                        id: id,
+                        time: date,
+                        type: type
+                    }
+                },
+                "columnDefs": [],
+                "language": {
+                    "url": "js/datatable/chinese.json"
+                },
+                dom: "tip",
+                "iDisplayLength": "50"
+            })
+        },
+        // 初始化周报表table数据
+        initWeekTable: function(id, from, to, type) {
+            var $weekTable = $('#weekTable').DataTable({
+                "ordering": false,
+                "bDestroy": true,
+                "processing": true,
+                "serverSide": true,
+                "stateSave": false,
+                "stateDuration": -1,
+                "ajax": {
+                    "type": 'POST',
+                    "url": $clientURL + "info/invertdatatable",
+                    "dataType": "json",
+                    "headers": {'JMS-TOKEN': jmstoken},
+                    "data": {
+                        id: id,
+                        fromtime: from,
+                        totime: to,
+                        type: type
+                    }
+                },
+                "columnDefs": [],
+                "language": {
+                    "url": "js/datatable/chinese.json"
+                },
+                dom: "tip",
+                "iDisplayLength": "50"
+            })
+        },
+        // 初始化月报表table数据
+        initMonthTable: function(id, date) {
+            var $monthTable = $('#monthTable').DataTable({
+                "ordering": false,
+                "bDestroy": true,
+                "processing": true,
+                "serverSide": true,
+                "stateSave": false,
+                "stateDuration": -1,
+                "ajax": {
+                    "type": 'POST',
+                    "url": $clientURL + "info/customer/monthTable",
+                    "dataType": "json",
+                    "headers": {'JMS-TOKEN': jmstoken},
+                    "data": {
+                        proId: id,
+                        time: date
+                    }
+                },
+                "columnDefs": [],
+                "language": {
+                    "url": "js/datatable/chinese.json"
+                },
+                dom: "tip",
+                "iDisplayLength": "50"
+            })
+        },
+        // 初始化年报表table数据
+        initYearTable: function(id, date) {
+            var $yearTable = $('#yearTable').DataTable({
+                "ordering": false,
+                "bDestroy": true,
+                "processing": true,
+                "serverSide": true,
+                "stateSave": false,
+                "stateDuration": -1,
+                "ajax": {
+                    "type": 'POST',
+                    "url": $clientURL + "info/customer/yearTable",
+                    "dataType": "json",
+                    "headers": {'JMS-TOKEN': jmstoken},
+                    "data": {
+                        proId: id,
+                        time: date
+                    }
+                },
+                "columnDefs": [],
+                "language": {
+                    "url": "js/datatable/chinese.json"
+                },
+                dom: "tip",
+                "iDisplayLength": "50"
+            })
+        },
+        // 初始化报警报表table数据
+        initWarnTable: function(id, from, to) {
+            var $warnTable = $('#warnTable').DataTable({
+                "ordering": false,
+                "bDestroy": true,
+                "processing": true,
+                "serverSide": true,
+                "stateSave": false,
+                "stateDuration": -1,
+                "ajax": {
+                    "type": 'POST',
+                    "url": $clientURL + "info/customer/alertreportTable",
+                    "dataType": "json",
+                    "headers": {'JMS-TOKEN': jmstoken},
+                    "data": {
+                        sn: id,
+                        fromtime: from,
+                        totime: to
+                    }
+                },
+                "columnDefs": [],
+                "language": {
+                    "url": "js/datatable/chinese.json"
+                },
+                dom: "tip",
+                "iDisplayLength": "50"
+            })
+        },
         bindEvents: function() {
             var self = this;
-            var dataPickerOpt = {
-                format: "YYYY-MM-DD"
-            };
-            var date=new Date();
-            var year=date.getFullYear();
-            var month=date.getMonth()+1;
-            month=month<10?'0'+month:month;
-            var day=date.getDate();
-            day=day<10?'0'+day:day;
-            $('#date1').attr('value',year+'-'+month+'-'+day);
+            var pe = 0;
+            var tabIndex = 0;
+            var deviceId;
+
+            this.initStation()
+            // Tab切换
+            $('#ulnav li').click(function() {
+                var i = $(this).index();
+                tabIndex = i;
+                $(this).addClass('current').siblings().removeClass("current");
+                $(".S-content").eq(i).fadeIn(300).siblings().fadeOut(300);
+                if (i === 2) {
+                    self.initHistoryChart(deviceId)
+                }
+            });
+
+            // 日期组件初始化
+            var date = new Date();
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1;
+            var day = date.getDate();
+            month = month < 10 ? '0' + month : month;
+            day = day < 10 ? '0' + day : day;
+            $('#date1').attr('value', year + '-' + month + '-' + day);
             $("#date1").jeDate({
                 format:"YYYY-MM-DD",
-                choosefun:function(elem, val, date) {
+                choosefun: function(elem, val, date) {
                     elem.attr('value', val);
-                    showPowerChart();
+                    self.initPowerChart();
+                },
+                okfun: function(elem, val, date) {
+                    elem.attr('value', val);
+                    self.initPowerChart();
                 },
                 zIndex:3000
             });
             $('#date2').attr('value',year+'-'+month);
             $("#date2").jeDate({
                 format:"YYYY-MM",
-                choosefun:function(elem, val, date) {
+                choosefun: function(elem, val, date) {
                     elem.attr('value', val);
-                    showEnergyChart();
+                    self.initEnergyChart();
+                },
+                okfun: function(elem, val, date) {
+                    elem.attr('value', val);
+                    self.initEnergyChart();
                 },
                 zIndex:3000
             });
-            $('#date1').datetimepicker(dataPickerOpt);
-            $('#date2').datetimepicker({format: "YYYY-MM"});
-
-            // Tab切换
-            $('#ulnav li').click(function() {
-                var i = $(this).index();
-                console.log(i)
-                $(this).addClass('current').siblings().removeClass("current");
-                $(".S-content").eq(i).fadeIn(300).siblings().fadeOut(300);
+            $('#date3').attr('value', year + '-' + month + '-' + day);
+            $("#date3").jeDate({
+                format:"YYYY-MM-DD",
+                choosefun:function(elem, val, date) {
+                    elem.attr('value', val);
+                    self.initHistoryChart(deviceId);
+                },
+                okfun: function(elem, val, date) {
+                    elem.attr('value', val);
+                    self.initHistoryChart(deviceId);
+                },
+                zIndex:3000
             });
+
+            /***********概况**********/
+
+            $("#power1").on('click', function(){
+                pe = 0;
+                self.initPowerChart();
+                $(this).addClass('btn-primary');
+                $('#energy1').removeClass('btn-primary');
+            });
+
+            $("#energy1").on('click', function(){
+                pe = 1;
+                self.initEnergyChart();
+                $(this).addClass('btn-primary');
+                $('#power1').removeClass('btn-primary');
+            });
+
+            $('#dayORWeek').on('click', 'button', function(){
+                $(this).addClass('on').siblings().removeClass('on');
+                self.initPowerChart();
+            });
+
+            $('#allORYearOrMonth').on('click', 'button', function() {
+                $(this).addClass('on').siblings().removeClass('on');
+                self.initEnergyChart();
+            })
 
             /***********实时**********/
 
-            // 获取实时Tab数据
+            // 获取实时table数据
             $.JMSClient('info/getssinv', {
                 'type': 'POST',
                 headers: {'JMS-TOKEN':jmstoken},
@@ -712,16 +1213,26 @@
 
             /***********历史**********/
 
-            // 获取历史Tab数据
+            // 获取历史设备列表
             $.JMSClient('info/devices', {
                 'type':'GET',
                 headers: {'JMS-TOKEN':jmstoken},
                 data: 'proId=' + projId
             }, function(data) {
                 if (data && data.length > 0) {
+                    deviceId = data[0].id_DEVICE;
                     self.generateDeviceList(data)
                 }
             });
+
+            $('#dayORWeek1').on('click', 'button', function(){
+                $(this).addClass('on').siblings().removeClass('on');
+                self.initHistoryChart(deviceId);
+            });
+
+            $('#stype').on('change',function(){
+                self.initHistoryChart(deviceId);
+            })
 
             /***********报警**********/
             self.initWarningTable()
@@ -736,49 +1247,52 @@
 
             /***********报表**********/
 
-            // 获取日统计表格
-            function fetchDailyTable(snId) {
-                var $dailyTable = $('#dailyTable').DataTable({
-                    "ordering": false,
-                    "bDestroy": true,
-                    "processing": true,
-                    "serverSide": true,
-                    "stateSave": false,
-                    "stateDuration": -1,
-                    "ajax": {
-                        "type": 'POST',
-                        "url": $clientURL + "info/invertdatatable",
-                        "dataType": "json",
-                        "headers": {'JMS-TOKEN':jmstoken},
-                        "data": {id: snId}
-                    },
-                    "columnDefs": [],
-                    "language": {
-                        "url": "js/datatable/chinese.json"
-                    },
-                    dom: "tip",
-                    "iDisplayLength": "50"
-                })
-            }
+            // 日期组件初始化
+            $("#dailyReportDate").jeDate({
+                format: "YYYY-MM-DD"
+            });
+
+            $("#weekReportDate1").jeDate({
+                format: "YYYY-MM-DD"
+            });
+            $("#weekReportDate2").jeDate({
+                format: "YYYY-MM-DD"
+            });
+
+            $("#monthReportDate").jeDate({
+                format: "YYYY-MM"
+            });
+
+            $("#yearReportDate").jeDate({
+                format: "YYYY"
+            });
+
+            $("#warnReportDate1").jeDate({
+                format: "YYYY-MM-DD"
+            });
+            $("#warnReportDate2").jeDate({
+                format: "YYYY-MM-DD"
+            });
 
             // 日报表预览
             $('#dailyView').on('click', function() {
-                var top = $('#body').scrollTop();
-                var left = $('#body').scrollLeft();
+                var date = $('#dailyReportDate').val()
+                if (date === '') {
+                    alert('请选择日期！');
+                    return;
+                }
                 $('#dailyModal').css({
                     top: '5%',
                     left: '5%'
                 }).draggable().show();
-
                 // 获取项目概述
-                var params = {
-                    id: projId,
-                    time: '2017-09-03'
-                }
                 $.JMSClient('info/getdailyreport', {
                     'type': 'POST',
-                    headers: {'JMS-TOKEN':jmstoken},
-                    data: JSON.stringify(params)
+                    headers: {'JMS-TOKEN': jmstoken},
+                    data: JSON.stringify({
+                        id: projId,
+                        time: date
+                    })
                 }, function(data) {
                     var str = ''
                     var snStr = ''
@@ -789,13 +1303,13 @@
                             + '<li><label>总电量：</label><span>' + data.zdl + '</span></li>'
                             + '<li><label>时间：</label><span>' + data.time + '</span></li>'
                     }
-                    $('#projectInfo').html(str)
+                    $('#dailyProjectInfo').html(str)
                     if (data.nbq && data.nbq.length > 0) {
                         data.nbq.forEach(function(item) {
                             snStr += '<li><label>sn：</label><span>' + item.sn + '</span></li><li><label>电量：</label><span>' + item.dl + '</span></li>'
                         })
                     }
-                    $('#snInfo').html(snStr)
+                    $('#dailySnInfo').html(snStr)
                 });
 
                 // 获取逆变器ID列表
@@ -809,248 +1323,343 @@
                         data.forEach(function(item) {
                             str += '<option value="' + item.id + '">' + item.name + '</option>'
                         })
-                        fetchDailyTable(data[0].id)
+                        self.initDailyTable(data[0].id, date, 1)
                     }
-                    $('#snList').html(str)
+                    $('#dailySnList').html(str)
                 });
 
-                $('#snList').on('change', function() {
+                $('#dailySnList').on('change', function() {
                     var id = $(this).val()
-                    fetchDailyTable(id)
+                    self.initDailyTable(id, date, 1)
                 })
-            })
+            });
 
-            // 关闭dialog
+            // 日报表dialog关闭
             $('#dailyModal').on('click', '.tc_close', function() {
                 $('#dailyModal').hide();
             });
 
             // 日报表导出
             $('#dailyExport').on('click', function() {
+                var date = $('#dailyReportDate').val()
+                if (date === '') {
+                    alert('请选择日期！');
+                    return;
+                }
+                
                 var params = {
                     id: projId,
-                    time: '2017-09-03'
+                    time: date
                 }
-                $.JMSClient('info/daliyexport ', {
+                self.exportFile('info/daliyexport', params);
+            });
+
+            // 周报表预览
+            $('#weekView').on('click', function() {
+                var start = $('#weekReportDate1').val()
+                var end = $('#weekReportDate2').val()
+                if (start === '' || end === '') {
+                    alert('请选择起始日期！');
+                    return;
+                }
+                if (start > end) {
+                    alert('开始日期不能大于结束日期！');
+                    return;
+                }
+
+                $('#weekModal').css({
+                    top: '5%',
+                    left: '5%'
+                }).draggable().show();
+                // 获取项目概述
+                $.JMSClient('info/getweekreport', {
                     'type': 'POST',
                     headers: {'JMS-TOKEN':jmstoken},
-                    data: JSON.stringify(params)
+                    data: JSON.stringify({
+                        id: projId,
+                        fromtime: start,
+                        totime: end
+                    })
                 }, function(data) {
-                    console.log(data)
+                    var str = '';
+                    var snStr = '';
+                    if (data) {
+                        str += '<li><label>电站名称：</label><span>' + data.site + '</span></li>'
+                            + '<li><label>周电量：</label><span>' + data.weekdl + '</span></li>'
+                            + '<li><label>装机容量：</label><span>' + data.zjrl + '</span></li>'
+                            + '<li><label>总电量：</label><span>' + data.zdl + '</span></li>'
+                            + '<li><label>时间：</label><span>' + data.time + '</span></li>';
+                    }
+                    $('#weekProjectInfo').html(str);
                 });
+
+                // 获取逆变器ID列表
+                $.JMSClient('info/deviceselects', {
+                    'type': 'GET',
+                    headers: {'JMS-TOKEN':jmstoken},
+                    data: {proId: projId}
+                }, function(data) {
+                    var str = ''
+                    if (data && data.length > 0) {
+                        data.forEach(function(item) {
+                            str += '<option value="' + item.id + '">' + item.name + '</option>'
+                        });
+                        self.initWeekTable(data[0].id, start, end, 2);
+                    }
+                    $('#weekSnList').html(str);
+                });
+
+                $('#weekSnList').on('change', function() {
+                    var id = $(this).val();
+                    self.initWeekTable(id, start, end, 2);
+                })
+            });
+
+            // 周报表dialog关闭
+            $('#weekModal').on('click', '.tc_close', function() {
+                $('#weekModal').hide();
+            });
+
+            // 周报表导出
+            $('#weekExport').on('click', function() {
+                var start = $('#weekReportDate1').val()
+                var end = $('#weekReportDate2').val()
+                if (start === '' || end === '') {
+                    alert('请选择起始日期！');
+                    return;
+                }
+                if (start > end) {
+                    alert('开始日期不能大于结束日期！');
+                    return;
+                }
+
+                var params = {
+                    id: projId,
+                    fromtime: start,
+                    totime: end
+                }
+                self.exportFile('info/weekexport', params);
+            });
+
+            // 月报表预览
+            $('#monthView').on('click', function() {
+                var date = $('#monthReportDate').val()
+                if (date === '') {
+                    alert('请选择年月！');
+                    return;
+                }
+
+                $('#monthModal').css({
+                    top: '5%',
+                    left: '5%'
+                }).draggable().show();
+                // 获取项目概述
+                $.JMSClient('info/getmonthreport', {
+                    'type': 'POST',
+                    headers: {'JMS-TOKEN': jmstoken},
+                    data: JSON.stringify({
+                        id: projId,
+                        time: date
+                    })
+                }, function(data) {
+                    var str = '';
+                    var snStr = '';
+                    if (data) {
+                        str += '<li><label>电站名称：</label><span>' + data.site + '</span></li>'
+                            + '<li><label>月电量：</label><span>' + data.monthdl + '</span></li>'
+                            + '<li><label>装机容量：</label><span>' + data.zjrl + '</span></li>'
+                            + '<li><label>总电量：</label><span>' + data.zdl + '</span></li>'
+                            + '<li><label>时间：</label><span>' + data.time + '</span></li>';
+                    }
+                    $('#monthProjectInfo').html(str);
+                });
+                self.initMonthTable(projId, date);
+            });
+
+            // 月报表dialog关闭
+            $('#monthModal').on('click', '.tc_close', function() {
+                $('#monthModal').hide();
+            });
+
+            // 月报表导出
+            $('#monthExport').on('click', function() {
+                var date = $('#monthReportDate').val()
+                if (date === '') {
+                    alert('请选择年月！');
+                    return;
+                }
+                
+                var params = {
+                    id: projId,
+                    time: date
+                }
+                self.exportFile('info/monthexport', params);
+            });
+
+            // 年报表预览
+            $('#yearView').on('click', function() {
+                var date = $('#yearReportDate').val()
+                if (date === '') {
+                    alert('请选择年！');
+                    return;
+                }
+
+                $('#yearModal').css({
+                    top: '5%',
+                    left: '5%'
+                }).draggable().show();
+                // 获取项目概述
+                $.JMSClient('info/getyearreport', {
+                    'type': 'POST',
+                    headers: {'JMS-TOKEN': jmstoken},
+                    data: JSON.stringify({
+                        id: projId,
+                        time: date
+                    })
+                }, function(data) {
+                    var str = '';
+                    var snStr = '';
+                    if (data) {
+                        str += '<li><label>电站名称：</label><span>' + data.site + '</span></li>'
+                            + '<li><label>年电量：</label><span>' + data.yeardl + '</span></li>'
+                            + '<li><label>装机容量：</label><span>' + data.zjrl + '</span></li>'
+                            + '<li><label>总电量：</label><span>' + data.zdl + '</span></li>'
+                            + '<li><label>时间：</label><span>' + data.time + '</span></li>';
+                    }
+                    $('#yearProjectInfo').html(str);
+                });
+                self.initYearTable(projId, date);
+            });
+
+            // 年报表dialog关闭
+            $('#yearModal').on('click', '.tc_close', function() {
+                $('#yearModal').hide();
+            });
+
+            // 年报表导出
+            $('#yearExport').on('click', function() {
+                var date = $('#yearReportDate').val()
+                if (date === '') {
+                    alert('请选择年！');
+                    return;
+                }
+
+                var params = {
+                    id: projId,
+                    time: date
+                }
+                self.exportFile('info/yearexport', params);
+            });
+
+            // 报警报表预览
+            $('#warnView').on('click', function() {
+                var start = $('#warnReportDate1').val()
+                var end = $('#warnReportDate2').val()
+                if (start === '' || end === '') {
+                    alert('请选择起始日期！');
+                    return;
+                }
+                if (start > end) {
+                    alert('开始日期不能大于结束日期！');
+                    return;
+                }
+
+                $('#warnModal').css({
+                    top: '5%',
+                    left: '5%'
+                }).draggable().show();
+                // 获取项目概述
+                $.JMSClient('info/getalertreport', {
+                    'type': 'POST',
+                    headers: {'JMS-TOKEN': jmstoken},
+                    data: JSON.stringify({
+                        id: projId,
+                        fromtime: start,
+                        totime: end
+                    })
+                }, function(data) {
+                    var str = ''
+                    var snStr = ''
+                    if (data) {
+                        str += '<li><label>电站名称：</label><span>' + data.site + '</span></li>'
+                            // + '<li><label>当日电量：</label><span>' + data.drdl + '</span></li>'
+                            + '<li><label>装机容量：</label><span>' + data.zjrl + '</span></li>'
+                            + '<li><label>总电量：</label><span>' + data.zdl + '</span></li>'
+                            + '<li><label>时间：</label><span>' + data.time + '</span></li>'
+                    }
+                    $('#warnProjectInfo').html(str)
+                    if (data.nbq && data.nbq.length > 0) {
+                        data.nbq.forEach(function(item) {
+                            snStr += '<li><label>sn：</label><span>' + item.sn + '</span></li><li><label>电量：</label><span>' + item.dl + '</span></li>'
+                        })
+                    }
+                    $('#warnSnInfo').html(snStr)
+                });
+
+                // 获取逆变器ID列表
+                $.JMSClient('info/deviceselects', {
+                    'type': 'GET',
+                    headers: {'JMS-TOKEN':jmstoken},
+                    data: {proId: projId}
+                }, function(data) {
+                    var str = ''
+                    if (data && data.length > 0) {
+                        data.forEach(function(item) {
+                            str += '<option value="' + item.id + '">' + item.name + '</option>'
+                        })
+                        self.initWarnTable(data[0].id, start, end)
+                    }
+                    $('#warnSnList').html(str)
+                });
+
+                $('#warnSnList').on('change', function() {
+                    var id = $(this).val()
+                    self.initWarnTable(id, start, end)
+                })
+            });
+
+            // 报警报表dialog关闭
+            $('#warnModal').on('click', '.tc_close', function() {
+                $('#warnModal').hide();
+            });
+
+            // 报警报表导出
+            $('#warnExport').on('click', function() {
+                var start = $('#warnReportDate1').val()
+                var end = $('#warnReportDate2').val()
+                if (start === '' || end === '') {
+                    alert('请选择起始日期！');
+                    return;
+                }
+                if (start > end) {
+                    alert('开始日期不能大于结束日期！');
+                    return;
+                }
+
+                var params = {
+                    id: projId,
+                    fromtime: start,
+                    totime: end
+                }
+                self.exportFile('info/alertexport', params);
+            });
+
+            // window resize
+            $(window).resize(function() {
+                if (tabIndex === 0) {
+                    if (pe === 1) {
+                        self.initEnergyChart();
+                    } else {
+                        self.initPowerChart();
+                    }
+                } else if (tabIndex === 2) {
+                    self.initHistoryChart(deviceId);
+                }
             })
 
-
-            $('#sixcontbtn li').click(function(){
-                var i = $(this).index();
-                $(this).addClass('current').siblings().removeClass("current");
-                $("#sixcontcon li").eq(i).fadeIn(300).siblings().fadeOut(300);
-            });
-            $('.mbr_tablefoot tr:even').css("color","#0b6bf9");
-            $('.mbr_tablefoot tr:odd').css("color","#f00");
-
-
-            var routeParams = RouterManager.getParams();
-            var data = {};
-            var year = routeParams.year;
-            var idMachine = routeParams.idMachine;
-            data.year = year;
-            data.idMachine = idMachine;
-            var $obj= $("#eleChartTable");
-
-            showPowerChart();
-            $("#power1").on('click',function(){
-                showPowerChart();
-            });
-
-            $('#dayORWeek>button').on('click',function(){
-                $(this).addClass('on').siblings().removeClass('on');
-                showPowerChart();
-            });
-            function showPowerChart(){
-                $('#energy2').hide();
-                $('#power2').show();
-                $.ajax({
-                    url:          $clientURL+'info/getglchart',
-                    type:         'POST',
-                    dataType:     'json',
-                    contentType:  'application/json; charset=UTF-8',
-                    data:         JSON.stringify({id:'1001',time:$('#date1').attr('value'),type:$('#dayORWeek>.on').attr('data')
-                }),
-                    headers:      {'JMS-TOKEN':jmstoken},
-                    processData:  true,
-                    beforeSend:function(XMLHttpRequest){
-                    },
-                    error: function(XMLHttpRequest, textStatus, errorThrown) {
-                    },
-                    complete:function(XMLHttpRequest, textStatus){
-                    },
-                    success: function(data, textStatus){
-                        console.log(data);
-                        self.columnBasicPower(data);
-                    }
-                });
-            }
-
-            $("#energy1").on('click',function(){
-                showEnergyChart();
-            });
-            function showEnergyChart(){
-                $('#energy2').show();
-                $('#power2').hide();
-                $.ajax({
-                    url:          $clientURL+'info/getdlchart',
-                    type:         'POST',
-                    dataType:     'json',
-                    contentType:  'application/json; charset=UTF-8',
-                    data:         JSON.stringify({id:'1001',time:$('#date2').attr('value'),type:$('#allORYearOrMonth>.on').attr('data')
-                }),
-                    headers:      {'JMS-TOKEN':jmstoken},
-                    processData:  true,
-                    beforeSend:function(XMLHttpRequest){
-                    },
-                    error: function(XMLHttpRequest, textStatus, errorThrown) {
-                    },
-                    complete:function(XMLHttpRequest, textStatus){
-                    },
-                    success: function(data, textStatus){
-                        self.columnBasicEnergy(data);
-                    }
-                });
-            }
-            $("#month1").on('click',function(){
-                $(this).addClass('on').siblings().removeClass('on');
-                showEnergyChart();
-            });
-            $("#year1").on('click',function(){
-                $(this).addClass('on').siblings().removeClass('on');
-                showEnergyChart();
-            });
-            $("#all1").on('click',function(){
-                $(this).addClass('on').siblings().removeClass('on');
-                showEnergyChart();
-            });
-        },
-        columnBasicPower:function(data){
-            $('#eleChart').highcharts({
-                credits:{
-                     enabled:false // 禁用版权信息
-                 },
-                title: {
-                    text: null
-                },
-                xAxis: {
-                    categories: data.x
-                },
-                yAxis: [{
-                    title: {
-                        text: "Power（W）"
-                    }
-                }],
-                plotOptions: {
-                    area: {
-                        fillOpacity: 0.3, // 指定所有面积图的透明度
-                        pointStart: 1940,
-                        marker: {
-                            enabled: false,
-                            symbol: 'circle',
-                            radius: 2,
-                            states: {
-                                hover: {
-                                    enabled: true
-                                }
-                            }
-                        }
-                    }
-                },
-                series: [{
-                    type: 'area',
-                    data: data.y,
-                    marker: { 
-                      fillColor: '#BF0B23',
-                      radius: 0 
-                  }
-                }]
-            });
-        },
-        columnBasicEnergy:function(data){
-            $('#eleChart').highcharts({
-                credits:{
-                    enabled:false // 禁用版权信息
-                },
-                chart:{
-                    type:'column'
-                },
-                title: {
-                    text: null
-                },
-                xAxis: {
-                    tickInterval: 2, // one week
-                    categories:data.x,
-                },
-                tooltip: {
-                    dateTimeLabelFormats: {
-                        hour: '%m-%e %H:%M',
-                        day: '%m-%e'
-                    },
-                    shared: true,
-                    crosshairs: true
-                },
-                yAxis: [{
-                    title: {
-                        text: "Energy（KWh）"
-                    }
-                }],
-                legend: {
-                    align: 'left',
-                    verticalAlign: 'top',
-                    y: 20,
-                    floating: true,
-                    borderWidth: 0,
-                    enabled: false
-                },
-                plotOptions: {
-                    area: {
-                        fillColor: {
-                            linearGradient: {
-                                x1: 0,
-                                y1: 0,
-                                x2: 0,
-                                y2: 1
-                            },
-                            stops: [
-                                [0, Highcharts.getOptions().colors[0]],
-                                [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-                            ]
-                        },
-                        marker: {
-                            radius: 2
-                        },
-                        lineWidth: 1,
-                        states: {
-                            hover: {
-                                lineWidth: 1
-                            }
-                        },
-                        threshold: null
-                    },
-                    series: {
-                        cursor: 'pointer',
-                        marker: {
-                            lineWidth: 1
-                        }
-                    },
-                },
-                series: [{
-                    name: 'Actual',
-                    lineWidth: 1,
-                    marker: {
-                        radius: 4
-                    },
-                    data:data.y
-                }]
-            });
+            // 初始化功率chart
+            self.initPowerChart();
         }
     };
-    eleChartPrint.init();
+    ele.init();
 </script>
