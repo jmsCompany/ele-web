@@ -595,6 +595,7 @@
             xhr.onload = function (event) {
                 var blob = xhr.response;
                 var fileName = xhr.getResponseHeader("fileName");
+                alert(fileName)
                 var link = document.createElement('a');
                 link.href = window.URL.createObjectURL(blob);
                 link.download = fileName;
@@ -665,7 +666,8 @@
                     stype: $('#stype').val()
                 })
             }, function(data) {
-                $('#histroyChart').highcharts({
+                console.log(data);
+              var histroyChart =  $('#histroyChart').highcharts({
                     credits:{
                         enabled:false // 禁用版权信息
                     },
@@ -705,20 +707,27 @@
                             }
                         }
                     },
-                    series: [{
-                        type: 'area',
-                        data: data.y,
-                        marker: { 
-                          fillColor: '#BF0B23',
-                          radius: 0 
-                      }
-                  }]
+                    series: [
+//                        {
+//                        type: 'area',
+//                        data: data.y,
+//                        marker: {
+//                          fillColor: '#BF0B23',
+//                          radius: 0
+//                      }
+
+ //                 }
+                ]
                 });
+
+
+
             });
         },
         // 初始化报警table数据
         initWarningTable: function(params) {
             params = params || {
+                proId:projId,
                 timetype: 1,
                 type: 2,
                 q: ''
@@ -813,11 +822,12 @@
                 type:         'POST',
                 dataType:     'json',
                 contentType:  'application/json; charset=UTF-8',
-                data:         JSON.stringify({id:'1001',time:$('#date1').attr('value'),type:$('#dayORWeek>.on').attr('data')
+                data:         JSON.stringify({id:projId,time:$('#date1').attr('value'),type:$('#dayORWeek>.on').attr('data')
                 }),
                 headers:      {'JMS-TOKEN':jmstoken},
                 processData:  true,
                 success: function(data){
+                  //  console.log(data.x)
                     $('#eleChart').highcharts({
                         credits:{
                             enabled:false // 禁用版权信息
@@ -845,7 +855,7 @@
                         plotOptions: {
                             area: {
                                 fillOpacity: 0.3, // 指定所有面积图的透明度
-                                pointStart: 1940,
+                               // pointStart: 6,
                                 marker: {
                                     enabled: false,
                                     symbol: 'circle',
@@ -879,7 +889,7 @@
                 type:         'POST',
                 dataType:     'json',
                 contentType:  'application/json; charset=UTF-8',
-                data:         JSON.stringify({id:'1001',time:$('#date2').attr('value'),type:$('#allORYearOrMonth>.on').attr('data')
+                data:         JSON.stringify({id:projId,time:$('#date2').attr('value'),type:$('#allORYearOrMonth>.on').attr('data')
                 }),
                 headers:      {'JMS-TOKEN':jmstoken},
                 processData:  true,
@@ -895,7 +905,7 @@
                             text: null
                         },
                         xAxis: {
-                            tickInterval: 2, // one week
+                           // tickInterval: 2, // one week
                             categories:data.x,
                         },
                         tooltip: {
@@ -1234,6 +1244,7 @@
             self.initWarningTable()
             $('#warningSearch').on('click', function() {
                 var params = {
+                    proId:projId,
                     timetype: $('#warningTimetype').val(),
                     type: $('#warningStatus').val(),
                     q: $('#warningSearchKey').val()
