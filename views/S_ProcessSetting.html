@@ -102,7 +102,7 @@ function init(){
                            },
               
                 dom: "tip",
-            pageLength:"50",
+            pageLength:50,
             initComplete: function(){
                 $('#tableProc tr[role=row] td:nth-child(4)').each(function(i,k){
                     if($(k).text() == '是') $(k).next().html('-');

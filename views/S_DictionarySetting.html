@@ -87,7 +87,7 @@ $('#dict-type').on('change',function(){
                        },
           
             dom: "tip",
-        pageLength:"50",
+        pageLength:50,
         initComplete: function(){
             $('#tableDic tr[role=row] td:nth-child(5)').each(function(i,k){
                 if($(k).text() == '是') $(k).next().html('-');
